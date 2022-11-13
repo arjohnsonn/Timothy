@@ -48,9 +48,10 @@ function ReplySuccess(interaction, Success, Data, Edit) {
     const Embed = new EmbedBuilder()
       .setColor("#00ff00")
       .setDescription(
-        `✅  Successfully set ${Data.Username}'s cash to ${formatter
-          .format(Data.Amount)
-          .slice(0, -3)}`
+        `✅  Successfully set ${Data.Username}'s cash to ${Data.Amount.slice(
+          0,
+          -3
+        )}`
       );
 
     if (Edit === false) {
@@ -326,7 +327,7 @@ module.exports = {
                             console.log("Player is offline");
                             ReplySuccess(interaction, true, {
                               Username: Name,
-                              Amount: Amount,
+                              Amount: formatter.format(Amount).slice(0, -3),
                             });
                           })
                           .catch((err) => {
