@@ -129,11 +129,15 @@ module.exports = {
                     interaction.reply({ embeds: [Embed] });
                   })
                   .catch((error) => {
-                    console.error(error);
+                    console.log(error);
                   });
               })
               .catch((err) => {
-                console.log(err);
+                const Embed = new EmbedBuilder()
+                  .setColor("#ff0000")
+                  .setDescription("❌  Player is not banned!");
+
+                interaction.reply({ embeds: [Embed] });
               });
           }
         } else {
@@ -176,7 +180,11 @@ module.exports = {
                   });
               })
               .catch((err) => {
-                console.log(err);
+                const Embed = new EmbedBuilder()
+                  .setColor("#ff0000")
+                  .setDescription("❌  Player is not banned!");
+
+                interaction.reply({ embeds: [Embed] });
               });
           }
         } else {
