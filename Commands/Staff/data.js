@@ -238,12 +238,6 @@ module.exports = {
                                     `Saved ${Name}'s Data Successfully`
                                   );
                                   console.log("Player is online");
-                                  ReplySuccess(interaction, true, {
-                                    Username: Name,
-                                    Amount: formatter
-                                      .format(Amount)
-                                      .slice(0, -3),
-                                  });
                                 })
                                 .catch((err) => {
                                   console.log(err);
