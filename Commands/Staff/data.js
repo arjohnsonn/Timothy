@@ -128,7 +128,7 @@ module.exports = {
       )
       .setDescription("/" + interaction.commandName);
 
-    msg.client.channels.cache
+    interaction.client.channels.cache
       .get("1019434063653765201")
       .send({ embeds: [LogEmbed] });
 
