@@ -51,6 +51,7 @@ function ReplySuccess(interaction, Success, Data, Edit) {
         `✅  Successfully set ${Data.Username}'s cash to ${Data.Amount}`
       );
 
+    interaction.reply({ embeds: [Embed] });
     if (Edit === false) {
       interaction.reply({ embeds: [Embed] });
     }
