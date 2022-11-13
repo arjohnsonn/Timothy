@@ -52,9 +52,6 @@ function ReplySuccess(interaction, Success, Data, Edit) {
       );
 
     interaction.reply({ embeds: [Embed] });
-    if (Edit === false) {
-      interaction.reply({ embeds: [Embed] });
-    }
   } else {
     const Embed = new EmbedBuilder()
       .setColor("#ff0000")
@@ -186,6 +183,15 @@ module.exports = {
         if (Name !== null) {
           PlayerDataStore.GetAsync(Id)
             .then(([data]) => {
+              if (!data || data === null) {
+                const Embed = new EmbedBuilder()
+                  .setColor("#ff0000")
+                  .setDescription("❌  Player data does not exist!");
+
+                interaction.reply({ embeds: [Embed] });
+                return;
+              }
+
               if (DataAction === "set") {
                 if (Type === "money") {
                   getJSON(`https://api.roblox.com/users/${Id}/onlinestatus/`)
@@ -280,6 +286,15 @@ module.exports = {
           const Name = Username;
           PlayerDataStore.GetAsync(PlrId)
             .then(([data]) => {
+              if (!data || data === null) {
+                const Embed = new EmbedBuilder()
+                  .setColor("#ff0000")
+                  .setDescription("❌  Player data does not exist!");
+
+                interaction.reply({ embeds: [Embed] });
+                return;
+              }
+
               if (DataAction === "set") {
                 if (Type === "money") {
                   getJSON(`https://api.roblox.com/users/${Id}/onlinestatus/`)
