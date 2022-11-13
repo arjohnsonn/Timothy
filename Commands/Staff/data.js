@@ -26,7 +26,7 @@ const SeniorAdminRole = "1016704731076378744";
 const HeadAdminRole = "800513206006054962";
 const BoDRole = "837979573522137091";
 
-const TimothyAdmin = [SeniorAdminRole, HeadAdminRole, BoDRole];
+const TimothyAdmin = [HeadAdminRole, BoDRole];
 
 const getJSON = async (url) => {
   const response = await fetch(url);
