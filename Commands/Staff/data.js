@@ -48,9 +48,9 @@ function ReplySuccess(interaction, Success, Data, Edit) {
     const Embed = new EmbedBuilder()
       .setColor("#00ff00")
       .setDescription(
-        `✅  Successfully set ${Data.Username}'s cash to ${formatter.format(
-          Data.Amount
-        )}`
+        `✅  Successfully set ${Data.Username}'s cash to ${formatter
+          .format(Data.Amount)
+          .slice(0, -3)}`
       );
 
     if (Edit === false) {
@@ -200,12 +200,15 @@ module.exports = {
                         MessageSend(
                           `${
                             interaction.user.name
-                          }_ChangedData_${Id}_{SetMoney-${formatter.format(
-                            Amount
-                          )}}`,
+                          }_ChangedData_${Id}_{SetMoney-${formatter
+                            .format(Amount)
+                            .slice(0, -3)}}`,
                           "T",
                           interaction,
-                          { Username: Name, Amount: Amount }
+                          {
+                            Username: Name,
+                            Amount: formatter.format(Amount).slice(0, -3),
+                          }
                         )
                           .then(() => {
                             console.log("Published MessagingService");
@@ -221,7 +224,7 @@ module.exports = {
                               console.log("Player is online");
                               ReplySuccess(interaction, true, {
                                 Username: Name,
-                                Amount: Amount,
+                                Amount: formatter.format(Amount).slice(0, -3),
                               });
                             })
                             .catch((err) => {
@@ -236,7 +239,7 @@ module.exports = {
                             console.log("Player is offline");
                             ReplySuccess(interaction, true, {
                               Username: Name,
-                              Amount: Amount,
+                              Amount: formatter.format(Amount).slice(0, -3),
                             });
                           })
                           .catch((err) => {
