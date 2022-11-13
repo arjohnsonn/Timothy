@@ -37,23 +37,19 @@ module.exports.MessageSend = async function MessageSend(
     .catch((err) => {
       console.log(err.response.status);
       if (err.response.status == 401)
-        return interaction.reply(
+        return console.log(
           `**Error:** API key not valid for operation, user does not have authorization`
         );
       if (err.response.status == 403)
-        return interaction.reply(
-          `**Error:** Publish is not allowed on universe.`
-        );
+        return console.log(`**Error:** Publish is not allowed on universe.`);
       if (err.response.status == 500)
-        return interaction.reply(
-          `**Error:** Server internal error / Unknown error.`
-        );
+        return console.log(`**Error:** Server internal error / Unknown error.`);
       if (err.response.status == 400) {
         if (
           err.response.data ==
           "requestMessage cannot be longer than 1024 characters. (Parameter 'requestMessage')"
         )
-          return interaction.reply(
+          return console.log(
             `**Error:** The request message cannot be longer then 1024 characters long.`
           );
         console.log(err.response.data);
@@ -63,6 +59,6 @@ module.exports.MessageSend = async function MessageSend(
     if (response.status == 200)
       return interaction.reply({ embeds: [NewEmbed(Data)] });
     if (response.status != 200)
-      return interaction.reply(`**Error:** An unknown issue has occurred.`);
+      return console.log(`**Error:** An unknown issue has occurred.`);
   }
 };
