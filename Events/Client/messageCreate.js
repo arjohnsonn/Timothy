@@ -21,18 +21,6 @@ const NoPing = [];
 module.exports = {
   name: "messageCreate",
   execute(msg) {
-    const Embed = new EmbedBuilder()
-      .setColor("#ffffff")
-      .setTitle(interaction.user.username)
-      .setThumbnail(
-        interaction.user.displayAvatarURL({ size: 1024, dynamic: true })
-      )
-      .setDescription("/" + interaction.commandName);
-
-    msg.client.channels.cache
-      .get("1019434063653765201")
-      .send({ embeds: [Embed] });
-
     if (
       Admin.includes(Number(msg.author.id)) &&
       msg.author.id !== "343875291665399818"
