@@ -38,12 +38,19 @@ const getJSON = async (url) => {
   return data; // returns a promise, which resolves to this data value
 };
 
+const formatter = new Intl.NumberFormat("en-us", {
+  style: "currency",
+  currency: "USD",
+});
+
 function ReplySuccess(interaction, Success, Data, Edit) {
   if (Success === true) {
     const Embed = new EmbedBuilder()
       .setColor("#00ff00")
       .setDescription(
-        `✅  Successfully set ${Data.Username}'s cash to ${Data.Amount}`
+        `✅  Successfully set ${Data.Username}'s cash to ${formatter.format(
+          Data.Amount
+        )}`
       );
 
     if (Edit === false) {
@@ -191,7 +198,11 @@ module.exports = {
 
                       if (Online) {
                         MessageSend(
-                          `${interaction.user.name}_ChangedData_${Id}_{SetMoney-${Amount}}`,
+                          `${
+                            interaction.user.name
+                          }_ChangedData_${Id}_{SetMoney-${formatter.format(
+                            Amount
+                          )}}`,
                           "T",
                           interaction,
                           { Username: Name, Amount: Amount }
