@@ -26,6 +26,12 @@ const SeniorAdminRole = "1016704731076378744";
 const HeadAdminRole = "800513206006054962";
 const BoDRole = "837979573522137091";
 
+const GuestPass = [
+  "707632091168374866",
+  "529310576803840031",
+  "588255514878672907",
+];
+
 const TimothyAdmin = [HeadAdminRole, BoDRole];
 
 const getJSON = async (url) => {
