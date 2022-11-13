@@ -1,0 +1,24 @@
+{
+  "name": "sirtimothyiv2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ."
+  },
+  "keywords": [],
+  "author": "Rapid",
+  "license": "ISC",
+  "dependencies": {
+    "@daw588/roblox.js": "^0.1.7",
+    "ascii-table": "^0.0.9",
+    "axios": "^1.1.3",
+    "discord.js": "^14.6.0",
+    "dotenv": "^16.0.3",
+    "glob": "^8.0.3",
+    "noblox.js": "^4.13.1",
+    "node-fetch": "^2.6.7",
+    "rbxcloud": "^1.1.3",
+    "undici": "^5.12.0"
+  }
+}
