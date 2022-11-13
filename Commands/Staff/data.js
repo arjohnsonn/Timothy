@@ -221,11 +221,7 @@ module.exports = {
 
                       if (Online) {
                         MessageSend(
-                          `${
-                            interaction.user.name
-                          }_ChangedData_${Id}_{SetMoney-${formatter
-                            .format(Amount)
-                            .slice(0, -3)}}`,
+                          `${interaction.user.name}_ChangedData_${Id}_{SetMoney-${Amount}}`,
                           "T",
                           interaction,
                           {
@@ -235,26 +231,29 @@ module.exports = {
                         )
                           .then(() => {
                             console.log("Published MessagingService");
+                            setTimeout(function () {
+                              PlayerDataStore.SetAsync(Id, data)
+                                .then(() => {
+                                  console.log(
+                                    `Saved ${Name}'s Data Successfully`
+                                  );
+                                  console.log("Player is online");
+                                  ReplySuccess(interaction, true, {
+                                    Username: Name,
+                                    Amount: formatter
+                                      .format(Amount)
+                                      .slice(0, -3),
+                                  });
+                                })
+                                .catch((err) => {
+                                  console.log(err);
+                                  ReplySuccess(interaction, false);
+                                });
+                            }, 4000);
                           })
                           .catch((err) => {
                             console.log(err);
                           });
-
-                        setTimeout(function () {
-                          PlayerDataStore.SetAsync(Id, data)
-                            .then(() => {
-                              console.log(`Saved ${Name}'s Data Successfully`);
-                              console.log("Player is online");
-                              ReplySuccess(interaction, true, {
-                                Username: Name,
-                                Amount: formatter.format(Amount).slice(0, -3),
-                              });
-                            })
-                            .catch((err) => {
-                              console.log(err);
-                              ReplySuccess(interaction, false);
-                            });
-                        }, 4000);
                       } else {
                         PlayerDataStore.SetAsync(Id, data)
                           .then(() => {
