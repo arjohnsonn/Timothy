@@ -89,14 +89,9 @@ module.exports = {
     }
     const Username = interaction.options.getString("username");
     let Id = interaction.options.getInteger("id");
-    let Reason = interaction.options.getString("reason");
 
     if (Id) {
       Id = Id.toString();
-    }
-
-    if (!Reason) {
-      Reason = "unspecified";
     }
 
     if (!Id && !Username) {
@@ -124,7 +119,6 @@ module.exports = {
                       .setTitle("Unban")
                       .setColor("#00ff00")
                       .setDescription(`✅ Unbanned ${Name} (ID: ${Id})`)
-                      .addFields({ name: "Reason", value: Reason })
                       .setThumbnail(data.data[0].imageUrl);
                     interaction.reply({ embeds: [Embed] });
                   })
@@ -171,7 +165,6 @@ module.exports = {
                       .setTitle("Unban")
                       .setColor("#00ff00")
                       .setDescription(`✅ Banned ${Username} (ID: ${PlrId})`)
-                      .addFields({ name: "Reason", value: Reason })
                       .setThumbnail(data.data[0].imageUrl);
                     interaction.reply({ embeds: [Embed] });
                   })
