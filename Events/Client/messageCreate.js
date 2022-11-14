@@ -15,8 +15,8 @@ const Admin = [
   //1010879762664796190, // BOT ITSELF
 ];
 
-//const NoPing = ["343875291665399818"];
-const NoPing = [];
+const NoPing = ["343875291665399818"];
+//const NoPing = [];
 
 module.exports = {
   name: "messageCreate",

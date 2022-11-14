@@ -7,6 +7,8 @@ const { UNIVERSE_ID, API_KEY, BANSTORE_KEY, CLIENT_ID, PLAYERDATA_KEY } =
 const { OpenCloud, DataStoreService, MessagingService } = require("rbxcloud");
 const noblox = require("noblox.js");
 
+const { MessageSend } = require("../../Modules/MessageSend");
+
 OpenCloud.Configure({
   MessagingService: API_KEY,
   DataStoreService: API_KEY, // This is an API key for DataStoreService
@@ -50,6 +52,13 @@ module.exports = {
       option
         .setName("reason")
         .setDescription("Reason for ban, valid reasons only.")
+    )
+    .addIntegerOption((option) =>
+      option
+        .setName("length")
+        .setDescription(
+          "Leave blank/do not use this argument if permanent, sets length of ban IN DAYS"
+        )
     ),
   /**
    *
@@ -95,6 +104,14 @@ module.exports = {
     const Username = interaction.options.getString("username");
     let Id = interaction.options.getInteger("id");
     let Reason = interaction.options.getString("reason");
+    const Length = interaction.options.getInteger("length");
+
+    let banTime;
+    if (Length) {
+      banTime = Number(Date.now().toString().slice(0, -3)) + 86400 * Length;
+    } else {
+      banTime = "Infinite";
+    }
 
     if (Id) {
       Id = Id.toString();
@@ -117,30 +134,44 @@ module.exports = {
         const Name = await noblox.getUsernameFromId(Id);
         if (Name !== null) {
           if (Reason) {
-            BanDatastore.SetAsync(Id, Reason)
+            BanDatastore.SetAsync(Id, Reason + ";;;" + banTime)
               .then((Result) => {
-                MessagingService.PublishAsync(
-                  "Kick",
-                  Name + "_{" + Reason + "}"
-                );
-
-                getJSON(
-                  "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
-                    Id +
-                    "&size=420x420&format=Png&isCircular=false"
-                )
-                  .then((data) => {
-                    const Embed = new EmbedBuilder()
-                      .setTitle("Ban")
-                      .setColor("#00ff00")
-                      .setDescription(`✔️  Banned ${Name} (ID: ${Id})`)
-                      .addFields({ name: "Reason", value: Reason })
-                      .setThumbnail(data.data[0].imageUrl);
-                    interaction.reply({ embeds: [Embed] });
-                  })
-                  .catch((error) => {
-                    console.error(error);
-                  });
+                MessageSend(
+                  Username + "_BAN_" + Id + "_{" + Reason + "-" + banTime + "}",
+                  "T",
+                  interaction
+                ).then(() => {
+                  getJSON(
+                    "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+                      Id +
+                      "&size=420x420&format=Png&isCircular=false"
+                  )
+                    .then((data) => {
+                      var Duration;
+                      if (banTime === "Infinite") {
+                        Duration = "Infinite";
+                      } else {
+                        Duration = Length.toString() + " days";
+                      }
+                      const Embed = new EmbedBuilder()
+                        .setTitle("Ban")
+                        .setColor("#00ff00")
+                        .setDescription(`✅  Banned ${Name} (ID: ${Id})`)
+                        .addFields(
+                          { name: "Reason", value: Reason, inline: true },
+                          {
+                            name: "Length",
+                            value: Duration,
+                            inline: true,
+                          }
+                        )
+                        .setThumbnail(data.data[0].imageUrl);
+                      interaction.reply({ embeds: [Embed] });
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                    });
+                });
               })
               .catch((err) => {
                 console.log(err);
@@ -165,30 +196,51 @@ module.exports = {
         const PlrId = await noblox.getIdFromUsername(Username);
         if (PlrId !== null) {
           if (Reason) {
-            BanDatastore.SetAsync(PlrId.toString(), Reason)
+            BanDatastore.SetAsync(PlrId.toString(), Reason + ";;;" + banTime)
               .then((Result) => {
-                MessagingService.PublishAsync(
-                  "Kick",
-                  Username + "_{" + Reason + "}"
-                );
-
-                getJSON(
-                  "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+                MessageSend(
+                  Username +
+                    "_BAN_" +
                     PlrId.toString() +
-                    "&size=420x420&format=Png&isCircular=false"
-                )
-                  .then((data) => {
-                    const Embed = new EmbedBuilder()
-                      .setTitle("Ban")
-                      .setColor("#00ff00")
-                      .setDescription(`✔️  Banned ${Username} (ID: ${PlrId})`)
-                      .addFields({ name: "Reason", value: Reason })
-                      .setThumbnail(data.data[0].imageUrl);
-                    interaction.reply({ embeds: [Embed] });
-                  })
-                  .catch((error) => {
-                    console.error(error);
-                  });
+                    "_{" +
+                    Reason +
+                    "-" +
+                    banTime +
+                    "}",
+                  "T",
+                  interaction
+                ).then(() => {
+                  getJSON(
+                    "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+                      PlrId.toString() +
+                      "&size=420x420&format=Png&isCircular=false"
+                  )
+                    .then((data) => {
+                      var Duration;
+                      if (banTime === "Infinite") {
+                        Duration = "Infinite";
+                      } else {
+                        Duration = Length.toString() + " days";
+                      }
+                      const Embed = new EmbedBuilder()
+                        .setTitle("Ban")
+                        .setColor("#00ff00")
+                        .setDescription(`✅  Banned ${Username} (ID: ${PlrId})`)
+                        .addFields(
+                          { name: "Reason", value: Reason, inline: true },
+                          {
+                            name: "Length",
+                            value: Duration,
+                            inline: true,
+                          }
+                        )
+                        .setThumbnail(data.data[0].imageUrl);
+                      interaction.reply({ embeds: [Embed] });
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                    });
+                });
               })
               .catch((err) => {
                 console.log(err);

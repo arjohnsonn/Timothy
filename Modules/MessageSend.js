@@ -4,7 +4,7 @@ const { EmbedBuilder } = require("discord.js");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const { TESTAPI_KEY, TESTUNIVERSE_ID } = process.env;
+const { TESTAPI_KEY, API_KEY, TESTUNIVERSE_ID, UNIVERSE_ID } = process.env;
 
 function NewEmbed(Data) {
   const Embed = new EmbedBuilder()
@@ -19,17 +19,18 @@ module.exports.MessageSend = async function MessageSend(
   Message,
   Topic,
   interaction,
-  Data
+  Data,
+  Type
 ) {
   const response = await axios
     .post(
-      `https://apis.roblox.com/messaging-service/v1/universes/${TESTUNIVERSE_ID}/topics/${Topic}`,
+      `https://apis.roblox.com/messaging-service/v1/universes/${UNIVERSE_ID}/topics/${Topic}`,
       {
         message: Message,
       },
       {
         headers: {
-          "x-api-key": TESTAPI_KEY,
+          "x-api-key": API_KEY,
           "Content-Type": "application/json",
         },
       }
@@ -57,7 +58,9 @@ module.exports.MessageSend = async function MessageSend(
     });
   if (response) {
     if (response.status == 200)
-      return interaction.reply({ embeds: [NewEmbed(Data)] });
+      if (Type === "setmoney") {
+        return interaction.reply({ embeds: [NewEmbed(Data)] });
+      }
     if (response.status != 200)
       return console.log(`**Error:** An unknown issue has occurred.`);
   }

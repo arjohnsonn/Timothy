@@ -227,7 +227,8 @@ module.exports = {
                           {
                             Username: Name,
                             Amount: formatter.format(Amount).slice(0, -3),
-                          }
+                          },
+                          "setmoney"
                         )
                           .then(() => {
                             console.log("Published MessagingService");
@@ -320,7 +321,8 @@ module.exports = {
                           `${interaction.user.name}_ChangedData_${Id}_{SetMoney-${Amount}}`,
                           "T",
                           interaction,
-                          { Username: Name, Amount: Amount }
+                          { Username: Name, Amount: Amount },
+                          "setmoney"
                         )
                           .then(() => {
                             console.log("Published MessagingService");

@@ -132,7 +132,7 @@ module.exports = {
                 interaction.reply({ embeds: [Embed] });
               })
               .catch((error) => {
-                console.error(error);
+                console.log(error);
               });
           }
         } else {
@@ -172,7 +172,7 @@ module.exports = {
                 interaction.reply({ embeds: [Embed] });
               })
               .catch((error) => {
-                console.error(error);
+                console.log(error);
               });
           }
         } else {
