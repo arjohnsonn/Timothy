@@ -294,13 +294,13 @@ module.exports = {
                     Number(PlrData["Misc"]["FirstJoin"]) * 1000
                   );
                   const Embed = new EmbedBuilder()
-                    .setTitle(`Player Data: ${Name} (${Id})`)
+                    .setTitle(`Player Data: ${Name} (${Id.toString()})`)
                     .setColor("#ffffff")
                     .setDescription("General Data")
                     .addFields(
                       {
                         name: "Money",
-                        value: PlrData["General"]["Cash"],
+                        value: PlrData["General"]["Cash"].toString(),
                       },
                       {
                         name: "Wanted Time",
