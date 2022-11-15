@@ -290,6 +290,9 @@ module.exports = {
                 }
               } else if (DataAction === "get") {
                 if (Type === "general") {
+                  const DateJoined = new Date(
+                    Number(PlrData["Misc"]["FirstJoin"]) * 1000
+                  );
                   const Embed = new EmbedBuilder()
                     .setTitle(`Player Data: ${Name} (${Id})`)
                     .setColor("#ffffff")
@@ -303,14 +306,19 @@ module.exports = {
                         name: "Wanted Time",
                         value:
                           "~" +
-                          Math.round(Number(PlrData["Wanted"]["Wanted"])) +
+                          Math.round(
+                            Number(PlrData["Wanted"]["Wanted"])
+                          ).toString() +
                           "minutes",
                       },
                       {
                         name: "First Joined",
-                        value: new Date(
-                          Number(PlrData["Misc"]["FirstJoin"]) * 1000
-                        ),
+                        value:
+                          (DateJoined.getMonth() + 1).toString() +
+                          "/" +
+                          DateJoined.getDate().toString() +
+                          "/" +
+                          DateJoined.getFullYear().toString().slice(2),
                       }
                     )
                     .setThumbnail(data.data[0].imageUrl);
