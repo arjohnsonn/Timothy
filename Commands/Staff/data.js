@@ -70,28 +70,29 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("data")
     .setDescription("Manage data for players")
-    .addSubcommandGroup((group) =>
-      group
-        .setName("set")
-        .setDescription("Sets data to player")
-        .addSubcommand((subcommand) =>
-          subcommand
-            .setName("money")
-            .setDescription("Set money to player")
-            .addIntegerOption((option) =>
-              option
-                .setName("amount")
-                .setDescription("Set amount of cash to player")
-                .setRequired(true)
-            )
-            .addStringOption((option) =>
-              option.setName("username").setDescription("Username of Player")
-            )
-            .addIntegerOption((option) =>
-              option.setName("id").setDescription("User ID of player")
-            )
-        )
-        /* .addSubcommand((subcommand) =>
+    .addSubcommandGroup(
+      (group) =>
+        group
+          .setName("set")
+          .setDescription("Sets data to player")
+          .addSubcommand((subcommand) =>
+            subcommand
+              .setName("money")
+              .setDescription("Set money to player")
+              .addIntegerOption((option) =>
+                option
+                  .setName("amount")
+                  .setDescription("Set amount of cash to player")
+                  .setRequired(true)
+              )
+              .addStringOption((option) =>
+                option.setName("username").setDescription("Username of Player")
+              )
+              .addIntegerOption((option) =>
+                option.setName("id").setDescription("User ID of player")
+              )
+          )
+      /* .addSubcommand((subcommand) =>
           subcommand
             .setName("level")
             .setDescription("Set level for team to player")
@@ -118,22 +119,20 @@ module.exports = {
               option.setName("id").setDescription("User ID of player")
             )
         )*/
-        .addSubcommandGroup((group) =>
-          group
-            .setName("get")
-            .setDescription("Gets data of player")
-            .addSubcommand((subcommand) =>
-              subcommand
-                .setName("general")
-                .setDescription("Retrives general player data")
-                .addStringOption((option) =>
-                  option
-                    .setName("username")
-                    .setDescription("Username of Player")
-                )
-                .addIntegerOption((option) =>
-                  option.setName("id").setDescription("User ID of player")
-                )
+    )
+    .addSubcommandGroup((group) =>
+      group
+        .setName("get")
+        .setDescription("Gets data of player")
+        .addSubcommand((subcommand) =>
+          subcommand
+            .setName("general")
+            .setDescription("Retrives general player data")
+            .addStringOption((option) =>
+              option.setName("username").setDescription("Username of Player")
+            )
+            .addIntegerOption((option) =>
+              option.setName("id").setDescription("User ID of player")
             )
         )
     ),
