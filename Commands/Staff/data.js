@@ -299,6 +299,14 @@ module.exports = {
                 }
               } else if (DataAction === "get") {
                 if (Type === "general") {
+                  function GetTime(WantedTime) {
+                    if (WantedTime.toString() === "0") {
+                      return "N/A";
+                    } else {
+                      return formatTime(Number(WantedTime)).toString();
+                    }
+                  }
+
                   getJSON(
                     "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
                       Id +
@@ -320,17 +328,9 @@ module.exports = {
                           },
                           {
                             name: "Wanted Time",
-                            value: function () {
-                              if (
-                                PlrData["Wanted"]["Wanted"].toString() === "0"
-                              ) {
-                                return "N/A";
-                              } else {
-                                return formatTime(
-                                  Number(PlrData["Wanted"]["Wanted"])
-                                );
-                              }
-                            },
+                            value: GetTime(
+                              PlrData["Wanted"]["Wanted"]
+                            ).toString(),
                             inline: true,
                           },
                           {
