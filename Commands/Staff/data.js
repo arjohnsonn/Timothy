@@ -328,7 +328,13 @@ module.exports = {
             })
             .catch((err) => {
               console.log(err);
-              ReplySuccess(interaction, false);
+              const Embed = new EmbedBuilder()
+                .setColor("#ff0000")
+                .setDescription(
+                  "❌ An error has occured! Please check my logs!"
+                );
+
+              interaction.reply({ embeds: [Embed], ephemeral: true });
             });
         } else {
           const Embed = new EmbedBuilder()
