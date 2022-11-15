@@ -19,8 +19,6 @@ const {
   SlashCommandBuilder,
   SlashCommandStringOption,
   EmbedBuilder,
-  Embed,
-  Embed,
 } = require("discord.js");
 
 const SeniorAdminRole = "1016704731076378744";
