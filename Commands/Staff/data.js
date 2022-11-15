@@ -33,6 +33,15 @@ const GuestPass = [
 
 const TimothyAdmin = [HeadAdminRole, BoDRole];
 
+function formatTime(seconds) {
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = Math.round(seconds % 60);
+  return [h, m > 9 ? m : h ? "0" + m : m || "0", s > 9 ? s : "0" + s]
+    .filter(Boolean)
+    .join(":");
+}
+
 const getJSON = async (url) => {
   const response = await fetch(url);
   if (!response.ok)
@@ -307,15 +316,22 @@ module.exports = {
                           {
                             name: "Money",
                             value: PlrData["General"]["Cash"].toString(),
+                            inline: true,
                           },
                           {
                             name: "Wanted Time",
-                            value:
-                              "~" +
-                              Math.round(
-                                Number(PlrData["Wanted"]["Wanted"])
-                              ).toString() +
-                              "minutes",
+                            value: function () {
+                              if (
+                                PlrData["Wanted"]["Wanted"].toString() === "0"
+                              ) {
+                                return "N/A";
+                              } else {
+                                return formatTime(
+                                  Number(PlrData["Wanted"]["Wanted"])
+                                );
+                              }
+                            },
+                            inline: true,
                           },
                           {
                             name: "First Joined",
@@ -325,6 +341,7 @@ module.exports = {
                               DateJoined.getDate().toString() +
                               "/" +
                               DateJoined.getFullYear().toString().slice(2),
+                            inline: true,
                           }
                         )
                         .setThumbnail(data.data[0].imageUrl);
