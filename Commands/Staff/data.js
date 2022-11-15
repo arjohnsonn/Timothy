@@ -392,6 +392,7 @@ module.exports = {
           const Name = Username;
           PlayerDataStore.GetAsync(PlrId)
             .then(([data]) => {
+              let PlrData;
               if (!data || data === null) {
                 const Embed = new EmbedBuilder()
                   .setColor("#ff0000")
@@ -399,6 +400,8 @@ module.exports = {
 
                 interaction.reply({ embeds: [Embed] });
                 return;
+              } else {
+                PlrData = data;
               }
 
               if (DataAction === "set") {
