@@ -290,39 +290,52 @@ module.exports = {
                 }
               } else if (DataAction === "get") {
                 if (Type === "general") {
-                  const DateJoined = new Date(
-                    Number(PlrData["Misc"]["FirstJoin"]) * 1000
-                  );
-                  const Embed = new EmbedBuilder()
-                    .setTitle(`Player Data: ${Name} (${Id.toString()})`)
-                    .setColor("#ffffff")
-                    .setDescription("General Data")
-                    .addFields(
-                      {
-                        name: "Money",
-                        value: PlrData["General"]["Cash"].toString(),
-                      },
-                      {
-                        name: "Wanted Time",
-                        value:
-                          "~" +
-                          Math.round(
-                            Number(PlrData["Wanted"]["Wanted"])
-                          ).toString() +
-                          "minutes",
-                      },
-                      {
-                        name: "First Joined",
-                        value:
-                          (DateJoined.getMonth() + 1).toString() +
-                          "/" +
-                          DateJoined.getDate().toString() +
-                          "/" +
-                          DateJoined.getFullYear().toString().slice(2),
-                      }
-                    )
-                    .setThumbnail(data.data[0].imageUrl);
-                  interaction.reply({ embeds: [Embed] });
+                  getJSON(`https://api.roblox.com/users/${Id}/onlinestatus/`)
+                    .then((data) => {
+                      const DateJoined = new Date(
+                        Number(PlrData["Misc"]["FirstJoin"]) * 1000
+                      );
+                      const Embed = new EmbedBuilder()
+                        .setTitle(`Player Data: ${Name} (${Id.toString()})`)
+                        .setColor("#ffffff")
+                        .setDescription("General Data")
+                        .addFields(
+                          {
+                            name: "Money",
+                            value: PlrData["General"]["Cash"].toString(),
+                          },
+                          {
+                            name: "Wanted Time",
+                            value:
+                              "~" +
+                              Math.round(
+                                Number(PlrData["Wanted"]["Wanted"])
+                              ).toString() +
+                              "minutes",
+                          },
+                          {
+                            name: "First Joined",
+                            value:
+                              (DateJoined.getMonth() + 1).toString() +
+                              "/" +
+                              DateJoined.getDate().toString() +
+                              "/" +
+                              DateJoined.getFullYear().toString().slice(2),
+                          }
+                        )
+                        .setThumbnail(data.data[0].imageUrl);
+                      interaction.reply({ embeds: [Embed] });
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                      const Embed = new EmbedBuilder()
+                        .setColor("#ff0000")
+                        .setDescription(
+                          "❌ A ROBLOX API error has occured! Please try again"
+                        );
+
+                      interaction.reply({ embeds: [Embed], ephemeral: true });
+                    });
                 }
               }
             })
@@ -330,9 +343,7 @@ module.exports = {
               console.log(err);
               const Embed = new EmbedBuilder()
                 .setColor("#ff0000")
-                .setDescription(
-                  "❌ An error has occured! Please check my logs!"
-                );
+                .setDescription("❌ An error has occured! Check logs");
 
               interaction.reply({ embeds: [Embed], ephemeral: true });
             });
