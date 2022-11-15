@@ -290,7 +290,11 @@ module.exports = {
                 }
               } else if (DataAction === "get") {
                 if (Type === "general") {
-                  getJSON(`https://api.roblox.com/users/${Id}/onlinestatus/`)
+                  getJSON(
+                    "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+                      Id +
+                      "&size=420x420&format=Png&isCircular=false"
+                  )
                     .then((data) => {
                       const DateJoined = new Date(
                         Number(PlrData["Misc"]["FirstJoin"]) * 1000
