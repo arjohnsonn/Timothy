@@ -319,11 +319,15 @@ module.exports = {
                       const Embed = new EmbedBuilder()
                         .setTitle(`Player Data: ${Name} (${Id.toString()})`)
                         .setColor("#ffffff")
-                        .setDescription("General Data")
+                        .setDescription("> *General Data*")
                         .addFields(
                           {
                             name: "Money",
-                            value: "$" + PlrData["General"]["Cash"].toString(),
+                            value:
+                              "$" +
+                              formatter
+                                .format(Number(PlrData["General"]["Cash"]))
+                                .slice(0, -3),
                             inline: true,
                           },
                           {
@@ -352,7 +356,7 @@ module.exports = {
                       const Embed = new EmbedBuilder()
                         .setColor("#ff0000")
                         .setDescription(
-                          "❌ A ROBLOX API error has occured! Please try again"
+                          "❌ An error has occured! Please try again"
                         );
 
                       interaction.reply({ embeds: [Embed], ephemeral: true });
@@ -457,6 +461,71 @@ module.exports = {
                     .catch((err) => {
                       console.log(err);
                       ReplySuccess(interaction, false);
+                    });
+                }
+              } else if (DataAction === "get") {
+                if (Type === "general") {
+                  function GetTime(WantedTime) {
+                    if (WantedTime.toString() === "0") {
+                      return "N/A";
+                    } else {
+                      return formatTime(Number(WantedTime)).toString();
+                    }
+                  }
+
+                  getJSON(
+                    "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+                      Id +
+                      "&size=420x420&format=Png&isCircular=false"
+                  )
+                    .then((data) => {
+                      const DateJoined = new Date(
+                        Number(PlrData["Misc"]["FirstJoin"]) * 1000
+                      );
+                      const Embed = new EmbedBuilder()
+                        .setTitle(`Player Data: ${Name} (${Id.toString()})`)
+                        .setColor("#ffffff")
+                        .setDescription("> *General Data*")
+                        .addFields(
+                          {
+                            name: "Money",
+                            value:
+                              "$" +
+                              formatter
+                                .format(Number(PlrData["General"]["Cash"]))
+                                .slice(0, -3),
+                            inline: true,
+                          },
+                          {
+                            name: "Wanted Time",
+                            value: GetTime(
+                              PlrData["Wanted"]["Wanted"]
+                            ).toString(),
+                            inline: true,
+                          },
+                          {
+                            name: "First Joined",
+                            value:
+                              (DateJoined.getMonth() + 1).toString() +
+                              "/" +
+                              DateJoined.getDate().toString() +
+                              "/" +
+                              DateJoined.getFullYear().toString().slice(2),
+                            inline: true,
+                          }
+                        )
+                        .setThumbnail(data.data[0].imageUrl);
+                      interaction.reply({ embeds: [Embed] });
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                      const Embed = new EmbedBuilder()
+                        .setColor("#ff0000")
+                        .setDescription(
+                          "❌ An error has occured! Please try again"
+                        );
+
+                      interaction.reply({ embeds: [Embed], ephemeral: true });
                     });
                 }
               }
