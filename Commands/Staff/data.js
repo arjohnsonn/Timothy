@@ -323,11 +323,9 @@ module.exports = {
                         .addFields(
                           {
                             name: "Money",
-                            value:
-                              "$" +
-                              formatter
-                                .format(Number(PlrData["General"]["Cash"]))
-                                .slice(0, -3),
+                            value: formatter
+                              .format(Number(PlrData["General"]["Cash"]))
+                              .slice(0, -3),
                             inline: true,
                           },
                           {
@@ -489,11 +487,9 @@ module.exports = {
                         .addFields(
                           {
                             name: "Money",
-                            value:
-                              "$" +
-                              formatter
-                                .format(Number(PlrData["General"]["Cash"]))
-                                .slice(0, -3),
+                            value: formatter
+                              .format(Number(PlrData["General"]["Cash"]))
+                              .slice(0, -3),
                             inline: true,
                           },
                           {
