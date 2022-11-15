@@ -418,7 +418,10 @@ module.exports = {
                           `${interaction.user.name}_ChangedData_${Id}_{SetMoney-${Amount}}`,
                           "T",
                           interaction,
-                          { Username: Name, Amount: Amount },
+                          {
+                            Username: Name,
+                            Amount: formatter.format(Amount).slice(0, -3),
+                          },
                           "setmoney"
                         )
                           .then(() => {
@@ -433,10 +436,6 @@ module.exports = {
                             .then(() => {
                               console.log(`Saved ${Name}'s Data Successfully`);
                               console.log("Player is online");
-                              ReplySuccess(interaction, true, {
-                                Username: Name,
-                                Amount: Amount,
-                              });
                             })
                             .catch((err) => {
                               console.log(err);
