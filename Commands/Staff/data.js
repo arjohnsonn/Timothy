@@ -315,7 +315,7 @@ module.exports = {
                         .addFields(
                           {
                             name: "Money",
-                            value: PlrData["General"]["Cash"].toString(),
+                            value: "$" + PlrData["General"]["Cash"].toString(),
                             inline: true,
                           },
                           {
