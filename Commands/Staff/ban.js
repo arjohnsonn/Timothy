@@ -65,6 +65,18 @@ module.exports = {
    * @param {ChatInputCommandInteraction} interaction
    */
   async execute(interaction) {
+    const LogEmbed = new EmbedBuilder()
+      .setColor("#ffffff")
+      .setTitle(interaction.user.username)
+      .setThumbnail(
+        interaction.user.displayAvatarURL({ size: 1024, dynamic: true })
+      )
+      .setDescription("/" + interaction.commandName);
+
+    interaction.client.channels.cache
+      .get("1019434063653765201")
+      .send({ embeds: [LogEmbed] });
+
     var HasTimothyAdmin = false;
     TimothyAdmin.forEach((role) => {
       if (interaction.member.roles.cache.has(role)) {
