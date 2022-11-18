@@ -316,6 +316,10 @@ module.exports = {
                       const DateJoined = new Date(
                         Number(PlrData["Misc"]["FirstJoin"]) * 1000
                       );
+                      const LastJoined = new Date(
+                        Number(PlrData["Logs"]["LastJoined"]) * 1000
+                      );
+
                       const Embed = new EmbedBuilder()
                         .setTitle(`Player Data: ${Name} (${Id.toString()})`)
                         .setColor("#ffffff")
@@ -343,6 +347,20 @@ module.exports = {
                               DateJoined.getDate().toString() +
                               "/" +
                               DateJoined.getFullYear().toString().slice(2),
+                            inline: true,
+                          },
+                          {
+                            name: "Last Joined",
+                            value:
+                              (DateJoined.getMonth() + 1).toString() +
+                              "/" +
+                              DateJoined.getDate().toString() +
+                              "/" +
+                              DateJoined.getFullYear().toString().slice(2) +
+                              ", " +
+                              DateJoined.getUTCHours.toString() +
+                              DateJoined.getMinutes.toString() +
+                              DateJoined.getSeconds.toString(),
                             inline: true,
                           }
                         )
@@ -482,6 +500,9 @@ module.exports = {
                       const DateJoined = new Date(
                         Number(PlrData["Misc"]["FirstJoin"]) * 1000
                       );
+                      const LastJoined = new Date(
+                        Number(PlrData["Logs"]["LastJoined"]) * 1000
+                      );
                       const Embed = new EmbedBuilder()
                         .setTitle(`Player Data: ${Name} (${Id.toString()})`)
                         .setColor("#ffffff")
@@ -509,6 +530,20 @@ module.exports = {
                               DateJoined.getDate().toString() +
                               "/" +
                               DateJoined.getFullYear().toString().slice(2),
+                            inline: true,
+                          },
+                          {
+                            name: "Last Joined",
+                            value:
+                              (DateJoined.getMonth() + 1).toString() +
+                              "/" +
+                              DateJoined.getDate().toString() +
+                              "/" +
+                              DateJoined.getFullYear().toString().slice(2) +
+                              ", " +
+                              DateJoined.getUTCHours.toString() +
+                              DateJoined.getMinutes.toString() +
+                              DateJoined.getSeconds.toString(),
                             inline: true,
                           }
                         )
