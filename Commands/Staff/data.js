@@ -352,15 +352,15 @@ module.exports = {
                           {
                             name: "Last Joined",
                             value:
-                              (DateJoined.getMonth() + 1).toString() +
+                              (LastJoined.getMonth() + 1).toString() +
                               "/" +
-                              DateJoined.getDate().toString() +
+                              LastJoined.getDate().toString() +
                               "/" +
-                              DateJoined.getFullYear().toString().slice(2) +
+                              LastJoined.getFullYear().toString().slice(2) +
                               ", " +
-                              DateJoined.getUTCHours.toString() +
-                              DateJoined.getMinutes.toString() +
-                              DateJoined.getSeconds.toString(),
+                              LastJoined.getUTCHours().toString() +
+                              LastJoined.getMinutes().toString() +
+                              LastJoined.getSeconds().toString(),
                             inline: true,
                           }
                         )
@@ -535,15 +535,15 @@ module.exports = {
                           {
                             name: "Last Joined",
                             value:
-                              (DateJoined.getMonth() + 1).toString() +
+                              (LastJoined.getMonth() + 1).toString() +
                               "/" +
-                              DateJoined.getDate().toString() +
+                              LastJoined.getDate().toString() +
                               "/" +
-                              DateJoined.getFullYear().toString().slice(2) +
+                              LastJoined.getFullYear().toString().slice(2) +
                               ", " +
-                              DateJoined.getUTCHours.toString() +
-                              DateJoined.getMinutes.toString() +
-                              DateJoined.getSeconds.toString(),
+                              LastJoined.getUTCHours().toString() +
+                              LastJoined.getMinutes().toString() +
+                              LastJoined.getSeconds().toString(),
                             inline: true,
                           }
                         )
