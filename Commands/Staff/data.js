@@ -75,7 +75,7 @@ function ReplySuccess(interaction, Success, Data, Edit) {
   }
 }
 
-function formatSeconds(str) {
+function formatNum(str) {
   if (str.length == 1) {
     return "0" + str;
   } else return str;
@@ -326,6 +326,8 @@ module.exports = {
                         Number(PlrData["Logs"]["LastJoined"]) * 1000
                       );
 
+                      console.log(LastJoined.getHours().toString());
+
                       const Embed = new EmbedBuilder()
                         .setTitle(`Player Data: ${Name} (${Id.toString()})`)
                         .setColor("#ffffff")
@@ -364,11 +366,11 @@ module.exports = {
                               "/" +
                               LastJoined.getFullYear().toString().slice(2) +
                               ", " +
-                              LastJoined.getHours().toString() +
+                              formatNum(LastJoined.getHours().toString()) +
                               ":" +
                               LastJoined.getMinutes().toString() +
                               ":" +
-                              formatSeconds(LastJoined.getSeconds().toString()),
+                              formatNum(LastJoined.getSeconds().toString()),
 
                             inline: true,
                           }
@@ -550,11 +552,11 @@ module.exports = {
                               "/" +
                               LastJoined.getFullYear().toString().slice(2) +
                               ", " +
-                              LastJoined.getHours().toString() +
+                              formatNum(LastJoined.getHours().toString()) +
                               ":" +
                               LastJoined.getMinutes().toString() +
                               ":" +
-                              formatSeconds(LastJoined.getSeconds().toString()),
+                              formatNum(LastJoined.getSeconds().toString()),
 
                             inline: true,
                           }
