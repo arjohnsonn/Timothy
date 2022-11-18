@@ -75,6 +75,12 @@ function ReplySuccess(interaction, Success, Data, Edit) {
   }
 }
 
+function formatSeconds(str) {
+  if (str.length == 1) {
+    return "0" + str;
+  } else return str;
+}
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("data")
@@ -360,9 +366,11 @@ module.exports = {
                               ", " +
                               LastJoined.getHours().toString() +
                               ":" +
-                              LastJoined.getHours().toString() +
-                              ":" +
                               LastJoined.getMinutes().toString() +
+                              ":" +
+                              formatSeconds(
+                                LastJoined.getSeconds().toString()
+                              ) +
                               " UTC",
 
                             inline: true,
@@ -547,9 +555,11 @@ module.exports = {
                               ", " +
                               LastJoined.getHours().toString() +
                               ":" +
-                              LastJoined.getHours().toString() +
-                              ":" +
                               LastJoined.getMinutes().toString() +
+                              ":" +
+                              formatSeconds(
+                                LastJoined.getSeconds().toString()
+                              ) +
                               " UTC",
 
                             inline: true,
