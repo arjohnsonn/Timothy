@@ -368,10 +368,7 @@ module.exports = {
                               ":" +
                               LastJoined.getMinutes().toString() +
                               ":" +
-                              formatSeconds(
-                                LastJoined.getSeconds().toString()
-                              ) +
-                              " UTC",
+                              formatSeconds(LastJoined.getSeconds().toString()),
 
                             inline: true,
                           }
@@ -557,10 +554,7 @@ module.exports = {
                               ":" +
                               LastJoined.getMinutes().toString() +
                               ":" +
-                              formatSeconds(
-                                LastJoined.getSeconds().toString()
-                              ) +
-                              " UTC",
+                              formatSeconds(LastJoined.getSeconds().toString()),
 
                             inline: true,
                           }
