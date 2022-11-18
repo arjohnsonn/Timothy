@@ -358,9 +358,13 @@ module.exports = {
                               "/" +
                               LastJoined.getFullYear().toString().slice(2) +
                               ", " +
-                              LastJoined.getUTCHours().toString() +
+                              LastJoined.getHours().toString() +
+                              ":" +
+                              LastJoined.getHours().toString() +
+                              ":" +
                               LastJoined.getMinutes().toString() +
-                              LastJoined.getSeconds().toString(),
+                              " UTC",
+
                             inline: true,
                           }
                         )
@@ -541,9 +545,13 @@ module.exports = {
                               "/" +
                               LastJoined.getFullYear().toString().slice(2) +
                               ", " +
-                              LastJoined.getUTCHours().toString() +
+                              LastJoined.getHours().toString() +
+                              ":" +
+                              LastJoined.getHours().toString() +
+                              ":" +
                               LastJoined.getMinutes().toString() +
-                              LastJoined.getSeconds().toString(),
+                              " UTC",
+
                             inline: true,
                           }
                         )
