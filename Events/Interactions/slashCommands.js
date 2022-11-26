@@ -17,7 +17,7 @@ module.exports = {
       return;
     }
     if (
-      interaction.guild.id !== "739910144254673046" ||
+      interaction.guild.id !== "739910144254673046" &&
       interaction.guild.id !== "594760698639155200"
     ) {
       const Embed = new EmbedBuilder()
