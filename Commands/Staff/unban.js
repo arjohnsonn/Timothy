@@ -117,34 +117,32 @@ module.exports = {
       try {
         const Name = await noblox.getUsernameFromId(Id);
         if (Name !== null) {
-          if (Reason) {
-            BanDatastore.RemoveAsync(Id)
-              .then((Result) => {
-                getJSON(
-                  "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
-                    Id +
-                    "&size=420x420&format=Png&isCircular=false"
-                )
-                  .then((data) => {
-                    const Embed = new EmbedBuilder()
-                      .setTitle("Unban")
-                      .setColor("#00ff00")
-                      .setDescription(`✅ Unbanned ${Name} (ID: ${Id})`)
-                      .setThumbnail(data.data[0].imageUrl);
-                    interaction.reply({ embeds: [Embed] });
-                  })
-                  .catch((error) => {
-                    console.log(error);
-                  });
-              })
-              .catch((err) => {
-                const Embed = new EmbedBuilder()
-                  .setColor("#ff0000")
-                  .setDescription("❌  Player is not banned!");
+          BanDatastore.RemoveAsync(Id)
+            .then((Result) => {
+              getJSON(
+                "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+                  Id +
+                  "&size=420x420&format=Png&isCircular=false"
+              )
+                .then((data) => {
+                  const Embed = new EmbedBuilder()
+                    .setTitle("Unban")
+                    .setColor("#00ff00")
+                    .setDescription(`✅ Unbanned ${Name} (ID: ${Id})`)
+                    .setThumbnail(data.data[0].imageUrl);
+                  interaction.reply({ embeds: [Embed] });
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+            })
+            .catch((err) => {
+              const Embed = new EmbedBuilder()
+                .setColor("#ff0000")
+                .setDescription("❌  Player is not banned!");
 
-                interaction.reply({ embeds: [Embed] });
-              });
-          }
+              interaction.reply({ embeds: [Embed] });
+            });
         } else {
           const Embed = new EmbedBuilder()
             .setColor("#ff0000")
@@ -163,34 +161,32 @@ module.exports = {
       try {
         const PlrId = await noblox.getIdFromUsername(Username);
         if (PlrId !== null) {
-          if (Reason) {
-            BanDatastore.RemoveAsync(PlrId.toString())
-              .then((Result) => {
-                getJSON(
-                  "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
-                    PlrId.toString() +
-                    "&size=420x420&format=Png&isCircular=false"
-                )
-                  .then((data) => {
-                    const Embed = new EmbedBuilder()
-                      .setTitle("Unban")
-                      .setColor("#00ff00")
-                      .setDescription(`✅ Banned ${Username} (ID: ${PlrId})`)
-                      .setThumbnail(data.data[0].imageUrl);
-                    interaction.reply({ embeds: [Embed] });
-                  })
-                  .catch((error) => {
-                    console.log(error);
-                  });
-              })
-              .catch((err) => {
-                const Embed = new EmbedBuilder()
-                  .setColor("#ff0000")
-                  .setDescription("❌  Player is not banned!");
+          BanDatastore.RemoveAsync(PlrId.toString())
+            .then((Result) => {
+              getJSON(
+                "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+                  PlrId.toString() +
+                  "&size=420x420&format=Png&isCircular=false"
+              )
+                .then((data) => {
+                  const Embed = new EmbedBuilder()
+                    .setTitle("Unban")
+                    .setColor("#00ff00")
+                    .setDescription(`✅ Banned ${Username} (ID: ${PlrId})`)
+                    .setThumbnail(data.data[0].imageUrl);
+                  interaction.reply({ embeds: [Embed] });
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+            })
+            .catch((err) => {
+              const Embed = new EmbedBuilder()
+                .setColor("#ff0000")
+                .setDescription("❌  Player is not banned!");
 
-                interaction.reply({ embeds: [Embed] });
-              });
-          }
+              interaction.reply({ embeds: [Embed] });
+            });
         } else {
           const Embed = new EmbedBuilder()
             .setColor("#ff0000")
