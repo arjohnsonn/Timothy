@@ -172,7 +172,7 @@ module.exports = {
                   const Embed = new EmbedBuilder()
                     .setTitle("Unban")
                     .setColor("#00ff00")
-                    .setDescription(`✅ Banned ${Username} (ID: ${PlrId})`)
+                    .setDescription(`✅ Unbanned ${Username} (ID: ${PlrId})`)
                     .setThumbnail(data.data[0].imageUrl);
                   interaction.reply({ embeds: [Embed] });
                 })
@@ -194,11 +194,11 @@ module.exports = {
 
           interaction.reply({ embeds: [Embed], ephemeral: true });
         }
-      } catch {
+      } catch (err) {
         const Embed = new EmbedBuilder()
           .setColor("#ff0000")
           .setDescription("❌  Player does not exist!");
-
+        console.log(err);
         interaction.reply({ embeds: [Embed], ephemeral: true });
       }
     }
