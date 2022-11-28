@@ -39,10 +39,11 @@ module.exports = {
 
     try {
       if (
-        !msg.member.roles.cache.has("796855972047618058") &&
-        !msg.member.roles.cache.has("1027020657449521325") &&
-        !msg.member.roles.cache.has("822489911331913748") &&
-        !msg.member.roles.cache.has("1023742612676546560")
+        !msg.member.roles.cache.has("796855972047618058") && // bot
+        !msg.member.roles.cache.has("817669388337152060") && // Development
+        !msg.member.roles.cache.has("1046503404769382532") && // Administration
+        !msg.member.roles.cache.has("822489911331913748") && // CC
+        !msg.member.roles.cache.has("1023742612676546560") // Guest Pass
       ) {
         const IdArray = Array.from(msg.mentions.members);
         let Detected = false;
