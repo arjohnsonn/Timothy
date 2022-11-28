@@ -2,8 +2,6 @@ const {
   ChatInputCommandInteraction,
   SlashCommandBuilder,
   EmbedBuilder,
-  Embed,
-  Embed,
 } = require("discord.js");
 
 module.exports = {
