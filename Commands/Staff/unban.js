@@ -12,6 +12,7 @@ OpenCloud.Configure({
   DataStoreService: API_KEY, // This is an API key for DataStoreService
   UniverseId: UNIVERSE_ID, // You can get the UniverseId from the Asset explorer
 });
+
 const BanDatastore = DataStoreService.GetDataStore(BANSTORE_KEY);
 
 const {
