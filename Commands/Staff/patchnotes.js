@@ -94,15 +94,15 @@ module.exports = {
       if (Category === "intro") {
         Embed.setTitle("Patch Notes");
         Embed.setColor("#ffffff");
-        Embed.setThumbnail("https://i.imgur.com/uZT7ykl.png");
+        Embed.setThumbnail("https://i.imgur.com/FBCBDdG.png");
       } else if (Category === "systems") {
         Embed.setTitle("System Changes");
-        Embed.setColor("#005fed");
+        Embed.setColor("#6f00ff");
         Embed.setThumbnail("https://i.imgur.com/prTfRgH.png");
       } else if (Category === "map") {
         Embed.setTitle("Map Changes");
-        Embed.setColor("#ed6f00");
-        Embed.setThumbnail("https://i.imgur.com/gjZDM5t.png");
+        Embed.setColor("#21cf4c");
+        Embed.setThumbnail("https://i.imgur.com/uZT7ykl.png");
       } else if (Category === "gameplay") {
         Embed.setTitle("Gameplay Changes");
         Embed.setColor("#15e637");
