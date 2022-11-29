@@ -123,7 +123,7 @@ module.exports = {
       } else if (Category === "events") {
         Embed.setTitle("Events");
         Embed.setColor("#e6a819");
-        Embed.setThumbnail("https://i.imgur.com/w8zxssu.png");
+        Embed.setThumbnail("https://i.imgur.com/Hz0xMz2.png");
       }
 
       interaction.client.channels.cache
