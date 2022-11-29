@@ -36,7 +36,8 @@ module.exports = {
           { name: "Vehicle", value: "vehicle" },
           { name: "Quality of Life", value: "quality" },
           { name: "Bug Fixes", value: "bugfixes" },
-          { name: "Everything", value: "everything" }
+          { name: "Everything", value: "everything" },
+          { name: "Events", value: "events" }
         )
         .setRequired(true)
     ),
@@ -119,6 +120,10 @@ module.exports = {
         Embed.setTitle("Bug Fixes");
         Embed.setColor("#2b2b2b");
         Embed.setThumbnail("https://i.imgur.com/cgZNKsY.png");
+      } else if (Category === "events") {
+        Embed.setTitle("Events");
+        Embed.setColor("#e6a819");
+        Embed.setThumbnail("https://i.imgur.com/w8zxssu.png");
       }
 
       interaction.client.channels.cache
