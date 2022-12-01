@@ -71,7 +71,8 @@ module.exports = {
           ServerData = data;
         }
 
-        const ServerIcon = ServerData.Expansions.Settings.ServerPlus.ServerIcon;
+        const ServerIcon =
+          ServerData.Expansions.Settings.EnhancedServer.ServerIcon;
         let IconURL;
         if (ServerIcon === "" || ServerIcon === null) {
           const Embed = new EmbedBuilder()
