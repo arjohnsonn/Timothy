@@ -24,13 +24,13 @@ module.exports.MessageSend = async function MessageSend(
 ) {
   const response = await axios
     .post(
-      `https://apis.roblox.com/messaging-service/v1/universes/${UNIVERSE_ID}/topics/${Topic}`,
+      `https://apis.roblox.com/messaging-service/v1/universes/${TESTUNIVERSE_ID}/topics/${Topic}`,
       {
         message: Message,
       },
       {
         headers: {
-          "x-api-key": API_KEY,
+          "x-api-key": TESTAPI_KEY,
           "Content-Type": "application/json",
         },
       }
