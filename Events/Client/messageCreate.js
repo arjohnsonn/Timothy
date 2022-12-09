@@ -1,4 +1,4 @@
-const { EmbedBuilder } = require("discord.js");
+const { EmbedBuilder, ThreadAutoArchiveDuration } = require("discord.js");
 
 const Admin = [
   933453103452282970, // BAP
@@ -20,7 +20,7 @@ const NoPing = ["343875291665399818"];
 
 module.exports = {
   name: "messageCreate",
-  execute(msg) {
+  async execute(msg) {
     if (
       Admin.includes(Number(msg.author.id)) &&
       msg.author.id !== "343875291665399818"
@@ -35,6 +35,18 @@ module.exports = {
             ":** " +
             msg.content
         );
+    }
+
+    if (msg.channelId === "1050841814631993427") {
+      if (msg.webhookId) {
+        const thread = await message.startThread({
+          name: "",
+          autoArchiveDuration: ThreadAutoArchiveDuration.OneWeek,
+          reason: "AUTOMATION: Attached thread to game ban appeal",
+        });
+
+        await thread.members.add("1010879762664796190");
+      }
     }
 
     try {
