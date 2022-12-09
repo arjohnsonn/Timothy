@@ -39,7 +39,7 @@ module.exports = {
 
     if (msg.channelId === "1050841814631993427") {
       if (msg.webhookId) {
-        const thread = await message.startThread({
+        const thread = await msg.startThread({
           name: msg.content,
           autoArchiveDuration: ThreadAutoArchiveDuration.OneWeek,
           reason: "AUTOMATION: Attached thread to game ban appeal",
