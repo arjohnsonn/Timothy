@@ -59,11 +59,10 @@ module.exports = {
     if (interaction.channelId !== "739912817431412768") {
       if (
         !interaction.member.roles.cache.some(
-          (role) =>
-            role.id === "817669388337152060" &&
-            !interaction.member.roles.cache.some(
-              (role) => role.id === "817669388337152060"
-            )
+          (role) => role.id === "817669388337152060"
+        ) &&
+        !interaction.member.roles.cache.some(
+          (role) => role.id === "817669388337152060"
         )
       ) {
         const Embed = new EmbedBuilder()
