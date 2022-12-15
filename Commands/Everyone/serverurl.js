@@ -71,7 +71,7 @@ module.exports = {
             "❌  Please run this command in <#739912817431412768>"
           );
 
-        interaction.reply({ embeds: [Embed] });
+        interaction.reply({ embeds: [Embed], ephemeral: true });
         return;
       }
     }
