@@ -56,6 +56,27 @@ module.exports = {
       return;
     }
 
+    if (interaction.channelId !== "739912817431412768") {
+      if (
+        !interaction.member.roles.cache.some(
+          (role) =>
+            role.id === "817669388337152060" &&
+            !interaction.member.roles.cache.some(
+              (role) => role.id === "817669388337152060"
+            )
+        )
+      ) {
+        const Embed = new EmbedBuilder()
+          .setColor("#ff0000")
+          .setDescription(
+            "❌  Please run this command in <#739912817431412768>"
+          );
+
+        interaction.reply({ embeds: [Embed] });
+        return;
+      }
+    }
+
     ServerDataStore.GetAsync(ServerCode)
       .then(([data]) => {
         let ServerData;
