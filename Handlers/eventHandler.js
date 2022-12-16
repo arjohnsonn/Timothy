@@ -1,10 +1,11 @@
+const { connection } = require("mongoose");
+
 async function loadEvents(client) {
   const { loadFiles } = require("../Functions/fileLoader.js");
   const ascii = require("ascii-table");
   const table = new ascii().setHeading("Events", "Status");
 
   await client.events.clear();
-
   const Files = await loadFiles("Events");
 
   Files.forEach((file) => {

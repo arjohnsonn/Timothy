@@ -1,7 +1,7 @@
 const dotenv = require("dotenv");
 dotenv.config();
 
-const { token } = process.env;
+const { token, databaseToken } = process.env;
 
 const {
   REST,
@@ -28,6 +28,11 @@ const { loadEvents } = require("./Handlers/eventHandler.js");
 
 client.events = new Collection();
 client.commands = new Collection();
+
+const { connect } = require("mongoose");
+connect(databaseToken, {}).then(() =>
+  console.log("Database connection successful ✅")
+);
 
 loadEvents(client);
 
