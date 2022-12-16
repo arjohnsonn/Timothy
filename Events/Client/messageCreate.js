@@ -134,7 +134,7 @@ module.exports = {
 
           let addition = "";
           if (userData.Points > 1) {
-            addition = s;
+            addition = "s";
           }
           msg.channel.send(
             `*<:TimothyThink:881905210065293363>* *${Member.user.username}* has **${userData.Points}** point${addition}`
