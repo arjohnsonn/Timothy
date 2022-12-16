@@ -48,94 +48,99 @@ module.exports = {
       }
     }
 
-    if (
-      msg.author.id === "470722416427925514" ||
-      msg.author.id === "155149108183695360"
-    ) {
-      // 155149108183695360
-      const Embed = msg.embeds;
-      if (Embed === null || Embed.length === 0) return;
+    try {
+      if (
+        msg.author.id === "470722416427925514" ||
+        msg.author.id === "155149108183695360"
+      ) {
+        // 155149108183695360
+        const Embed = msg.embeds;
+        if (Embed === null || Embed.length === 0) return;
 
-      let Member;
-      const EmbedDesc = Embed[0].description;
-      if (EmbedDesc === null || EmbedDesc.length === 0) return;
+        let Member;
+        const EmbedDesc = Embed[0].description;
+        if (EmbedDesc === null || EmbedDesc.length === 0) return;
 
-      let FullUser;
-      let Username;
-      let Discriminator;
-      let AddPoints = 0;
-      if (EmbedDesc.includes("couldn't")) {
-        FullUser = EmbedDesc.split(". ")[0].slice(56);
-        Username = FullUser.slice(0, -5);
-        Discriminator = FullUser.split("#")[1];
-        AddPoints = 1;
-      } else if (EmbedDesc.includes("has been warned")) {
-        FullUser = EmbedDesc.split(". ")[0].slice(37, -20);
-        Username = FullUser.slice(0, -5);
-        Discriminator = FullUser.split("#")[1];
-        AddPoints = 1;
-      } else if (EmbedDesc.includes("was muted")) {
-        FullUser = EmbedDesc.split(". ")[0].slice(37, -13);
-        Username = FullUser.slice(0, -5);
-        Discriminator = FullUser.split("#")[1];
-        console.log(FullUser);
-        console.log(Username);
-        console.log(Discriminator);
-        AddPoints = 2;
-      }
-
-      if (!Username) return;
-      if (!FullUser) return;
-      if (!Discriminator) return;
-
-      EligibleMembers = await msg.guild.members.search({
-        query: Username,
-      });
-
-      for (const [key, guildMember] of Array.from(EligibleMembers)) {
-        if (guildMember.user.discriminator === Discriminator) {
-          Member = msg.guild.members.cache.get(guildMember.user.id);
-          break;
-        }
-      }
-
-      if (Member) {
-        if (
-          Member.roles.cache.has("1046499539764396113") ||
-          Member.roles.cache.has("837979573522137091")
-        ) {
-          const Embed = new EmbedBuilder()
-            .setColor("#e0392d")
-            .setDescription(
-              "❌ Unable to add points to user as they are a higher position"
-            );
-
-          msg.channel.send({ embeds: [Embed] });
-          return;
+        let FullUser;
+        let Username;
+        let Discriminator;
+        let AddPoints = 0;
+        if (EmbedDesc.includes("couldn't")) {
+          FullUser = EmbedDesc.split(". ")[0].slice(56);
+          Username = FullUser.slice(0, -5);
+          Discriminator = FullUser.split("#")[1];
+          AddPoints = 1;
+        } else if (EmbedDesc.includes("has been warned")) {
+          FullUser = EmbedDesc.split(". ")[0].slice(37, -20);
+          Username = FullUser.slice(0, -5);
+          Discriminator = FullUser.split("#")[1];
+          AddPoints = 1;
+        } else if (EmbedDesc.includes("was muted")) {
+          FullUser = EmbedDesc.split(". ")[0].slice(37, -13);
+          Username = FullUser.slice(0, -5);
+          Discriminator = FullUser.split("#")[1];
+          console.log(FullUser);
+          console.log(Username);
+          console.log(Discriminator);
+          AddPoints = 2;
         }
 
-        let userData = await Database.findOne({
-          Guild: msg.guild.id,
-          User: Member.id,
+        if (!Username) return;
+        if (!FullUser) return;
+        if (!Discriminator) return;
+
+        EligibleMembers = await msg.guild.members.search({
+          query: Username,
         });
-        if (!userData) {
-          userData = await Database.create({
+
+        for (const [key, guildMember] of Array.from(EligibleMembers)) {
+          if (guildMember.user.discriminator === Discriminator) {
+            Member = msg.guild.members.cache.get(guildMember.user.id);
+            break;
+          }
+        }
+
+        if (Member) {
+          if (
+            Member.roles.cache.has("1046499539764396113") ||
+            Member.roles.cache.has("837979573522137091")
+          ) {
+            const Embed = new EmbedBuilder()
+              .setColor("#e0392d")
+              .setDescription(
+                "❌ Unable to add points to user as they are a higher position"
+              );
+
+            msg.channel.send({ embeds: [Embed] });
+            return;
+          }
+
+          let userData = await Database.findOne({
             Guild: msg.guild.id,
             User: Member.id,
-            Points: 0,
           });
+          if (!userData) {
+            userData = await Database.create({
+              Guild: msg.guild.id,
+              User: Member.id,
+              Points: 0,
+            });
+          }
+
+          const CurrentPoints = userData.Points;
+          userData.Points = CurrentPoints + AddPoints;
+
+          await userData.save();
+
+          msg.channel.send(
+            `*<:TimothyThink:881905210065293363>* *${Member.user.username}* has **${userData.Points}** points`
+          );
         }
-
-        const CurrentPoints = userData.Points;
-        userData.Points = CurrentPoints + AddPoints;
-
-        await userData.save();
-
-        msg.channel.send(
-          `*<:TimothyThink:881905210065293363>* *${Member.user.username}* has **${userData.Points}** points`
-        );
       }
-    } /*else {
+    } catch (err) {
+      console.log(err);
+    }
+    /*else {
       const Args = msg.content.split(" ");
       if (Args[0] == "!kick") {
         const Reason = Args.slice(2).join(" ") + " ";
