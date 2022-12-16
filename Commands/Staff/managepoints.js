@@ -5,6 +5,8 @@ const {
   Embed,
 } = require("discord.js");
 
+const Database = require("../../Schemas/Points");
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("managepoints")
@@ -53,10 +55,20 @@ module.exports = {
     }
 
     const User = interaction.options.getUser("user");
+    const Member = interaction.guild.members.cache.get(User.id);
+
+    if (!Member) {
+      const Embed = new EmbedBuilder()
+        .setColor("#e0392d")
+        .setDescription("❌ No member found in this server. Please try again.");
+
+      interaction.reply({ embeds: [Embed], ephemeral: true });
+      return;
+    }
     const Action = interaction.options.getString("action");
 
     const Value = interaction.options.getNumber("value");
-    if (!Value) {
+    if (!Value && Value !== 0) {
       if (Action === "add" || Action === "subtract" || Action === "set") {
         const Embed = new EmbedBuilder()
           .setColor("#e0392d")
@@ -68,13 +80,13 @@ module.exports = {
     }
 
     if (
-      User.roles.cache.has("1046499539764396113") ||
-      User.roles.cache.has("837979573522137091")
+      Member.roles.cache.has("1046499539764396113") ||
+      Member.roles.cache.has("837979573522137091")
     ) {
       const Embed = new EmbedBuilder()
         .setColor("#e0392d")
         .setDescription(
-          "❌ Unable to add points to user as they are a HR member"
+          "❌ Unable to manage points to user as they are a HR member"
         );
 
       interaction.reply({ embeds: [Embed], ephemeral: true });
@@ -82,14 +94,14 @@ module.exports = {
     }
 
     let userData = await Database.findOne({
-      Guild: msg.guild.id,
-      User: User.id,
+      Guild: interaction.guild.id,
+      User: Member.id,
     });
 
     if (!userData) {
       userData = await Database.create({
-        Guild: msg.guild.id,
-        User: User.id,
+        Guild: interaction.guild.id,
+        User: Member.id,
         Points: 0,
       });
     }
@@ -106,15 +118,14 @@ module.exports = {
         userData.Points = 0;
       }
     } else if (Action === "get") {
-      if (userData > 1) {
+      if (userData.Points > 1 || userData.Points === 0) {
         addition = "s";
       }
       const Embed = new EmbedBuilder()
         .setColor("#ffffff")
         .setDescription(
-          `${User.username} has ${userData.Points} point${addition}`
+          `*${Member.user.username}* has **${userData.Points}** point${addition}`
         );
-
       interaction.reply({ embeds: [Embed] });
     }
 
@@ -123,12 +134,12 @@ module.exports = {
     await userData.save();
 
     if (Action === "add") {
-      if (userData > 1) {
+      if (userData.Points > 1 || userData.Points === 0) {
         addition = "s";
       }
       const Embed = new EmbedBuilder().setColor("#ffffff").setDescription(
-        `✅ Successfully added ${Value} point${addition} to ${User.username}.
-          \n${User.username} now has ${userData.Points}`
+        `✅ Successfully added **${Value}** point${addition} to ${Member.user.username}.
+          \n*${Member.user.username}* now has **${userData.Points}** point${addition}`
       );
 
       interaction.reply({ embeds: [Embed] });
@@ -136,18 +147,19 @@ module.exports = {
       const Embed = new EmbedBuilder()
         .setColor("#ffffff")
         .setDescription(
-          `✅ Successfully set ${User.username}'s points to ${userData.Points}`
+          `✅ Successfully set *${Member.user.username}*'s points to **${userData.Points}**`
         );
 
       interaction.reply({ embeds: [Embed] });
     } else if (Action === "subtract") {
-      if (userData > 1) {
+      if (userData.Points > 1 || userData.Points === 0) {
         addition = "s";
       }
       const Embed = new EmbedBuilder().setColor("#ffffff").setDescription(
-        `✅ Successfully subtracted ${Value} point${addition} to ${User.username}.
-          \n${User.username} now has ${userData.Points}`
+        `✅ Successfully subtracted **${Value}** point${addition} to *${Member.user.username}*.
+          \n*${Member.user.username}* now has **${userData.Points}** point${addition}`
       );
+      interaction.reply({ embeds: [Embed] });
     }
   },
 };
