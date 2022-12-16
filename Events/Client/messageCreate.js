@@ -132,8 +132,12 @@ module.exports = {
 
           await userData.save();
 
+          let addition = "";
+          if (userData.Points > 1) {
+            addition = s;
+          }
           msg.channel.send(
-            `*<:TimothyThink:881905210065293363>* *${Member.user.username}* has **${userData.Points}** points`
+            `*<:TimothyThink:881905210065293363>* *${Member.user.username}* has **${userData.Points}** point${addition}`
           );
         }
       }
