@@ -79,9 +79,6 @@ module.exports = {
           FullUser = EmbedDesc.split(". ")[0].slice(37, -13);
           Username = FullUser.slice(0, -5);
           Discriminator = FullUser.split("#")[1];
-          console.log(FullUser);
-          console.log(Username);
-          console.log(Discriminator);
           AddPoints = 2;
         }
 
