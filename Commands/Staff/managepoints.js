@@ -57,12 +57,14 @@ module.exports = {
 
     const Value = interaction.options.getNumber("value");
     if (!Value) {
-      const Embed = new EmbedBuilder()
-        .setColor("#e0392d")
-        .setDescription("❌ Please enter a number value in the command!");
+      if (Action === "add" || Action === "subtract" || Action === "set") {
+        const Embed = new EmbedBuilder()
+          .setColor("#e0392d")
+          .setDescription("❌ Please enter a number value in the command!");
 
-      interaction.reply({ embeds: [Embed], ephemeral: true });
-      return;
+        interaction.reply({ embeds: [Embed], ephemeral: true });
+        return;
+      }
     }
 
     if (
