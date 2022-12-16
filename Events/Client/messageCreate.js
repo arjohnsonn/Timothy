@@ -105,7 +105,7 @@ module.exports = {
             const Embed = new EmbedBuilder()
               .setColor("#e0392d")
               .setDescription(
-                "❌ Unable to add points to user as they are a higher position"
+                "❌ Unable to add points to user as they are a HR member"
               );
 
             msg.channel.send({ embeds: [Embed] });
