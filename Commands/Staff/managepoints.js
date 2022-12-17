@@ -41,7 +41,7 @@ module.exports = {
    */
   async execute(interaction) {
     if (
-      !interaction.member.roles.cache.has("800513206006054962") && // Head Admin
+      !interaction.member.roles.cache.has("1046503404769382532") && // Administration
       !interaction.member.roles.cache.has("837979573522137091") && // BoD
       !interaction.member.roles.cache.has("1046499539764396113") && // Senior Dev
       !interaction.member.roles.cache.has("796650693825658891") // Publisher
@@ -66,6 +66,36 @@ module.exports = {
       return;
     }
     const Action = interaction.options.getString("action");
+
+    if (Action === "get") {
+      if (
+        !interaction.member.roles.cache.has("1046503404769382532") && // Administration
+        !interaction.member.roles.cache.has("837979573522137091") && // BoD
+        !interaction.member.roles.cache.has("1046499539764396113") && // Senior Dev
+        !interaction.member.roles.cache.has("796650693825658891") // Publisher
+      ) {
+        const Embed = new EmbedBuilder()
+          .setColor("#e0392d")
+          .setDescription("❌ You do not have permission to use this command.");
+
+        interaction.reply({ embeds: [Embed] });
+        return;
+      }
+    } else if (Action === "set" || Action === "add" || Action === "subtract") {
+      if (
+        !interaction.member.roles.cache.has("800513206006054962") && // Head Admin
+        !interaction.member.roles.cache.has("837979573522137091") && // BoD
+        !interaction.member.roles.cache.has("1046499539764396113") && // Senior Dev
+        !interaction.member.roles.cache.has("796650693825658891") // Publisher
+      ) {
+        const Embed = new EmbedBuilder()
+          .setColor("#e0392d")
+          .setDescription("❌ You do not have permission to use this command.");
+
+        interaction.reply({ embeds: [Embed] });
+        return;
+      }
+    }
 
     const Value = interaction.options.getNumber("value");
     if (!Value && Value !== 0) {
