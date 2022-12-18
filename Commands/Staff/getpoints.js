@@ -55,20 +55,20 @@ module.exports = {
     if (!userData || userData === null) {
       const Embed = new EmbedBuilder()
         .setColor("#ffffff")
-        .setDescription(`${interaction.user.username} has 0 points.`);
+        .setDescription(`${Member.username} has 0 points.`);
 
       interaction.reply({ embeds: [Embed] });
       return;
     } else {
       const CurrentPoints = userData.Points;
       let addition = "";
-      if (CurrentPoints > 1) {
+      if (CurrentPoints > 1 || CurrentPoints === 0) {
         addition = "s";
       }
       const Embed = new EmbedBuilder()
         .setColor("#ffffff")
         .setDescription(
-          `${interaction.user.username} has ${CurrentPoints} point${addition}.`
+          `${Member.username} has ${CurrentPoints} point${addition}.`
         );
 
       interaction.reply({ embeds: [Embed] });
