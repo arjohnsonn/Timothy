@@ -9,7 +9,7 @@ const Database = require("../../Schemas/Points");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("mypoints")
+    .setName("getpoints")
     .setDescription("View your moderation points through Timothy")
     .addUserOption((option) =>
       option
