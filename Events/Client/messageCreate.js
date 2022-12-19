@@ -1,6 +1,11 @@
-const { EmbedBuilder, ThreadAutoArchiveDuration } = require("discord.js");
+const {
+  EmbedBuilder,
+  ThreadAutoArchiveDuration,
+  InteractionCollector,
+} = require("discord.js");
 const Database = require("../../Schemas/Points");
 const ms = require("ms");
+const { message } = require("noblox.js");
 
 const Admin = [
   933453103452282970, // BAP
@@ -10,10 +15,26 @@ const Admin = [
   //1010879762664796190, // BOT ITSELF
 ];
 
-const StaffRoleIds = [];
+const PointModifiers = [];
+const PendingActions = [];
 
 const NoPing = ["343875291665399818"];
 //const NoPing = [];
+
+const RuleIdentifiers = {
+  warn: 4, // split
+  mute: 5,
+};
+
+const RulePoints = {
+  1: 1,
+  3: 1,
+  2: 2,
+  7: 2,
+  4: 3,
+  5: 5,
+  6: 5,
+};
 
 module.exports = {
   name: "messageCreate",
@@ -48,7 +69,60 @@ module.exports = {
       }
     }
 
-    try {
+    const Args = msg.content.split(" ");
+
+    if (!Args[1]) return;
+    if (isNaN(Args[1])) {
+      if (Args[1].indexOf("@") > -1) {
+        const Raw = Args[1];
+        Args[1] = Raw.split("@").pop().split(">")[0];
+      } else return;
+    }
+
+    let Member;
+
+    EligibleMembers = await msg.guild.members.search({
+      query: msg.guild.members.cache.get(Args[1]).user.username,
+    });
+
+    for (const [key, guildMember] of Array.from(EligibleMembers)) {
+      if (guildMember.user.id === Args[1]) {
+        Member = msg.guild.members.cache.get(guildMember.user.id);
+        break;
+      }
+    }
+
+    if (!Member || Member === null) return;
+
+    for (const [key, value] of Object.entries(RuleIdentifiers)) {
+      if (key === Args[0].slice(1)) {
+        const AddPoint = RulePoints[Args[value - 1].toString().slice(0, -1)];
+        if (!AddPoint || AddPoint === null) return;
+
+        let userData = await Database.findOne({
+          Guild: msg.guild.id,
+          User: Member.id,
+        });
+        if (!userData) {
+          userData = await Database.create({
+            Guild: msg.guild.id,
+            User: Member.id,
+            Points: 0,
+          });
+        }
+
+        const CurrentPoints = userData.Points;
+        userData.Points = CurrentPoints + AddPoint;
+
+        await userData.save();
+
+        msg.channel.send(
+          `*<:TimothyThink:881905210065293363>* *${Member.user.username}* has **${userData.Points}** points`
+        );
+      }
+    }
+
+    /*try {
       if (
         msg.author.id === "470722416427925514" ||
         msg.author.id === "155149108183695360"
@@ -140,7 +214,7 @@ module.exports = {
       }
     } catch (err) {
       console.log(err);
-    }
+    }*/
     /*else {
       const Args = msg.content.split(" ");
       if (Args[0] == "!kick") {
