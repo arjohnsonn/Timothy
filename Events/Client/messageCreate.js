@@ -96,7 +96,13 @@ module.exports = {
 
     for (const [key, value] of Object.entries(RuleIdentifiers)) {
       if (key === Args[0].slice(1)) {
-        const AddPoint = RulePoints[Args[value - 1].toString().slice(0, -1)];
+        const AddPoint = RulePoints[Args[value - 1].toString()];
+        if (AddPoint !== null || AddPoint !== undefined) {
+          if (AddPoint.length === 2) {
+            AddPoint.slice(0, -1);
+          }
+        }
+
         if (!AddPoint || AddPoint === null) return;
 
         let userData = await Database.findOne({
