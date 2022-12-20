@@ -13,8 +13,8 @@ const { OpenCloud, DataStoreService } = require("rbxcloud");
 const noblox = require("noblox.js");
 
 OpenCloud.Configure({
-  DataStoreService: TESTAPI_KEY, // This is an API key for DataStoreService
-  UniverseId: TESTUNIVERSE_ID, // You can get the UniverseId from the Asset explorer
+  DataStoreService: API_KEY, // This is an API key for DataStoreService
+  UniverseId: UNIVERSE_ID, // You can get the UniverseId from the Asset explorer
 });
 
 const ServerDataStore = DataStoreService.GetDataStore(SERVERDATA_KEY);
