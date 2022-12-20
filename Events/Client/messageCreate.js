@@ -81,6 +81,11 @@ module.exports = {
 
     let Member;
 
+    if (
+      !msg.guild.members.cache.get(Args[1]) ||
+      msg.guild.members.cache.get(Args[1]) === null
+    )
+      return;
     EligibleMembers = await msg.guild.members.search({
       query: msg.guild.members.cache.get(Args[1]).user.username,
     });
