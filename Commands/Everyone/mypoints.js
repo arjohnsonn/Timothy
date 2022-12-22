@@ -21,7 +21,7 @@ module.exports = {
       !interaction.member.roles.cache.has("837979573522137091") && // BoD
       !interaction.member.roles.cache.has("817669388337152060") // Development
     ) {
-      if (interaction.channelId === "739912817431412768") {
+      if (interaction.channelId !== "739912817431412768") {
         const Embed = new EmbedBuilder()
           .setColor("#e0392d")
           .setDescription(
