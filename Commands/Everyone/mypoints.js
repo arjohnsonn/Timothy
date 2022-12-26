@@ -18,14 +18,14 @@ module.exports = {
   async execute(interaction) {
     if (
       !interaction.member.roles.cache.has("1046503404769382532") && // Administration
-      !interaction.member.roles.cache.has("837979573522137091") && // BoD
+      !interaction.member.roles.cache.has("1057031499544793138") && // Co Ownership
       !interaction.member.roles.cache.has("817669388337152060") // Development
     ) {
-      if (interaction.channelId !== "739912817431412768") {
+      if (interaction.channelId !== "1056926544066510888") {
         const Embed = new EmbedBuilder()
           .setColor("#e0392d")
           .setDescription(
-            "❌ Please use this command in <#739912817431412768>"
+            "❌ Please use this command in <#1056926544066510888>"
           );
 
         interaction.reply({ embeds: [Embed], ephemeral: true });

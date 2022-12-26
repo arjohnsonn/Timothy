@@ -20,7 +20,7 @@ const {
 
 const SeniorAdminRole = "1016704731076378744";
 const HeadAdminRole = "800513206006054962";
-const BoDRole = "837979573522137091";
+const BoDRole = "1057031499544793138";
 
 const TimothyAdmin = [SeniorAdminRole, HeadAdminRole, BoDRole];
 

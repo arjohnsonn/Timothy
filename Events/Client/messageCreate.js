@@ -186,7 +186,7 @@ module.exports = {
         if (Member) {
           if (
             Member.roles.cache.has("1046499539764396113") ||
-            Member.roles.cache.has("837979573522137091")
+            Member.roles.cache.has("1057031499544793138")
           ) {
             const Embed = new EmbedBuilder()
               .setColor("#e0392d")
@@ -249,7 +249,7 @@ module.exports = {
         if (Member) {
           if (
             Member.roles.cache.has("1046499539764396113") ||
-            Member.roles.cache.has("837979573522137091")
+            Member.roles.cache.has("1057031499544793138")
           ) {
             const Embed = new EmbedBuilder()
               .setColor("#e0392d")
@@ -288,7 +288,7 @@ module.exports = {
     try {
       if (
         !msg.member.roles.cache.has("796855972047618058") && // bot
-        !msg.member.roles.cache.has("837979573522137091") && // BoD
+        !msg.member.roles.cache.has("1057031499544793138") && // Co Ownership
         !msg.member.roles.cache.has("817669388337152060") && // Development
         !msg.member.roles.cache.has("1046503404769382532") && // Administration
         !msg.member.roles.cache.has("1003321540089221240") && // Contributor

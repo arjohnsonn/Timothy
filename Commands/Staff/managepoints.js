@@ -42,9 +42,8 @@ module.exports = {
   async execute(interaction) {
     if (
       !interaction.member.roles.cache.has("1046503404769382532") && // Administration
-      !interaction.member.roles.cache.has("837979573522137091") && // BoD
-      !interaction.member.roles.cache.has("1046499539764396113") && // Senior Dev
-      !interaction.member.roles.cache.has("796650693825658891") // Publisher
+      !interaction.member.roles.cache.has("1057031499544793138") && // Co Ownership
+      !interaction.member.roles.cache.has("1046499539764396113") // Senior Dev
     ) {
       const Embed = new EmbedBuilder()
         .setColor("#e0392d")
@@ -70,9 +69,8 @@ module.exports = {
     if (Action === "get") {
       if (
         !interaction.member.roles.cache.has("1046503404769382532") && // Administration
-        !interaction.member.roles.cache.has("837979573522137091") && // BoD
-        !interaction.member.roles.cache.has("1046499539764396113") && // Senior Dev
-        !interaction.member.roles.cache.has("796650693825658891") // Publisher
+        !interaction.member.roles.cache.has("1057031499544793138") && // Co Ownership
+        !interaction.member.roles.cache.has("1046499539764396113") // Senior Dev
       ) {
         const Embed = new EmbedBuilder()
           .setColor("#e0392d")
@@ -84,9 +82,8 @@ module.exports = {
     } else if (Action === "set" || Action === "add" || Action === "subtract") {
       if (
         !interaction.member.roles.cache.has("800513206006054962") && // Head Admin
-        !interaction.member.roles.cache.has("837979573522137091") && // BoD
-        !interaction.member.roles.cache.has("1046499539764396113") && // Senior Dev
-        !interaction.member.roles.cache.has("796650693825658891") // Publisher
+        !interaction.member.roles.cache.has("1057031499544793138") && // Co Ownership
+        !interaction.member.roles.cache.has("1046499539764396113") // Senior Dev
       ) {
         const Embed = new EmbedBuilder()
           .setColor("#e0392d")
@@ -111,7 +108,7 @@ module.exports = {
 
     if (
       Member.roles.cache.has("1046499539764396113") ||
-      Member.roles.cache.has("837979573522137091")
+      Member.roles.cache.has("1057031499544793138")
     ) {
       const Embed = new EmbedBuilder()
         .setColor("#e0392d")

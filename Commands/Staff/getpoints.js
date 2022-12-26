@@ -25,7 +25,7 @@ module.exports = {
     try {
       if (
         !interaction.member.roles.cache.has("1046503404769382532") && // Administration
-        !interaction.member.roles.cache.has("837979573522137091") && // BoD
+        !interaction.member.roles.cache.has("1057031499544793138") && // Co Ownership
         !interaction.member.roles.cache.has("817669388337152060") // Development
       ) {
         const Embed = new EmbedBuilder()

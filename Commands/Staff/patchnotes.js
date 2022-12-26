@@ -48,7 +48,7 @@ module.exports = {
   execute(interaction) {
     if (
       interaction.member.id !== "287805833692053513" &&
-      !interaction.member.roles.cache.has("1046499539764396113")
+      !interaction.member.roles.cache.has("1057031499544793138") // co ownership
     ) {
       if (!interaction.member.id === "343875291665399818") {
         const Embed = new EmbedBuilder()

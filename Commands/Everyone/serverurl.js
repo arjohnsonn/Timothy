@@ -56,7 +56,7 @@ module.exports = {
       return;
     }
 
-    if (interaction.channelId !== "739912817431412768") {
+    if (interaction.channelId !== "1056926544066510888") {
       if (
         !interaction.member.roles.cache.some(
           (role) => role.id === "817669388337152060"
@@ -68,7 +68,7 @@ module.exports = {
         const Embed = new EmbedBuilder()
           .setColor("#ff0000")
           .setDescription(
-            "❌  Please run this command in <#739912817431412768>"
+            "❌  Please run this command in <#1056926544066510888>"
           );
 
         interaction.reply({ embeds: [Embed], ephemeral: true });
