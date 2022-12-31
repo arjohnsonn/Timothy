@@ -41,7 +41,7 @@ module.exports = {
   async execute(msg) {
     if (!msg.guild) return;
 
-    if (
+    /*if (
       Admin.includes(Number(msg.author.id)) &&
       msg.author.id !== "343875291665399818"
     ) {
@@ -55,7 +55,7 @@ module.exports = {
             ":** " +
             msg.content
         );
-    }
+    }*/
 
     if (msg.channelId === "1050841814631993427") {
       if (msg.webhookId && msg.content !== "") {
