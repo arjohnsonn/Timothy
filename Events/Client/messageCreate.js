@@ -7,14 +7,6 @@ const Database = require("../../Schemas/Points");
 const ms = require("ms");
 const { message } = require("noblox.js");
 
-const Admin = [
-  933453103452282970, // BAP
-  708395252028801144, // GOLDIE
-  287805833692053513, // JOSH
-  901953236578209792, // RED
-  //1010879762664796190, // BOT ITSELF
-];
-
 const PointModifiers = [];
 const PendingActions = [];
 
@@ -71,6 +63,8 @@ module.exports = {
 
     const Args = msg.content.split(" ");
 
+    // console.log(Args);
+
     if (!Args[1]) return;
     if (isNaN(Args[1])) {
       if (Args[1].indexOf("@") > -1) {
@@ -86,6 +80,7 @@ module.exports = {
       msg.guild.members.cache.get(Args[1]) === null
     )
       return;
+
     EligibleMembers = await msg.guild.members.search({
       query: msg.guild.members.cache.get(Args[1]).user.username,
     });
@@ -97,14 +92,17 @@ module.exports = {
       }
     }
 
-    if (!Member || Member === null) return;
+    if (!Member || Member === null) {
+      console.log("No member found, returning...");
+      return;
+    }
 
     for (const [key, value] of Object.entries(RuleIdentifiers)) {
       if (key === Args[0].slice(1)) {
-        const Index = Args[value - 1].toString();
+        var Index = Args[value - 1].toString();
         if (Index !== null || Index !== undefined) {
           if (Index.length === 2) {
-            Index.slice(0, -1);
+            Index = Index.slice(0, -1);
           }
         }
         const AddPoint = RulePoints[Index];
