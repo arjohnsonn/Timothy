@@ -10,9 +10,7 @@ const { message } = require("noblox.js");
 const PointModifiers = [];
 const PendingActions = [];
 
-const NoPing = [""];
-//const NoPing = [];
-
+const NoPing = ["343875291665399818", "606035652789796881"];
 const RuleIdentifiers = {
   warn: 4, // split
   mute: 5,
@@ -135,75 +133,79 @@ module.exports = {
     }
 
     // POINT AUTOMATION
-    const Args = msg.content.split(" ");
+    try {
+      const Args = msg.content.split(" ");
 
-    if (!Args[1]) return;
-    if (isNaN(Args[1])) {
-      if (Args[1].indexOf("@") > -1) {
-        const Raw = Args[1];
-        Args[1] = Raw.split("@").pop().split(">")[0];
-      } else return;
-    }
-
-    let Member;
-
-    if (
-      !msg.guild.members.cache.get(Args[1]) ||
-      msg.guild.members.cache.get(Args[1]) === null
-    )
-      return;
-
-    EligibleMembers = await msg.guild.members.search({
-      query: msg.guild.members.cache.get(Args[1]).user.username,
-    });
-
-    for (const [key, guildMember] of Array.from(EligibleMembers)) {
-      if (guildMember.user.id === Args[1]) {
-        Member = msg.guild.members.cache.get(guildMember.user.id);
-        break;
+      if (!Args[1]) return;
+      if (isNaN(Args[1])) {
+        if (Args[1].indexOf("@") > -1) {
+          const Raw = Args[1];
+          Args[1] = Raw.split("@").pop().split(">")[0];
+        } else return;
       }
-    }
 
-    if (!Member || Member === null) {
-      console.log("No member found, returning...");
-      return;
-    }
+      let Member;
 
-    for (const [key, value] of Object.entries(RuleIdentifiers)) {
-      if (key === Args[0].slice(1)) {
-        var Index = Args[value - 1].toString();
-        if (Index !== null || Index !== undefined) {
-          if (Index.length === 2) {
-            Index = Index.slice(0, -1);
-          }
+      if (
+        !msg.guild.members.cache.get(Args[1]) ||
+        msg.guild.members.cache.get(Args[1]) === null
+      )
+        return;
+
+      EligibleMembers = await msg.guild.members.search({
+        query: msg.guild.members.cache.get(Args[1]).user.username,
+      });
+
+      for (const [key, guildMember] of Array.from(EligibleMembers)) {
+        if (guildMember.user.id === Args[1]) {
+          Member = msg.guild.members.cache.get(guildMember.user.id);
+          break;
         }
-        const AddPoint = RulePoints[Index];
+      }
 
-        if (!AddPoint || AddPoint === null) return;
+      if (!Member || Member === null) {
+        console.log("No member found, returning...");
+        return;
+      }
 
-        let userData = await Database.findOne({
-          Guild: msg.guild.id,
-          User: Member.id,
-        });
-        if (!userData) {
-          userData = await Database.create({
+      for (const [key, value] of Object.entries(RuleIdentifiers)) {
+        if (key === Args[0].slice(1)) {
+          var Index = Args[value - 1].toString();
+          if (Index !== null || Index !== undefined) {
+            if (Index.length === 2) {
+              Index = Index.slice(0, -1);
+            }
+          }
+          const AddPoint = RulePoints[Index];
+
+          if (!AddPoint || AddPoint === null) return;
+
+          let userData = await Database.findOne({
             Guild: msg.guild.id,
             User: Member.id,
-            Points: 0,
           });
+          if (!userData) {
+            userData = await Database.create({
+              Guild: msg.guild.id,
+              User: Member.id,
+              Points: 0,
+            });
+          }
+
+          const CurrentPoints = userData.Points;
+          userData.Points = CurrentPoints + AddPoint;
+
+          await userData.save();
+
+          msg.channel.send(
+            `*<:TimothyThink:881905210065293363>* *${Member.user.username}* has **${userData.Points}** points`
+          );
+
+          break;
         }
-
-        const CurrentPoints = userData.Points;
-        userData.Points = CurrentPoints + AddPoint;
-
-        await userData.save();
-
-        msg.channel.send(
-          `*<:TimothyThink:881905210065293363>* *${Member.user.username}* has **${userData.Points}** points`
-        );
-
-        break;
       }
+    } catch (err) {
+      console.log(err);
     }
   },
 };
