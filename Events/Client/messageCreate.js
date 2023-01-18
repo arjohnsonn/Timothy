@@ -61,6 +61,8 @@ module.exports = {
     }
 
     try {
+      if (msg.webhookId) return;
+
       if (
         !msg.member.roles.cache.has("796855972047618058") && // bot
         !msg.member.roles.cache.has("1057031499544793138") && // Co Ownership
@@ -109,8 +111,6 @@ module.exports = {
           msg.client.channels.cache
             .get(msg.channel.id)
             .send({ content: "<@" + msg.author.id + ">", embeds: [Embed] });
-
-          return;
         }
         /*if (CCDetected === true) {
           const Embed = new EmbedBuilder()
@@ -134,6 +134,17 @@ module.exports = {
 
     // POINT AUTOMATION
     try {
+      if (msg.webhookId) return;
+
+      if (
+        !msg.member.roles.cache.has("1046503404769382532") &&
+        !msg.member.roles.cache.has("1057031499544793138")
+      ) {
+        if (msg.guild.id !== "594760698639155200") {
+          return;
+        }
+      }
+
       const Args = msg.content.split(" ");
 
       if (!Args[1]) return;
