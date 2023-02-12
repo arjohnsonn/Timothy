@@ -157,7 +157,9 @@ module.exports = {
 
       let Member;
 
-      if (
+      const User = msg.client.users.fetch(Args[1]);
+
+      /*if (
         !msg.guild.members.cache.get(Args[1]) ||
         msg.guild.members.cache.get(Args[1]) === null
       )
@@ -172,9 +174,9 @@ module.exports = {
           Member = msg.guild.members.cache.get(guildMember.user.id);
           break;
         }
-      }
+      }*/
 
-      if (!Member || Member === null) {
+      if (!User || User === null) {
         console.log("No member found, returning...");
         return;
       }
@@ -204,12 +206,12 @@ module.exports = {
 
           let userData = await Database.findOne({
             Guild: msg.guild.id,
-            User: Member.id,
+            User: User.id,
           });
           if (!userData) {
             userData = await Database.create({
               Guild: msg.guild.id,
-              User: Member.id,
+              User: User.id,
               Points: 0,
             });
           }
