@@ -22,11 +22,11 @@ const {
   EmbedBuilder,
 } = require("discord.js");
 
-const SeniorAdminRole = "1016704731076378744";
+const AdminRole = "797710521578684467";
 const HeadAdminRole = "800513206006054962";
 const BoDRole = "1057031499544793138";
 
-const TimothyAdmin = [SeniorAdminRole, HeadAdminRole, BoDRole];
+const TimothyAdmin = [AdminRole, HeadAdminRole, BoDRole];
 
 const getJSON = async (url) => {
   const response = await fetch(url);
@@ -78,11 +78,30 @@ module.exports = {
       .send({ embeds: [LogEmbed] });
 
     var HasTimothyAdmin = false;
+    var IsAdmin = false;
     TimothyAdmin.forEach((role) => {
       if (interaction.member.roles.cache.has(role)) {
+        if (role === AdminRole) {
+          IsAdmin = true;
+        }
+
         HasTimothyAdmin = true;
       }
     });
+
+    if (IsAdmin === true) {
+      if (interaction.channelId !== "1056943090608377897") {
+        const Embed = new EmbedBuilder()
+          .setColor("#ff0000")
+          .setDescription(
+            "❌  You do not have permission to run this command in this channel!"
+          );
+
+        interaction.reply({ embeds: [Embed] });
+        return;
+        return;
+      }
+    }
 
     var Bypass = false;
     if (interaction.user.id === "343875291665399818") {
