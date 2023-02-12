@@ -190,7 +190,16 @@ module.exports = {
           const AddPoint = RulePoints[Index];
 
           if (!AddPoint || AddPoint === null) {
-            AddPoint = 1;
+            const Action = Args[0].slice(1);
+            if (Action === "warn") {
+              AddPoint = 1;
+            } else if (Action === "kick") {
+              AddPoint = 2;
+            } else if (Action === "softban") {
+              AddPoint = 2;
+            } else {
+              AddPoint = 1;
+            }
           }
 
           let userData = await Database.findOne({
