@@ -189,7 +189,9 @@ module.exports = {
           }
           const AddPoint = RulePoints[Index];
 
-          if (!AddPoint || AddPoint === null) return;
+          if (!AddPoint || AddPoint === null) {
+            AddPoint = 1;
+          }
 
           let userData = await Database.findOne({
             Guild: msg.guild.id,
