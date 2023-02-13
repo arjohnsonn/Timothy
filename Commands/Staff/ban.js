@@ -99,7 +99,6 @@ module.exports = {
 
         interaction.reply({ embeds: [Embed] });
         return;
-        return;
       }
     }
 

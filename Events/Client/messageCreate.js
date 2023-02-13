@@ -157,7 +157,7 @@ module.exports = {
 
       let Member;
 
-      const User = msg.client.users.fetch(Args[1]);
+      const User = await msg.client.users.fetch(Args[1]);
 
       /*if (
         !msg.guild.members.cache.get(Args[1]) ||
@@ -181,52 +181,89 @@ module.exports = {
         return;
       }
 
-      for (const [key, value] of Object.entries(RuleIdentifiers)) {
-        if (key === Args[0].slice(1)) {
-          var Index = Args[value - 1].toString();
-          if (Index !== null || Index !== undefined) {
-            if (Index.length === 2) {
-              Index = Index.slice(0, -1);
+      if (RuleIdentifiers[Args[0].slice(1)]) {
+        for (const [key, value] of Object.entries(RuleIdentifiers)) {
+          if (key === Args[0].slice(1)) {
+            var Index = Args[value - 1].toString();
+            if (Index !== null || Index !== undefined) {
+              if (Index.length === 2) {
+                Index = Index.slice(0, -1);
+              }
             }
-          }
-          const AddPoint = RulePoints[Index];
+            var AddPoint = RulePoints[Index];
 
-          if (!AddPoint || AddPoint === null) {
-            const Action = Args[0].slice(1);
-            if (Action === "warn") {
-              AddPoint = 1;
-            } else if (Action === "kick") {
-              AddPoint = 2;
-            } else if (Action === "softban") {
-              AddPoint = 2;
-            } else {
-              AddPoint = 1;
+            if (!AddPoint || AddPoint === null) {
+              const Action = Args[0].slice(1);
+              if (Action === "warn") {
+                AddPoint = 1;
+              } else if (Action === "kick") {
+                AddPoint = 2;
+              } else if (Action === "softban") {
+                AddPoint = 2;
+              } else {
+                AddPoint = 1;
+              }
             }
-          }
 
-          let userData = await Database.findOne({
-            Guild: msg.guild.id,
-            User: User.id,
-          });
-          if (!userData) {
-            userData = await Database.create({
+            let userData = await Database.findOne({
               Guild: msg.guild.id,
               User: User.id,
-              Points: 0,
             });
+            if (!userData) {
+              userData = await Database.create({
+                Guild: msg.guild.id,
+                User: User.id,
+                Points: 0,
+              });
+            }
+
+            const CurrentPoints = userData.Points;
+            userData.Points = CurrentPoints + AddPoint;
+
+            await userData.save();
+
+            msg.channel.send(
+              `*<:TimothyThink:881905210065293363>* *${User.username}#${User.discriminator}* has **${userData.Points}** points`
+            );
+
+            break;
           }
-
-          const CurrentPoints = userData.Points;
-          userData.Points = CurrentPoints + AddPoint;
-
-          await userData.save();
-
-          msg.channel.send(
-            `*<:TimothyThink:881905210065293363>* *${Member.user.username}* has **${userData.Points}** points`
-          );
-
-          break;
         }
+      } else {
+        var AddPoint = RulePoints[Index];
+
+        if (!AddPoint || AddPoint === null) {
+          const Action = Args[0].slice(1);
+          if (Action === "warn") {
+            AddPoint = 1;
+          } else if (Action === "kick") {
+            AddPoint = 2;
+          } else if (Action === "softban") {
+            AddPoint = 2;
+          } else {
+            AddPoint = 1;
+          }
+        }
+
+        let userData = await Database.findOne({
+          Guild: msg.guild.id,
+          User: User.id,
+        });
+        if (!userData) {
+          userData = await Database.create({
+            Guild: msg.guild.id,
+            User: User.id,
+            Points: 0,
+          });
+        }
+
+        const CurrentPoints = userData.Points;
+        userData.Points = CurrentPoints + AddPoint;
+
+        await userData.save();
+        msg.channel.send(
+          `*<:TimothyThink:881905210065293363>* *${User.username}#${User.discriminator}* has **${userData.Points}** points`
+        );
       }
     } catch (err) {
       console.log(err);
