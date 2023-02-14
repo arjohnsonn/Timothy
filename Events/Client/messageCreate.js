@@ -16,6 +16,7 @@ const RuleIdentifiers = {
   mute: 5,
 };
 
+const Whitelist = ["warn", "mute", "softban", "ban"];
 const RulePoints = {
   1: 1,
   3: 1,
@@ -230,19 +231,19 @@ module.exports = {
           }
         }
       } else {
-        var AddPoint = RulePoints[Index];
+        const Action = Args[0].slice(1);
 
-        if (!AddPoint || AddPoint === null) {
-          const Action = Args[0].slice(1);
-          if (Action === "warn") {
-            AddPoint = 1;
-          } else if (Action === "kick") {
-            AddPoint = 2;
-          } else if (Action === "softban") {
-            AddPoint = 2;
-          } else {
-            AddPoint = 1;
-          }
+        if (!Whitelist.includes(Action)) return;
+        if (Action === "warn") {
+          AddPoint = 1;
+        } else if (Action === "kick") {
+          AddPoint = 2;
+        } else if (Action === "softban") {
+          AddPoint = 2;
+        } else if (Action === "ban") {
+          AddPoint = 4;
+        } else {
+          AddPoint = 1;
         }
 
         let userData = await Database.findOne({
