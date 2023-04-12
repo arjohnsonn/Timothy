@@ -283,7 +283,8 @@ module.exports = {
 
           interaction.reply({ embeds: [Embed], ephemeral: true });
         }
-      } catch {
+      } catch (err) {
+        console.log(err);
         const Embed = new EmbedBuilder()
           .setColor("#ff0000")
           .setDescription("❌  Player does not exist!");
