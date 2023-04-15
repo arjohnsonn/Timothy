@@ -240,7 +240,7 @@ module.exports = {
                 interaction.reply({ embeds: [Embed] });
                 return;
               } else {
-                PlrData = data;
+                PlrData = data.Data;
               }
 
               if (DataAction === "set") {
@@ -430,7 +430,7 @@ module.exports = {
                 interaction.reply({ embeds: [Embed] });
                 return;
               } else {
-                PlrData = data;
+                PlrData = data.Data;
               }
 
               if (DataAction === "set") {
