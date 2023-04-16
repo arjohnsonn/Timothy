@@ -497,9 +497,7 @@ module.exports = {
                       const DateJoined = new Date(
                         Number(PlrData["Misc"]["FirstJoin"]) * 1000
                       );
-                      const LastJoined = new Date(
-                        Number(PlrData["Logs"]["LastJoined"]) * 1000
-                      );
+
                       const Embed = new EmbedBuilder()
                         .setTitle(`Player Data: ${Name} (${Id.toString()})`)
                         .setColor("#ffffff")
@@ -531,18 +529,9 @@ module.exports = {
                           },
                           {
                             name: "Last Joined",
-                            value:
-                              (LastJoined.getMonth() + 1).toString() +
-                              "/" +
-                              LastJoined.getDate().toString() +
-                              "/" +
-                              LastJoined.getFullYear().toString().slice(2) +
-                              ", " +
-                              formatNum(LastJoined.getHours().toString()) +
-                              ":" +
-                              LastJoined.getMinutes().toString() +
-                              ":" +
-                              formatNum(LastJoined.getSeconds().toString()),
+                            value: `<t:${Number(
+                              PlrData["Logs"]["LastJoined"]
+                            )}:F>`,
 
                             inline: true,
                           }
