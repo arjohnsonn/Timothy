@@ -48,17 +48,8 @@ module.exports = {
         );
     }*/
 
-    if (msg.channelId === "1050841814631993427") {
-      if (msg.webhookId && msg.content !== "") {
-        const thread = await msg.startThread({
-          name: msg.content,
-          autoArchiveDuration: ThreadAutoArchiveDuration.OneWeek,
-          reason: "AUTOMATION: Attached thread to game ban appeal",
-        });
-
-        await thread.members.add("1010879762664796190");
-        return;
-      }
+    if (msg.channelId === "1109512181655011369") {
+      msg.react("⭐");
     }
 
     try {
