@@ -50,6 +50,8 @@ module.exports = {
 
     if (msg.channelId === "1109512181655011369") {
       msg.react("⭐");
+    } else if (msg.channelId === "1109518941769978046") {
+      msg.react("⭐");
     }
 
     try {
