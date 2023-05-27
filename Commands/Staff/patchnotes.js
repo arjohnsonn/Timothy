@@ -4,6 +4,10 @@ const {
   EmbedBuilder,
 } = require("discord.js");
 
+const Role = "1057031499544793138";
+const { Eligible } = require("../../Modules/Eligible");
+const { Log } = require("../../Modules/Log");
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("patchnotes")
@@ -46,33 +50,9 @@ module.exports = {
    * @param {ChatInputCommandInteraction} interaction
    */
   execute(interaction) {
-    if (
-      interaction.member.id !== "287805833692053513" &&
-      !interaction.member.roles.cache.has("1057031499544793138") // co ownership
-    ) {
-      if (!interaction.member.id === "343875291665399818") {
-        const Embed = new EmbedBuilder()
-          .setColor("#ff0000")
-          .setDescription(
-            "❌  You do not have permission to run this command!"
-          );
+    if (Eligible(Role, interaction) == false) return;
 
-        interaction.reply({ embeds: [Embed], ephemeral: true });
-        return;
-      }
-    }
-
-    const LogEmbed = new EmbedBuilder()
-      .setColor("#ffffff")
-      .setTitle(interaction.user.username)
-      .setThumbnail(
-        interaction.user.displayAvatarURL({ size: 1024, dynamic: true })
-      )
-      .setDescription("/" + interaction.commandName);
-
-    interaction.client.channels.cache
-      .get("1019434063653765201")
-      .send({ embeds: [LogEmbed] });
+    Log(interaction);
 
     const Text = interaction.options.getString("text");
     const SendText = Text.replace(/;/g, "\n");

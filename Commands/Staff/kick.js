@@ -1,38 +1,15 @@
-const dotenv = require("dotenv");
-dotenv.config();
-
-const fetch = require("node-fetch");
-const { UNIVERSE_ID, API_KEY, BANSTORE_KEY, CLIENT_ID, PLAYERDATA_KEY } =
-  process.env;
-const { OpenCloud, MessagingService } = require("rbxcloud");
-const noblox = require("noblox.js");
-
-OpenCloud.Configure({
-  MessagingService: API_KEY,
-  UniverseId: UNIVERSE_ID, // You can get the UniverseId from the Asset explorer
-});
-
 const {
   ChatInputCommandInteraction,
   SlashCommandBuilder,
   EmbedBuilder,
 } = require("discord.js");
 
-const SeniorAdminRole = "1016704731076378744";
-const HeadAdminRole = "800513206006054962";
-const BoDRole = "1057031499544793138";
-
-const TimothyAdmin = [SeniorAdminRole, HeadAdminRole, BoDRole];
-
-const getJSON = async (url) => {
-  const response = await fetch(url);
-  if (!response.ok)
-    // check if response worked (no 404 errors etc...)
-    throw new Error(response.statusText);
-
-  const data = response.json(); // get JSON from the response
-  return data; // returns a promise, which resolves to this data value
-};
+const Role = "800513206006054962";
+const { Eligible } = require("../../Modules/Eligible");
+const { GetPlayer } = require("../../Modules/GetPlayer");
+const { MessageSend } = require("../../Modules/MessageSend");
+const { GET } = require("../../Modules/GET");
+const { Log } = require("../../Modules/Log");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -48,63 +25,27 @@ module.exports = {
       option
         .setName("reason")
         .setDescription("Reason for kick, valid reasons only.")
+    )
+    .addBooleanOption((option) =>
+      option
+        .setName("anonymous")
+        .setDescription(
+          "Show your username in the kick message, defaults to false"
+        )
     ),
   /**
    *
    * @param {ChatInputCommandInteraction} interaction
    */
   async execute(interaction) {
-    const LogEmbed = new EmbedBuilder()
-      .setColor("#ffffff")
-      .setTitle(interaction.user.username)
-      .setThumbnail(
-        interaction.user.displayAvatarURL({ size: 1024, dynamic: true })
-      )
-      .setDescription("/" + interaction.commandName);
+    if (Eligible(Role, interaction) == false) return;
 
-    interaction.client.channels.cache
-      .get("1019434063653765201")
-      .send({ embeds: [LogEmbed] });
+    Log(interaction);
 
-    var HasTimothyAdmin = false;
-    TimothyAdmin.forEach((role) => {
-      if (interaction.member.roles.cache.has(role)) {
-        HasTimothyAdmin = true;
-      }
-    });
-
-    var Bypass = false;
-    if (interaction.user.id === "343875291665399818") {
-      Bypass = true;
-      HasTimothyAdmin = true;
-    }
-
-    if (Bypass === false) {
-      if (HasTimothyAdmin === false) {
-        if (!GuestPass.includes(interaction.user.id)) {
-          const Embed = new EmbedBuilder()
-            .setColor("#ff0000")
-            .setDescription(
-              "❌  You do not have permission to run this command!"
-            );
-
-          interaction.reply({ embeds: [Embed], ephemeral: true });
-          return;
-        }
-      }
-    }
-
-    if (HasTimothyAdmin === false) {
-      const Embed = new EmbedBuilder()
-        .setColor("#ff0000")
-        .setDescription("❌  You do not have permission to run this command!");
-
-      interaction.reply({ embeds: [Embed], ephemeral: true });
-      return;
-    }
     const Username = interaction.options.getString("username");
     let Id = interaction.options.getInteger("id");
     let Reason = interaction.options.getString("reason");
+    let Mod = interaction.options.getString("anonymous");
 
     if (Id) {
       Id = Id.toString();
@@ -112,6 +53,12 @@ module.exports = {
 
     if (!Reason) {
       Reason = "unspecified";
+    }
+
+    if (!Mod) {
+      Mod = "";
+    } else {
+      Mod = `By ${interaction.author.username} (${interaction.member.roles.highest.name})`;
     }
 
     if (!Id && !Username) {
@@ -122,84 +69,30 @@ module.exports = {
       interaction.reply({ embeds: [Embed] });
     }
 
-    if (Id) {
-      try {
-        const Name = await noblox.getUsernameFromId(Id);
-        if (Name !== null) {
-          if (Reason) {
-            MessagingService.PublishAsync("Kick", Name + "_{" + Reason + "}");
+    const { UserId, User } = await GetPlayer(Id || Username);
+    if (UserId) {
+      var T = {
+        Moderator: Mod,
+        Reason: Reason,
+        Player: UserId,
+        Type: "Kick",
+      };
 
-            getJSON(
-              "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
-                Id +
-                "&size=420x420&format=Png&isCircular=false"
-            )
-              .then((data) => {
-                const Embed = new EmbedBuilder()
-                  .setTitle("Kick")
-                  .setColor("#00ff00")
-                  .setDescription(`✅ Kicked ${Name} (ID: ${Id})`)
-                  .addFields({ name: "Reason", value: Reason })
-                  .setThumbnail(data.data[0].imageUrl);
-                interaction.reply({ embeds: [Embed] });
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-          }
-        } else {
-          const Embed = new EmbedBuilder()
-            .setColor("#ff0000")
-            .setDescription("❌  Player does not exist!");
+      const Result = await MessageSend(T, "Admin", interaction);
+      if (Result == true) {
+        const Data = await GET(
+          "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+            UserId.toString() +
+            "&size=420x420&format=Png&isCircular=false"
+        );
 
-          interaction.reply({ embeds: [Embed], ephemeral: true });
-        }
-      } catch {
         const Embed = new EmbedBuilder()
-          .setColor("#ff0000")
-          .setDescription("❌  Player does not exist!");
-
-        interaction.reply({ embeds: [Embed], ephemeral: true });
-      }
-    } else if (Username) {
-      try {
-        const PlrId = await noblox.getIdFromUsername(Username);
-        if (PlrId !== null) {
-          if (Reason) {
-            MessagingService.PublishAsync("Kick", Name + "_{" + Reason + "}");
-
-            getJSON(
-              "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
-                Id +
-                "&size=420x420&format=Png&isCircular=false"
-            )
-              .then((data) => {
-                const Embed = new EmbedBuilder()
-                  .setTitle("Kick")
-                  .setColor("#00ff00")
-                  .setDescription(`✅ Kicked ${Username} (ID: ${Id})`)
-                  .addFields({ name: "Reason", value: Reason })
-                  .setThumbnail(data.data[0].imageUrl);
-
-                interaction.reply({ embeds: [Embed] });
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-          }
-        } else {
-          const Embed = new EmbedBuilder()
-            .setColor("#ff0000")
-            .setDescription("❌  Player does not exist!");
-
-          interaction.reply({ embeds: [Embed], ephemeral: true });
-        }
-      } catch {
-        const Embed = new EmbedBuilder()
-          .setColor("#ff0000")
-          .setDescription("❌  Player does not exist!");
-
-        interaction.reply({ embeds: [Embed], ephemeral: true });
+          .setTitle("Kick")
+          .setColor("#00ff00")
+          .setDescription(`✅  Kicked ${User} (ID: ${UserId})`)
+          .addFields({ name: "Reason", value: Reason, inline: true })
+          .setThumbnail(Data.data[0].imageUrl);
+        interaction.reply({ embeds: [Embed] });
       }
     }
   },

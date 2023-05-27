@@ -6,6 +6,9 @@ const {
 } = require("discord.js");
 
 const Database = require("../../Schemas/Points");
+const Role = "800513206006054962";
+const { Eligible } = require("../../Modules/Eligible");
+const { Log } = require("../../Modules/Log");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -40,18 +43,8 @@ module.exports = {
    * @param {ChatInputCommandInteraction} interaction
    */
   async execute(interaction) {
-    if (
-      !interaction.member.roles.cache.has("1046503404769382532") && // Administration
-      !interaction.member.roles.cache.has("1057031499544793138") && // Co Ownership
-      !interaction.member.roles.cache.has("1046499539764396113") // Senior Dev
-    ) {
-      const Embed = new EmbedBuilder()
-        .setColor("#e0392d")
-        .setDescription("❌ You do not have permission to use this command.");
-
-      interaction.reply({ embeds: [Embed] });
-      return;
-    }
+    if (Eligible(Role, interaction) == false) return;
+    Log(interaction);
 
     const User = interaction.options.getUser("user");
     const Member = interaction.guild.members.cache.get(User.id);
@@ -65,35 +58,6 @@ module.exports = {
       return;
     }
     const Action = interaction.options.getString("action");
-
-    if (Action === "get") {
-      if (
-        !interaction.member.roles.cache.has("1046503404769382532") && // Administration
-        !interaction.member.roles.cache.has("1057031499544793138") && // Co Ownership
-        !interaction.member.roles.cache.has("1046499539764396113") // Senior Dev
-      ) {
-        const Embed = new EmbedBuilder()
-          .setColor("#e0392d")
-          .setDescription("❌ You do not have permission to use this command.");
-
-        interaction.reply({ embeds: [Embed] });
-        return;
-      }
-    } else if (Action === "set" || Action === "add" || Action === "subtract") {
-      if (
-        !interaction.member.roles.cache.has("800513206006054962") && // Head Admin
-        !interaction.member.roles.cache.has("1057031499544793138") && // Co Ownership
-        !interaction.member.roles.cache.has("1046499539764396113") // Senior Dev
-      ) {
-        const Embed = new EmbedBuilder()
-          .setColor("#e0392d")
-          .setDescription("❌ You do not have permission to use this command.");
-
-        interaction.reply({ embeds: [Embed] });
-        return;
-      }
-    }
-
     const Value = interaction.options.getNumber("value");
     if (!Value && Value !== 0) {
       if (Action === "add" || Action === "subtract" || Action === "set") {
@@ -107,13 +71,13 @@ module.exports = {
     }
 
     if (
-      Member.roles.cache.has("1046499539764396113") ||
-      Member.roles.cache.has("1057031499544793138")
+      Member.roles.highest.comparePositionTo(interaction.member.roles.highest) >
+      0
     ) {
       const Embed = new EmbedBuilder()
         .setColor("#e0392d")
         .setDescription(
-          "❌ Unable to manage points to user as they are a HR member"
+          "❌ Unable to manage points to user as they above your rank"
         );
 
       interaction.reply({ embeds: [Embed], ephemeral: true });

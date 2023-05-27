@@ -4,6 +4,10 @@ const {
   EmbedBuilder,
 } = require("discord.js");
 
+const Role = "1046503404769382532";
+const { Eligible } = require("../../Modules/Eligible");
+const { Log } = require("../../Modules/Log");
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("say")
@@ -19,17 +23,9 @@ module.exports = {
    * @param {ChatInputCommandInteraction} interaction
    */
   execute(interaction) {
-    const LogEmbed = new EmbedBuilder()
-      .setColor("#ffffff")
-      .setTitle(interaction.user.username)
-      .setThumbnail(
-        interaction.user.displayAvatarURL({ size: 1024, dynamic: true })
-      )
-      .setDescription("/" + interaction.commandName);
+    if (Eligible(Role, interaction) == false) return;
 
-    interaction.client.channels.cache
-      .get("1019434063653765201")
-      .send({ embeds: [LogEmbed] });
+    Log(interaction);
 
     const String = interaction.options.getString("input");
     interaction.channel.send(String);

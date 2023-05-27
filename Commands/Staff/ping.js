@@ -4,6 +4,10 @@ const {
   EmbedBuilder,
 } = require("discord.js");
 
+const Role = "1046503404769382532"; // ADMINISTRATION
+const { Eligible } = require("../../Modules/Eligible");
+const { Log } = require("../../Modules/Log");
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("ping")
@@ -12,22 +16,14 @@ module.exports = {
    *
    * @param {ChatInputCommandInteraction} interaction
    */
-  execute(interaction, client) {
-    const LogEmbed = new EmbedBuilder()
-      .setColor("#ffffff")
-      .setTitle(interaction.user.username)
-      .setThumbnail(
-        interaction.user.displayAvatarURL({ size: 1024, dynamic: true })
-      )
-      .setDescription("/" + interaction.commandName);
+  async execute(interaction, client) {
+    if (Eligible(Role, interaction) == false) return;
+    Log(interaction);
 
-    interaction.client.channels.cache
-      .get("1019434063653765201")
-      .send({ embeds: [LogEmbed] });
-
+    console.log(Result);
     interaction.reply({
       content: `🏓  Ping latency is **${
-        interaction.createdTimestamp - Date.now()
+        Date.now() - interaction.createdTimestamp
       }** ms. API Latency is **${Math.round(client.ws.ping)}** ms`,
       ephemeral: false,
     });

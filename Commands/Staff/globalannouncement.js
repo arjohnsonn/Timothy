@@ -2,10 +2,19 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const fetch = require("node-fetch");
-const { UNIVERSE_ID, API_KEY, BANSTORE_KEY, CLIENT_ID, PLAYERDATA_KEY } =
-  process.env;
+const {
+  UNIVERSE_ID,
+  API_KEY,
+  BANSTORE_KEY,
+  CLIENT_ID,
+  PLAYERDATA_KEY,
+  TESTAPI_KEY,
+  TESTUNIVERSE_ID,
+} = process.env;
 const { OpenCloud, MessagingService } = require("rbxcloud");
 const noblox = require("noblox.js");
+
+const { MessageSend } = require("../../Modules/MessageSend");
 
 OpenCloud.Configure({
   MessagingService: TESTAPI_KEY,
@@ -35,7 +44,7 @@ module.exports = {
     .setName("globalannouncement")
     .setDescription("Create a global announcement for all active servers")
     .addStringOption((option) =>
-      option.setName("message").setDescription("Message")
+      option.setName("message").setDescription("Message").setRequired(true)
     ),
   /**
    *
@@ -92,28 +101,33 @@ module.exports = {
     }
     let Reason = interaction.options.getString("message");
 
-    if (Id) {
-      Id = Id.toString();
-    }
-
     if (!Reason) return;
 
     var T = {
       Type: "Announcement",
       Message: Reason,
-      Moderator: interaction.user.username,
+      Moderator: `By ${interaction.user.username} (${interaction.member.roles.highest.name})`,
       AnnType: "Global",
     };
-    T = JSON.stringify(T);
 
-    MessagingService.PublishAsync("Admin", T);
-
-    const Embed = new EmbedBuilder()
-      .setTitle("Global Announcement")
-      .setColor("#00ff00")
-      .setDescription(`✅ Sent Global Announcement`)
-      .addFields({ name: "Message", value: Reason });
-
-    interaction.reply({ embeds: [Embed] });
+    const Result = await MessageSend(
+      T,
+      "Admin",
+      interaction,
+      Reason,
+      "Global Announcement"
+    );
+    if (Result === true) {
+      const Embed = new EmbedBuilder()
+        .setColor("#00ff00")
+        .setTitle("Money")
+        .setDescription(
+          `✅ Successfully set ${Data.Username}'s cash to ${Data.Amount}.\nTo prevent data loss, this may take a few seconds...`
+        )
+        .addFields();
+      return interaction.reply({
+        embeds: [Embed],
+      });
+    }
   },
 };

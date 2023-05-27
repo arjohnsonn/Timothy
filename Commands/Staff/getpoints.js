@@ -6,6 +6,9 @@ const {
 } = require("discord.js");
 
 const Database = require("../../Schemas/Points");
+const Role = "1046503404769382532"; // ADMINISTRATION
+const { Eligible } = require("../../Modules/Eligible");
+const { Log } = require("../../Modules/Log");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -22,29 +25,7 @@ module.exports = {
    * @param {ChatInputCommandInteraction} interaction
    */
   async execute(interaction) {
-    try {
-      if (
-        !interaction.member.roles.cache.has("1046503404769382532") && // Administration
-        !interaction.member.roles.cache.has("1057031499544793138") && // Co Ownership
-        !interaction.member.roles.cache.has("817669388337152060") // Development
-      ) {
-        const Embed = new EmbedBuilder()
-          .setColor("#e0392d")
-          .setDescription("❌ You do not have permission to use this command.");
-
-        interaction.reply({ embeds: [Embed] });
-        return;
-      }
-    } catch {
-      const Embed = new EmbedBuilder()
-        .setColor("#e0392d")
-        .setDescription(
-          "❌ An error has occurred. Please try this command again."
-        );
-
-      interaction.reply({ embeds: [Embed], ephemeral: true });
-      return;
-    }
+    if (Eligible(Role, interaction) == false) return;
 
     const Member = interaction.options.getUser("user");
 

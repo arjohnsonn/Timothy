@@ -6,15 +6,6 @@ dotenv.config();
 
 const { TESTAPI_KEY, API_KEY, TESTUNIVERSE_ID, UNIVERSE_ID } = process.env;
 
-function NewEmbed(Data) {
-  const Embed = new EmbedBuilder()
-    .setColor("#00ff00")
-    .setDescription(
-      `✅ Successfully set ${Data.Username}'s cash to ${Data.Amount}.\nTo prevent data loss, this may take a few seconds...`
-    );
-  return Embed;
-}
-
 module.exports.MessageSend = async function MessageSend(
   Message,
   Topic,
@@ -24,13 +15,13 @@ module.exports.MessageSend = async function MessageSend(
 ) {
   const response = await axios
     .post(
-      `https://apis.roblox.com/messaging-service/v1/universes/${UNIVERSE_ID}/topics/${Topic}`,
+      `https://apis.roblox.com/messaging-service/v1/universes/${TESTUNIVERSE_ID}/topics/${Topic}`,
       {
-        message: Message,
+        message: JSON.stringify(Message),
       },
       {
         headers: {
-          "x-api-key": API_KEY,
+          "x-api-key": TESTAPI_KEY,
           "Content-Type": "application/json",
         },
       }
@@ -57,10 +48,21 @@ module.exports.MessageSend = async function MessageSend(
       }
     });
   if (response) {
-    if (response.status == 200)
-      if (Type === "setmoney") {
-        return interaction.reply({ embeds: [NewEmbed(Data)] });
-      }
+    if (response.status == 200) return true;
+    /*
+    if (Type === "setmoney") {
+      const Embed = new EmbedBuilder()
+        .setColor("#00ff00")
+        .setTitle("Money")
+        .setDescription(
+          `✅ Successfully set ${Data.Username}'s cash to ${Data.Amount}.\nTo prevent data loss, this may take a few seconds...`
+        )
+        .addFields();
+      return interaction.reply({
+        embeds: [Embed],
+      });
+    } else if (Type === "Global Announcement") {
+    }*/
     if (response.status != 200)
       return console.log(`**Error:** An unknown issue has occurred.`);
   }
