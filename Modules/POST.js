@@ -1,4 +1,3 @@
-const { application } = require("express");
 const fetch = require("node-fetch");
 
 module.exports.POST = function POST(url, body) {
