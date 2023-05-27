@@ -1,3 +1,5 @@
+const { EmbedBuilder } = require("discord.js");
+
 module.exports.Eligible = function Eligible(Role, interaction) {
   if (
     interaction.guild.roles.fetch(Role).position <=
