@@ -108,22 +108,12 @@ module.exports = {
 
     MessagingService.PublishAsync("Admin", T);
 
-    getJSON(
-      "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
-        Id +
-        "&size=420x420&format=Png&isCircular=false"
-    )
-      .then((data) => {
-        const Embed = new EmbedBuilder()
-          .setTitle("Global Announcement")
-          .setColor("#00ff00")
-          .setDescription(`✅ Sent Global Announcement`)
-          .addFields({ name: "Message", value: Reason })
-          .setThumbnail(data.data[0].imageUrl);
-        interaction.reply({ embeds: [Embed] });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const Embed = new EmbedBuilder()
+      .setTitle("Global Announcement")
+      .setColor("#00ff00")
+      .setDescription(`✅ Sent Global Announcement`)
+      .addFields({ name: "Message", value: Reason });
+
+    interaction.reply({ embeds: [Embed] });
   },
 };
