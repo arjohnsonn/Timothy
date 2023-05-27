@@ -8,8 +8,8 @@ const { OpenCloud, MessagingService } = require("rbxcloud");
 const noblox = require("noblox.js");
 
 OpenCloud.Configure({
-  MessagingService: API_KEY,
-  UniverseId: UNIVERSE_ID, // You can get the UniverseId from the Asset explorer
+  MessagingService: TESTAPI_KEY,
+  UniverseId: TESTUNIVERSE_ID, // You can get the UniverseId from the Asset explorer
 });
 
 const {
@@ -18,9 +18,7 @@ const {
   EmbedBuilder,
 } = require("discord.js");
 
-const HeadAdminRole = "800513206006054962";
-
-const TimothyAdmin = [SeniorAdminRole, HeadAdminRole, BoDRole];
+const TimothyAdmin = ["1057031499544793138"];
 
 const getJSON = async (url) => {
   const response = await fetch(url);
