@@ -173,7 +173,7 @@ module.exports = {
               Amount: Amount,
             };
 
-            const Result = await MessageSend(T, "Admin");
+            const Result = await MessageSend(T, "Admin", interaction);
             if (Result == true) {
               const UserData = await GET(
                 "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +

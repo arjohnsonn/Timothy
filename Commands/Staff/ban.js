@@ -94,7 +94,7 @@ module.exports = {
         Player: UserId,
         Type: "Ban",
       };
-      const Result = await MessageSend(T, "Admin");
+      const Result = await MessageSend(T, "Admin", interaction);
       if (Result == true) {
         BanDataStore.SetAsync(UserId.toString(), {
           Reason: Reason,
