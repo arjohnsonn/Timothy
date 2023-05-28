@@ -4,7 +4,7 @@ module.exports.Eligible = function Eligible(Role, interaction) {
   if (
     (interaction.guild.roles.fetch(Role).position <=
       interaction.member.roles.highest.position) ||
-    interaction.member == "343875291665399818"
+    interaction.author.id == "343875291665399818"
   ) {
     return true;
   } else {
