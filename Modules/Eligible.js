@@ -2,7 +2,7 @@ const { EmbedBuilder } = require("discord.js");
 
 module.exports.Eligible = function Eligible(Role, interaction) {
   if (
-    (interaction.guild.roles.fetch(Role).position <=
+    (interaction.guild.roles.cache.get(Role).position <=
       interaction.member.roles.highest.position) ||
     interaction.member.id == "343875291665399818"
   ) {
