@@ -5,6 +5,7 @@ const {
 } = require("discord.js");
 
 const Role = "822824831937413130"; // ADMINISTRATION
+const Role2 = "1046503404769382532"
 const { Eligible } = require("../../Modules/Eligible");
 const { Log } = require("../../Modules/Log");
 
@@ -19,14 +20,16 @@ module.exports = {
    * @param {ChatInputCommandInteraction} interaction
    */
   async execute(interaction, client) {
-    if (Eligible(Role, interaction) == false) {
+    if (Eligible(Role, interaction) == false) return
+    if ((Eligible(Role2, interaction) == false) && (interaction.channel.id != "1056926544066510888")) {
       const Embed = new EmbedBuilder()
         .setColor("#e0392d")
         .setDescription("❌ Please use this command in <#1056926544066510888>");
 
       interaction.reply({ embeds: [Embed], ephemeral: true });
-      return;
+      return
     }
+      
 
     let userData = await Database.findOne({
       Guild: interaction.guild.id,
