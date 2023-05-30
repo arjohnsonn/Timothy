@@ -1,12 +1,14 @@
 const { EmbedBuilder } = require("discord.js");
 
 module.exports.Eligible = function Eligible(Role, interaction) {
-    console.log(interaction.guild.roles.cache.get(Role).position)
-    console.log(interaction.member.roles.highest.position)
+  console.log(
+    interaction.member.roles.highest.position >=
+      interaction.guild.roles.cache.get(Role).position
+  );
   if (
-    (interaction.guild.roles.cache.get(Role).position <=
-      interaction.member.roles.highest.position) /* ||
-    interaction.member.id == "343875291665399818"*/
+    interaction.member.roles.highest.position >=
+      interaction.guild.roles.cache.get(Role).position ||
+    interaction.member.id == "343875291665399818"
   ) {
     return true;
   } else {
