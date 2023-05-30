@@ -1,10 +1,6 @@
 const { EmbedBuilder } = require("discord.js");
 
 module.exports.Eligible = function Eligible(Role, interaction, Bypass) {
-  console.log(
-    interaction.member.roles.highest.position >=
-      interaction.guild.roles.cache.get(Role).position
-  );
   if (
     interaction.member.roles.highest.position >=
       interaction.guild.roles.cache.get(Role).position ||
