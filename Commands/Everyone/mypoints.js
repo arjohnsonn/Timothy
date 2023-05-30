@@ -22,7 +22,7 @@ module.exports = {
   async execute(interaction, client) {
     if (Eligible(Role, interaction) == false) return;
     if (
-      Eligible(Role2, interaction) == false &&
+      Eligible(Role2, interaction, true) == false &&
       interaction.channel.id != "1056926544066510888"
     ) {
       const Embed = new EmbedBuilder()
