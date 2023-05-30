@@ -1,6 +1,6 @@
 const { EmbedBuilder } = require("discord.js");
 
-module.exports.Eligible = function Eligible(Role, interaction) {
+module.exports.Eligible = function Eligible(Role, interaction, Bypass) {
   console.log(
     interaction.member.roles.highest.position >=
       interaction.guild.roles.cache.get(Role).position
@@ -12,11 +12,13 @@ module.exports.Eligible = function Eligible(Role, interaction) {
   ) {
     return true;
   } else {
-    const Embed = new EmbedBuilder()
-      .setColor("#ff0000")
-      .setDescription("❌  You do not have permission to run this command!");
+    if (!Bypass) {
+      const Embed = new EmbedBuilder()
+        .setColor("#ff0000")
+        .setDescription("❌  You do not have permission to run this command!");
 
-    interaction.reply({ embeds: [Embed], ephemeral: true });
+      interaction.reply({ embeds: [Embed], ephemeral: true });
+    }
     return false;
   }
 };
