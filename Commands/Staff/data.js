@@ -296,7 +296,7 @@ module.exports = {
             var T = {
               Type: "AddMoney",
               Player: UserId,
-              Amount: PlayerData.Data.General.Cash,
+              Amount: Amount,
             };
 
             const Result = await MessageSend(T, "Admin", interaction);
