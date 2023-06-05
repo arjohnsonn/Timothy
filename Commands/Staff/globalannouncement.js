@@ -42,11 +42,9 @@ module.exports = {
       const Embed = new EmbedBuilder()
         .setColor("#00ff00")
         .setTitle("Money")
-        .setDescription(
-          `✅ Successfully set ${Data.Username}'s cash to ${Data.Amount}.\nTo prevent data loss, this may take a few seconds...`
-        )
+        .setDescription(`✅ Successfully globally announced ${Reason}`)
         .addFields();
-      return interaction.reply({
+      interaction.reply({
         embeds: [Embed],
       });
     }
