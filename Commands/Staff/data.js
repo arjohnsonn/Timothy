@@ -270,12 +270,7 @@ module.exports = {
           );
 
           const Amount = interaction.options.getInteger("amount") || 0;
-
-          console.log(Amount);
-
           PlayerData.Data.General.Cash = PlayerData.Data.General.Cash + Amount;
-
-          console.log(PlayerData.Data.General.Cash);
 
           if (PresenceData.userPresences[0].userPresenceType == 0) {
             // OFFLINE
