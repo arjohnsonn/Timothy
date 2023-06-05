@@ -20,7 +20,6 @@ module.exports = {
     if (Eligible(Role, interaction) == false) return;
     Log(interaction);
 
-    console.log(Result);
     interaction.reply({
       content: `🏓  Ping latency is **${
         Date.now() - interaction.createdTimestamp
