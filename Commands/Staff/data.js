@@ -32,55 +32,49 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("data")
     .setDescription("Manage data for players")
-    .addSubcommandGroup(
-      (group) =>
-        group
-          .setName("set")
-          .setDescription("Sets data to player")
-          .addSubcommand((subcommand) =>
-            subcommand
-              .setName("money")
-              .setDescription("Set money to player")
-              .addIntegerOption((option) =>
-                option
-                  .setName("amount")
-                  .setDescription("Set amount of cash to player")
-                  .setRequired(true)
-              )
-              .addStringOption((option) =>
-                option.setName("username").setDescription("Username of Player")
-              )
-              .addIntegerOption((option) =>
-                option.setName("id").setDescription("User ID of player")
-              )
-          )
-      /* .addSubcommand((subcommand) =>
-        subcommand
-          .setName("level")
-          .setDescription("Set level for team to player")
-          .addStringOption((option) =>
-            option
-              .setName("team")
-              .setDescription("Select team to set level to")
-              .setRequired(true)
-              .addChoices(
-                { name: "SLFD", value: "slfd" },
-                { name: "LCSO", value: "slfd" }
-              )
-          )
-          .addIntegerOption((option) =>
-            option
-              .setName("amount")
-              .setDescription("Sets level for team to player")
-              .setRequired(true)
-          )
-          .addStringOption((option) =>
-            option.setName("username").setDescription("Username of Player")
-          )
-          .addIntegerOption((option) =>
-            option.setName("id").setDescription("User ID of player")
-          )
-      )*/
+    .addSubcommandGroup((group) =>
+      group
+        .setName("set")
+        .setDescription("Sets data to player")
+        .addSubcommand((subcommand) =>
+          subcommand
+            .setName("money")
+            .setDescription("Set money to player")
+            .addIntegerOption((option) =>
+              option
+                .setName("amount")
+                .setDescription("Set amount of cash to player")
+                .setRequired(true)
+            )
+            .addStringOption((option) =>
+              option.setName("username").setDescription("Username of Player")
+            )
+            .addIntegerOption((option) =>
+              option.setName("id").setDescription("User ID of player")
+            )
+        )
+    )
+    .addSubcommandGroup((group) =>
+      group
+        .setName("add")
+        .setDescription("Adds data to player")
+        .addSubcommand((subcommand) =>
+          subcommand
+            .setName("money")
+            .setDescription("Set money to player")
+            .addIntegerOption((option) =>
+              option
+                .setName("amount")
+                .setDescription("Set amount of cash to player")
+                .setRequired(true)
+            )
+            .addStringOption((option) =>
+              option.setName("username").setDescription("Username of Player")
+            )
+            .addIntegerOption((option) =>
+              option.setName("id").setDescription("User ID of player")
+            )
+        )
     )
     .addSubcommandGroup((group) =>
       group
@@ -255,6 +249,84 @@ module.exports = {
             )
             .setThumbnail(Data.data[0].imageUrl);
           interaction.reply({ embeds: [Embed] });
+        }
+      } else if (DataAction == "add") {
+        if (Type == "money") {
+          const PlayerData = await GetPlayerData(UserId, interaction);
+          if (!PlayerData) {
+            const Embed = new EmbedBuilder()
+              .setColor("#ff0000")
+              .setDescription("❌  Player data does not exist!");
+
+            interaction.reply({ embeds: [Embed] });
+            return;
+          }
+
+          const PresenceData = await POST(
+            "https://presence.roblox.com/v1/presence/users",
+            {
+              userIds: [UserId],
+            }
+          );
+
+          const Amount = interaction.options.getInteger("amount") || 0;
+
+          console.log(Amount);
+
+          PlayerData.Data.General.Cash = PlayerData.Data.General.Cash + Amount;
+
+          console.log(PlayerData.Data.General.Cash);
+
+          if (PresenceData.userPresences[0].userPresenceType == 0) {
+            // OFFLINE
+            SetPlayerData(UserId, PlayerData);
+
+            const UserData = await GET(
+              "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+                UserId.toString() +
+                "&size=420x420&format=Png&isCircular=false"
+            );
+
+            const Embed = new EmbedBuilder()
+              .setTitle("Add Money")
+              .setColor("#00ff00")
+              .setDescription(
+                `✅  Successfully added ${formatter
+                  .format(Amount)
+                  .slice(0, -3)} for ${User}`
+              )
+              .setThumbnail(UserData.data[0].imageUrl);
+            interaction.reply({ embeds: [Embed] });
+          } else {
+            var T = {
+              Type: "AddMoney",
+              Player: UserId,
+              Amount: PlayerData.Data.General.Cash,
+            };
+
+            const Result = await MessageSend(T, "Admin", interaction);
+            if (Result == true) {
+              const UserData = await GET(
+                "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+                  UserId.toString() +
+                  "&size=420x420&format=Png&isCircular=false"
+              );
+
+              delete PlayerData.MetaData.ActiveSession;
+              delete PlayerData.MetaData.ForceLoadSession;
+
+              const Embed = new EmbedBuilder()
+                .setTitle("Add Money")
+                .setColor("#00ff00")
+                .setDescription(
+                  `✅  Successfully added ${formatter
+                    .format(Amount)
+                    .slice(0, -3)} for ${User}`
+                )
+                .setThumbnail(UserData.data[0].imageUrl);
+              interaction.reply({ embeds: [Embed] });
+            }
+          }
         }
       }
     }
