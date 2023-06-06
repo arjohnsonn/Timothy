@@ -56,7 +56,7 @@ module.exports = {
     let Id = interaction.options.getInteger("id");
     let Reason = interaction.options.getString("reason");
     const Length = interaction.options.getInteger("length");
-    let Mod = interaction.options.getInteger("anonymous");
+    let Mod = interaction.options.getBoolean("anonymous");
 
     if (Id) {
       Id = Id.toString();

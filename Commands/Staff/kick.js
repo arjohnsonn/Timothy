@@ -45,7 +45,7 @@ module.exports = {
     const Username = interaction.options.getString("username");
     let Id = interaction.options.getInteger("id");
     let Reason = interaction.options.getString("reason");
-    let Mod = interaction.options.getString("anonymous");
+    let Mod = interaction.options.getBoolean("anonymous");
 
     if (Id) {
       Id = Id.toString();
