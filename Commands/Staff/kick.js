@@ -58,7 +58,7 @@ module.exports = {
     if (!Mod) {
       Mod = "";
     } else {
-      Mod = `By ${interaction.author.username} (${interaction.member.roles.highest.name})`;
+      Mod = `By ${interaction.member.user.username} (${interaction.member.roles.highest.name})`;
     }
 
     if (!Id && !Username) {
