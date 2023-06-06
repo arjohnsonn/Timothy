@@ -326,7 +326,9 @@ module.exports = {
             .addFields(
               {
                 name: "SLPD",
-                value: formatTime(PlayerData.General.Playtime.SLPD).toString(),
+                value: formatTime(
+                  PlayerData.Data.General.Playtime.SLPD
+                ).toString(),
                 inline: true,
               },
               {
