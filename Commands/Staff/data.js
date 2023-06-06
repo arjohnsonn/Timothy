@@ -333,23 +333,31 @@ module.exports = {
               },
               {
                 name: "SLFD",
-                value: formatTime(PlayerData.Data.General.SLFD).toString(),
+                value: formatTime(
+                  PlayerData.Data.General.Playtime.SLFD
+                ).toString(),
                 inline: true,
               },
               {
                 name: "LCDOT",
-                value: formatTime(PlayerData.Data.General.LCDOT).toString(),
+                value: formatTime(
+                  PlayerData.Data.General.Playtime.LCDOT
+                ).toString(),
                 inline: true,
               },
 
               {
                 name: "LCSO",
-                value: formatTime(PlayerData.Data.General.LCSO).toString(),
+                value: formatTime(
+                  PlayerData.Data.General.Playtime.LCSO
+                ).toString(),
                 inline: true,
               },
               {
                 name: "LCEMS",
-                value: formatTime(PlayerData.Data.General.LCEMS).toString(),
+                value: formatTime(
+                  PlayerData.Data.General.Playtime.LCEMS
+                ).toString(),
                 inline: true,
               }
             )
