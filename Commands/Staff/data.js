@@ -345,14 +345,6 @@ module.exports = {
                 ).toString(),
                 inline: true,
               },
-
-              {
-                name: "LCSO",
-                value: formatTime(
-                  PlayerData.Data.General.Playtime.LCSO
-                ).toString(),
-                inline: true,
-              },
               {
                 name: "LCEMS",
                 value: formatTime(
