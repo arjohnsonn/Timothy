@@ -277,7 +277,6 @@ module.exports = {
               UserId +
               "&size=420x420&format=Png&isCircular=false"
           );
-
           const Embed = new EmbedBuilder()
             .setTitle(`Player Data: ${User} (${UserId.toString()})`)
             .setColor("#ffffff")
@@ -285,32 +284,33 @@ module.exports = {
             .addFields(
               {
                 name: "SLPD",
-                value: PlayerData.Data.XP.SLPD,
+                value: PlayerData.Data.XP.SLPD.toString(),
                 inline: true,
               },
               {
                 name: "SLFD",
-                value: PlayerData.Data.XP.SLFD,
+                value: PlayerData.Data.XP.SLFD.toString(),
                 inline: true,
               },
               {
                 name: "LCDOT",
-                value: PlayerData.Data.XP.LCDOT,
+                value: PlayerData.Data.XP.LCDOT.toString(),
                 inline: true,
               },
 
               {
                 name: "LCSO",
-                value: PlayerData.Data.XP.LCSO,
+                value: PlayerData.Data.XP.LCSO.toString(),
                 inline: true,
               },
               {
                 name: "LCEMS",
-                value: PlayerData.Data.XP.LCEMS,
+                value: PlayerData.Data.XP.LCEMS.toString(),
                 inline: true,
               }
             )
             .setThumbnail(Data.data[0].imageUrl);
+          console.log("here");
           interaction.reply({ embeds: [Embed] });
         } else if (Type == "playtime") {
           const Data = await GET(
