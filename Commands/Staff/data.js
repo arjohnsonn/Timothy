@@ -249,19 +249,91 @@ module.exports = {
             )
             .setThumbnail(Data.data[0].imageUrl);
           interaction.reply({ embeds: [Embed] });
+        } else if (Type == "xp") {
+          const Data = await GET(
+            "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+              UserId +
+              "&size=420x420&format=Png&isCircular=false"
+          );
+
+          const Embed = new EmbedBuilder()
+            .setTitle(`Player Data: ${User} (${UserId.toString()})`)
+            .setColor("#ffffff")
+            .setDescription("> *XP Data*")
+            .addFields(
+              {
+                name: "SLPD",
+                value: PlayerData.Data.XP.SLPD,
+                inline: true,
+              },
+              {
+                name: "SLFD",
+                value: PlayerData.Data.XP.SLFD,
+                inline: true,
+              },
+              {
+                name: "LCDOT",
+                value: PlayerData.Data.XP.LCDOT,
+                inline: true,
+              },
+
+              {
+                name: "LCSO",
+                value: PlayerData.Data.XP.LCSO,
+                inline: true,
+              },
+              {
+                name: "LCEMS",
+                value: PlayerData.Data.XP.LCEMS,
+                inline: true,
+              }
+            )
+            .setThumbnail(Data.data[0].imageUrl);
+          interaction.reply({ embeds: [Embed] });
+        } else if (Type == "playtime") {
+          const Data = await GET(
+            "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+              UserId +
+              "&size=420x420&format=Png&isCircular=false"
+          );
+
+          const Embed = new EmbedBuilder()
+            .setTitle(`Player Data: ${User} (${UserId.toString()})`)
+            .setColor("#ffffff")
+            .setDescription("> *Playtime Data*")
+            .addFields(
+              {
+                name: "SLPD",
+                value: formatTime(PlayerData.General.Playtime.SLPD).toString(),
+                inline: true,
+              },
+              {
+                name: "SLFD",
+                value: formatTime(PlayerData.General.Playtime.SLFD).toString(),
+                inline: true,
+              },
+              {
+                name: "LCDOT",
+                value: formatTime(PlayerData.General.Playtime.LCDOT).toString(),
+                inline: true,
+              },
+
+              {
+                name: "LCSO",
+                value: formatTime(PlayerData.General.Playtime.LCSO).toString(),
+                inline: true,
+              },
+              {
+                name: "LCEMS",
+                value: formatTime(PlayerData.General.Playtime.LCEMS).toString(),
+                inline: true,
+              }
+            )
+            .setThumbnail(Data.data[0].imageUrl);
+          interaction.reply({ embeds: [Embed] });
         }
       } else if (DataAction == "add") {
         if (Type == "money") {
-          const PlayerData = await GetPlayerData(UserId, interaction);
-          if (!PlayerData) {
-            const Embed = new EmbedBuilder()
-              .setColor("#ff0000")
-              .setDescription("❌  Player data does not exist!");
-
-            interaction.reply({ embeds: [Embed] });
-            return;
-          }
-
           const PresenceData = await POST(
             "https://presence.roblox.com/v1/presence/users",
             {
