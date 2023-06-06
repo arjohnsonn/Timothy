@@ -80,26 +80,29 @@ module.exports = {
       group
         .setName("get")
         .setDescription("Gets data of player")
-        .addSubcommand(
-          (subcommand) =>
-            subcommand
-              .setName("general")
-              .setDescription("Retrives general player data")
-              .addStringOption((option) =>
-                option.setName("username").setDescription("Username of Player")
-              )
-              .addIntegerOption((option) =>
-                option.setName("id").setDescription("User ID of player")
-              ),
+        .addSubcommand((subcommand) =>
           subcommand
-            .setName("xp")
-            .setDescription("Retrives xp player data")
+            .setName("general")
+            .setDescription("Retrives general player data")
             .addStringOption((option) =>
               option.setName("username").setDescription("Username of Player")
             )
             .addIntegerOption((option) =>
               option.setName("id").setDescription("User ID of player")
-            ),
+            )
+        )
+        .addSubcommand((subcommand) =>
+          subcommand
+            .setName("xp")
+            .setDescription("Retrives XP player data")
+            .addStringOption((option) =>
+              option.setName("username").setDescription("Username of Player")
+            )
+            .addIntegerOption((option) =>
+              option.setName("id").setDescription("User ID of player")
+            )
+        )
+        .addSubcommand((subcommand) =>
           subcommand
             .setName("playtime")
             .setDescription("Retrives playtime player data")
