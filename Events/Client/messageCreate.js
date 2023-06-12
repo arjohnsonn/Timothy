@@ -25,8 +25,8 @@ const RulePoints = {
   2: 2,
   7: 2,
   4: 3,
-  5: 5,
-  6: 5,
+  5: 4,
+  6: 3,
 };
 
 module.exports = {
