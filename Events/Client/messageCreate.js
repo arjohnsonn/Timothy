@@ -122,6 +122,10 @@ module.exports = {
       console.log(err);
     }
 
+    if (msg.channelId === "1120065225476030524") {
+      msg.react("⭐");
+    }
+
     // POINT AUTOMATION
     try {
       if (msg.webhookId) return;
