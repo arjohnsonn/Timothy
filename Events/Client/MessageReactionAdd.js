@@ -3,7 +3,6 @@ const { GetLiveryData } = require("../../Modules/GetLiveryData");
 const { ServerDataStore } = require("../../Modules/DataStores");
 const { SetLiveryData } = require("../../Modules/SetLiveryData");
 const { MessageSend } = require("../../Modules/MessageSend");
-const { type } = require("express/lib/response");
 
 module.exports = {
   name: "messageReactionAdd",
