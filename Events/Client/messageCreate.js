@@ -49,60 +49,58 @@ module.exports = {
             msg.content
         );
     }*/
+    if (!msg.webhookId) {
+      try {
+        if (
+          !msg.member.roles.cache.has("796855972047618058") && // bot
+          !msg.member.roles.cache.has("1057031499544793138") && // Co Ownership
+          !msg.member.roles.cache.has("817669388337152060") && // Development
+          !msg.member.roles.cache.has("1046503404769382532") && // Administration
+          !msg.member.roles.cache.has("1003321540089221240") && // Contributor
+          !msg.member.roles.cache.has("1042307835784069150") // VIP
+        ) {
+          const IdArray = Array.from(msg.mentions.members);
+          let DeveloperDetected = false;
+          let CCDetected = false;
+          for (const [key, value] of Object.entries(IdArray)) {
+            const Member = msg.guild.members.cache.find(
+              (user) => user.id === value[0].toString()
+            );
+            if (Member) {
+              if (Member.roles.cache.has("817669388337152060")) {
+                if (!NoPing.includes(Member.id.toString())) {
+                  if (msg.content.includes(`<@${Member.id}>`)) {
+                    DeveloperDetected = true;
 
-    try {
-      if (msg.webhookId) return;
-
-      if (
-        !msg.member.roles.cache.has("796855972047618058") && // bot
-        !msg.member.roles.cache.has("1057031499544793138") && // Co Ownership
-        !msg.member.roles.cache.has("817669388337152060") && // Development
-        !msg.member.roles.cache.has("1046503404769382532") && // Administration
-        !msg.member.roles.cache.has("1003321540089221240") && // Contributor
-        !msg.member.roles.cache.has("1042307835784069150") // VIP
-      ) {
-        const IdArray = Array.from(msg.mentions.members);
-        let DeveloperDetected = false;
-        let CCDetected = false;
-        for (const [key, value] of Object.entries(IdArray)) {
-          const Member = msg.guild.members.cache.find(
-            (user) => user.id === value[0].toString()
-          );
-          if (Member) {
-            if (Member.roles.cache.has("817669388337152060")) {
-              if (!NoPing.includes(Member.id.toString())) {
-                if (msg.content.includes(`<@${Member.id}>`)) {
-                  DeveloperDetected = true;
-
-                  break;
+                    break;
+                  }
                 }
-              }
-            } else if (Member.roles.cache.has("822489911331913748")) {
-              if (!NoPing.includes(Member.id.toString())) {
-                if (msg.content.includes(`<@${Member.id}>`)) {
-                  CCDetected = true;
+              } else if (Member.roles.cache.has("822489911331913748")) {
+                if (!NoPing.includes(Member.id.toString())) {
+                  if (msg.content.includes(`<@${Member.id}>`)) {
+                    CCDetected = true;
 
-                  break;
+                    break;
+                  }
                 }
               }
             }
           }
-        }
 
-        if (DeveloperDetected === true) {
-          const Embed = new EmbedBuilder()
-            .setTitle("❌ Do Not @ Developers")
-            .setColor("#e0392d")
-            .setDescription(
-              "Pinging developers is a violation of [Rule 3](https://discord.com/channels/739910144254673046/1016528431246217228/1056973562604421130)"
-            );
-          //.setImage("https://i.imgur.com/oCwYJBD.png");
+          if (DeveloperDetected === true) {
+            const Embed = new EmbedBuilder()
+              .setTitle("❌ Do Not @ Developers")
+              .setColor("#e0392d")
+              .setDescription(
+                "Pinging developers is a violation of [Rule 3](https://discord.com/channels/739910144254673046/1016528431246217228/1056973562604421130)"
+              );
+            //.setImage("https://i.imgur.com/oCwYJBD.png");
 
-          msg.client.channels.cache
-            .get(msg.channel.id)
-            .send({ content: "<@" + msg.author.id + ">", embeds: [Embed] });
-        }
-        /*if (CCDetected === true) {
+            msg.client.channels.cache
+              .get(msg.channel.id)
+              .send({ content: "<@" + msg.author.id + ">", embeds: [Embed] });
+          }
+          /*if (CCDetected === true) {
           const Embed = new EmbedBuilder()
             .setTitle("❌ Do Not @ Content Creators")
             .setColor("#e0392d")
@@ -117,13 +115,22 @@ module.exports = {
 
           return;
         }*/
+        }
+      } catch (err) {
+        console.log(err);
       }
-    } catch (err) {
-      console.log(err);
     }
 
     if (msg.channelId === "1125416033201696948") {
       msg.react("⭐");
+    }
+
+    // LIVERY APPROVAL
+    if (msg.channelId === "1126113534594515036") {
+      if (msg.webhookId === "1126113581985960007") {
+        msg.react("✅");
+        msg.react("❌");
+      }
     }
 
     // POINT AUTOMATION

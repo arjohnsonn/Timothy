@@ -1,5 +1,3 @@
-const { connection } = require("mongoose");
-
 async function loadEvents(client) {
   const { loadFiles } = require("../Functions/fileLoader.js");
   const ascii = require("ascii-table");

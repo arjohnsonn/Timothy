@@ -20,8 +20,23 @@ const { Guilds, GuildMembers, GuildMessages, MessageContent } =
 const { User, Message, GuildMember, ThreadMember } = Partials;
 
 const client = new Client({
-  intents: [Guilds, GuildMessages, GuildMembers, MessageContent, 32767],
-  partials: [User, Message, GuildMember, ThreadMember],
+  intents: [
+    Guilds,
+    GuildMessages,
+    GuildMembers,
+    MessageContent,
+    32767,
+    GatewayIntentBits.GuildMessageReactions,
+  ],
+  partials: [
+    User,
+    Message,
+    GuildMember,
+    ThreadMember,
+    Partials.Message,
+    Partials.Channel,
+    Partials.Reaction,
+  ],
 });
 
 const { loadEvents } = require("./Handlers/eventHandler.js");

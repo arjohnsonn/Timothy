@@ -6,7 +6,7 @@ const {
 } = require("discord.js");
 
 const Database = require("../../Schemas/Points");
-const Role = "800513206006054962";
+const Role = "797710521578684467"; // ADMIN
 const { Eligible } = require("../../Modules/Eligible");
 const { Log } = require("../../Modules/Log");
 
