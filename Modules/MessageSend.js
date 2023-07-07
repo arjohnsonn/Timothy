@@ -9,7 +9,7 @@ const { TESTAPI_KEY, API_KEY, TESTUNIVERSE_ID, UNIVERSE_ID } = process.env;
 module.exports.MessageSend = async function MessageSend(Message, Topic) {
   const response = await axios
     .post(
-      `https://apis.roblox.com/messaging-service/v1/universes/${TESTUNIVERSE_ID}/topics/${Topic}`,
+      `https://apis.roblox.com/messaging-service/v1/universes/${UNIVERSE_ID}/topics/${Topic}`,
       {
         message: JSON.stringify(Message),
       },
