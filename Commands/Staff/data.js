@@ -138,7 +138,8 @@ module.exports = {
       return;
     }
 
-    const { UserId, User } = await GetPlayer(Id || Username);
+    const { UserId, User } = await GetPlayer(Id || Username, interaction);
+
     if (UserId) {
       const PlayerData = await GetPlayerData(UserId, interaction);
       if (!PlayerData) {

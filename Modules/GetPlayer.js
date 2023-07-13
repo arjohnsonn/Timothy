@@ -1,7 +1,7 @@
 const noblox = require("noblox.js");
 const { EmbedBuilder } = require("discord.js");
 
-module.exports.GetPlayer = async function GetPlayer(Input) {
+module.exports.GetPlayer = async function GetPlayer(Input, interaction) {
   var Id;
   var Username;
   if (isNaN(Input)) {
@@ -14,7 +14,7 @@ module.exports.GetPlayer = async function GetPlayer(Input) {
     try {
       const Name = await noblox.getUsernameFromId(Id);
       if (Name !== null) {
-        return { UserId: Id, User: Username };
+        return { UserId: Id, User: Name };
       } else {
         const Embed = new EmbedBuilder()
           .setColor("#ff0000")
