@@ -15,7 +15,7 @@ module.exports.MessageSend = async function MessageSend(Message, Topic) {
       },
       {
         headers: {
-          "x-api-key": TESTAPI_KEY,
+          "x-api-key": API_KEY,
           "Content-Type": "application/json",
         },
       }
