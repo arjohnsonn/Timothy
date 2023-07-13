@@ -41,7 +41,7 @@ module.exports = {
     if (Result === true) {
       const Embed = new EmbedBuilder()
         .setColor("#00ff00")
-        .setTitle("Money")
+        .setTitle("Global Announcement")
         .setDescription(`✅ Successfully globally announced ${Reason}`)
         .addFields();
       interaction.reply({
