@@ -1,5 +1,5 @@
 const { PlayerDataStore } = require("./DataStores");
-
+const { EmbedBuilder } = require("discord.js");
 module.exports.GetPlayerData = async function GetPlayerData(
   UserId,
   interaction
