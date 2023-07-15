@@ -67,7 +67,7 @@ module.exports = {
       interaction.member.roles.add(EARole);
 
       const Embed = new EmbedBuilder()
-        .setColor("##00ff00")
+        .setColor("#00ff00")
         .setDescription("✅  You have been given the Early Access role.");
 
       interaction.reply({ embeds: [Embed] });
