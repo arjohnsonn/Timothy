@@ -15,7 +15,7 @@ const Database = require("../../Schemas/Points");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("earole")
-    .setDescription("Obtain your EA role in the group"),
+    .setDescription("Obtain your EA role in Discord"),
   /**
    *
    * @param {ChatInputCommandInteraction} interaction
