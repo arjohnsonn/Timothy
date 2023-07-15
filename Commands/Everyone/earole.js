@@ -54,7 +54,7 @@ module.exports = {
 
       var EARole;
       try {
-        EARole = interaction.guild.roles.cache.get(871389346748592128);
+        EARole = interaction.guild.roles.cache.get("871389346748592128");
       } catch {
         const Embed = new EmbedBuilder()
           .setColor("#ff0000")
