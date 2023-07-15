@@ -9,7 +9,7 @@ const Role2 = "1046503404769382532"; // ADMIN+
 const { Eligible } = require("../../Modules/Eligible");
 const { Log } = require("../../Modules/Log");
 const { GetPlayer } = require("../../Modules/GetPlayer");
-
+const { GetPlayerData } = require("../../Modules/GetPlayerData");
 const Database = require("../../Schemas/Points");
 
 module.exports = {
