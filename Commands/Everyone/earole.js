@@ -42,13 +42,14 @@ module.exports = {
     if (UserId) {
       const PlayerData = await GetPlayerData(UserId, interaction);
       if (!PlayerData) {
+        /*
         const Embed = new EmbedBuilder()
           .setColor("#ff0000")
           .setDescription(
             "❌  Please join and leave the game once with Early Access before doing this command!"
           );
 
-        interaction.reply({ embeds: [Embed] });
+        interaction.reply({ embeds: [Embed] });*/
         return;
       }
 
