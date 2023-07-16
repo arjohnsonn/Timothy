@@ -34,10 +34,9 @@ module.exports = {
       return;
     }
 
-    const { UserId, User } = await GetPlayer(
-      interaction.member.nickname,
-      interaction
-    );
+    const Data = await GetPlayer(interaction.member.nickname, interaction);
+
+    if (!Data) return;
 
     if (UserId) {
       const PlayerData = await GetPlayerData(UserId, interaction);
