@@ -2,6 +2,7 @@ const { GetServerData } = require("../../Modules/GetServerData");
 const { GetLiveryData } = require("../../Modules/GetLiveryData");
 const { ServerDataStore } = require("../../Modules/DataStores");
 const { SetLiveryData } = require("../../Modules/SetLiveryData");
+const { SetServerData } = require("../../Modules/SetServerData");
 const { MessageSend } = require("../../Modules/MessageSend");
 
 module.exports = {
@@ -71,22 +72,8 @@ module.exports = {
         ServerData["Expansions"]["Settings"]["Customization"]["Liveries"][Team][
           LiveryName
         ] = PendingLiveryData;
-        console.log(
-          ServerData["Expansions"]["Settings"]["Customization"]["Liveries"]
-        );
-        console.log(
-          ServerData["Expansions"]["Settings"]["Customization"]["Liveries"][
-            Team
-          ]
-        );
-        console.log(
-          ServerData["Expansions"]["Settings"]["Customization"]["Liveries"][
-            Team
-          ][LiveryName]
-        );
-        console.log(PendingLiveryData);
 
-        SetLiveryData(ServerCode, ServerData);
+        SetServerData(ServerCode, Object.assign({}, ServerData));
         SetLiveryData(ServerCode, LiveryStorage);
 
         await MessageSend("Update", ServerCode);
