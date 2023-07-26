@@ -66,7 +66,7 @@ module.exports = {
       Reason = "unspecified";
     }
 
-    if (Mod == false) {
+    if (Mod == false || !Mod) {
       Mod = "";
     } else {
       Mod = `By ${interaction.member.user.username} (${interaction.member.roles.highest.name})`;
