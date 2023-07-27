@@ -405,8 +405,9 @@ module.exports = {
                   "&size=420x420&format=Png&isCircular=false"
               );
 
-              delete PlayerData.MetaData.ActiveSession;
-              delete PlayerData.MetaData.ForceLoadSession;
+              if (PlayerData.MetaData) {
+                delete PlayerData.MetaData;
+              }
 
               const Embed = new EmbedBuilder()
                 .setTitle("Add Money")
