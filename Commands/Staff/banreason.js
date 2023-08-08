@@ -16,18 +16,13 @@ const { multiGetLatestMessages } = require("noblox.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("unban")
-    .setDescription("Ban players from the Lawcountry game")
+    .setName("banreason")
+    .setDescription("Check ban reason of a player")
     .addStringOption((option) =>
       option.setName("username").setDescription("Username of Player")
     )
     .addIntegerOption((option) =>
       option.setName("id").setDescription("User ID of player")
-    )
-    .addStringOption((option) =>
-      option
-        .setName("reason")
-        .setDescription("Reason for ban, valid reasons only.")
     ),
   /**
    *
