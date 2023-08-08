@@ -46,35 +46,35 @@ module.exports = {
 
     const { UserId, User } = await GetPlayer(Id || Username);
     if (UserId) {
-      var BanReason;
-      BanDataStore.GetAsync(UserId.toString()).then(([Data]) => {
-        if (Data) {
-          if (typeof Data === "object") {
-            BanReason = Data.Reason;
-          } else if (typeof Data === "string") {
-            const Args = Data.split(";;;"); // OLD METHOD
+      let BanReason;
+      BanDataStore.GetAsync(UserId.toString()).then(async ([BanData]) => {
+        if (BanData) {
+          if (typeof BanData === "object") {
+            BanReason = BanData.Reason;
+          } else if (typeof BanData === "string") {
+            const Args = BanData.split(";;;"); // OLD METHOD
             BanReason = Args[0];
           }
+
+          const Data = await GET(
+            "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+              UserId.toString() +
+              "&size=420x420&format=Png&isCircular=false"
+          );
+
+          const Embed = new EmbedBuilder()
+            .setTitle("Ban Reason")
+            .setColor("#00ff00")
+            .setDescription(`${User} (ID: ${UserId})`)
+            .addFields({
+              name: "Ban Reason",
+              value: BanReason || "unknown",
+              inline: true,
+            })
+            .setThumbnail(Data.data[0].imageUrl);
+          interaction.reply({ embeds: [Embed] });
         }
       });
-
-      const Data = await GET(
-        "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
-          UserId.toString() +
-          "&size=420x420&format=Png&isCircular=false"
-      );
-
-      const Embed = new EmbedBuilder()
-        .setTitle("Ban Reason")
-        .setColor("#00ff00")
-        .setDescription(`${User} (ID: ${UserId})`)
-        .addFields({
-          name: "Ban Reason",
-          value: BanReason || "unknown",
-          inline: true,
-        })
-        .setThumbnail(Data.data[0].imageUrl);
-      interaction.reply({ embeds: [Embed] });
     }
   },
 };
