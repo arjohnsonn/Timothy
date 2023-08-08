@@ -47,13 +47,22 @@ module.exports = {
     const { UserId, User } = await GetPlayer(Id || Username);
     if (UserId) {
       let BanReason;
+      let Length;
       BanDataStore.GetAsync(UserId.toString()).then(async ([BanData]) => {
         if (BanData) {
           if (typeof BanData === "object") {
             BanReason = BanData.Reason;
+            Length = BanData.Length;
           } else if (typeof BanData === "string") {
             const Args = BanData.split(";;;"); // OLD METHOD
             BanReason = Args[0];
+            Length = Args[1];
+          }
+
+          if (!Length) {
+            Length = "Permanent";
+          } else {
+            Length = `Until <t:${Number(Length)}:F>`;
           }
 
           const Data = await GET(
@@ -69,6 +78,11 @@ module.exports = {
             .addFields({
               name: "Ban Reason",
               value: BanReason || "unknown",
+              inline: true,
+            })
+            .addFields({
+              name: "Length",
+              value: Length,
               inline: true,
             })
             .setThumbnail(Data.data[0].imageUrl);
