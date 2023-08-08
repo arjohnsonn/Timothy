@@ -17,7 +17,7 @@ const { multiGetLatestMessages } = require("noblox.js");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("banreason")
-    .setDescription("Check ban reason of a player")
+    .setDescription("View ban reason of a player")
     .addStringOption((option) =>
       option.setName("username").setDescription("Username of Player")
     )
@@ -58,6 +58,12 @@ module.exports = {
         }
       });
 
+      const Data = await GET(
+        "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+          UserId.toString() +
+          "&size=420x420&format=Png&isCircular=false"
+      );
+
       const Embed = new EmbedBuilder()
         .setTitle("Ban Reason")
         .setColor("#00ff00")
@@ -68,7 +74,6 @@ module.exports = {
           inline: true,
         })
         .setThumbnail(Data.data[0].imageUrl);
-      interaction.reply({ embeds: [Embed] });
     }
   },
 };
