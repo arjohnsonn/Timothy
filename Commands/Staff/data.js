@@ -313,11 +313,24 @@ module.exports = {
               "&size=420x420&format=Png&isCircular=false"
           );
 
+          const AllTime =
+            PlayerData.Data.General.Playtime.CIVILIAN +
+            PlayerData.Data.General.Playtime.SLPD +
+            PlayerData.Data.General.Playtime.LCDOT;
           const Embed = new EmbedBuilder()
             .setTitle(`Player Data: ${User} (${UserId.toString()})`)
             .setColor("#ffffff")
-            .setDescription("> *Playtime Data*")
+            .setDescription(
+              "> *Playtime Data*\nALL TIME: " + formatTime(AllTime).toString()
+            )
             .addFields(
+              {
+                name: "CIVILIAN",
+                value: formatTime(
+                  PlayerData.Data.General.Playtime.CIVILIAN
+                ).toString(),
+                inline: true,
+              },
               {
                 name: "SLPD",
                 value: formatTime(
