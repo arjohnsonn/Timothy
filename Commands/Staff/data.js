@@ -233,9 +233,6 @@ module.exports = {
               UserId +
               "&size=420x420&format=Png&isCircular=false"
           );
-          const DateJoined = new Date(
-            Number(PlayerData.Data["Misc"]["FirstJoin"]) * 1000
-          );
 
           const Embed = new EmbedBuilder()
             .setTitle(`Player Data: ${User} (${UserId.toString()})`)
@@ -256,12 +253,7 @@ module.exports = {
               },
               {
                 name: "First Joined",
-                value:
-                  (DateJoined.getMonth() + 1).toString() +
-                  "/" +
-                  DateJoined.getDate().toString() +
-                  "/" +
-                  DateJoined.getFullYear().toString().slice(2),
+                value: `<t:${Number(PlayerData.Data.Misc["FirstJoin"])}:F>`,
                 inline: true,
               },
               {
