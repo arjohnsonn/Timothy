@@ -7,7 +7,7 @@ const {
 
 const { loadCommands } = require("../../Handlers/commandHandler");
 
-const Role = "1057031499544793138";
+const Role = "800513206006054962";
 
 const { Eligible } = require("../../Modules/Eligible");
 const { Log } = require("../../Modules/Log");
