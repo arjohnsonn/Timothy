@@ -2,16 +2,16 @@ const {
   ChatInputCommandInteraction,
   SlashCommandBuilder,
   EmbedBuilder,
+  enableValidators,
 } = require("discord.js");
 
 const Role = "797710521578684467"; // ADMIN
 const { Eligible } = require("../../Modules/Eligible");
 const { Log } = require("../../Modules/Log");
 const { GetPlayer } = require("../../Modules/GetPlayer");
-const { MessageSend } = require("../../Modules/MessageSend");
+var { MessageSend } = require("../../Modules/MessageSend");
 const { GET } = require("../../Modules/GET");
-const { BanDataStore } = require("../../Modules/DataStores");
-const { multiGetLatestMessages } = require("noblox.js");
+var { BanDataStore } = require("../../Modules/DataStores");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -42,6 +42,11 @@ module.exports = {
           "Show your username in the ban message, defaults to false"
         )
     ),
+
+  Refresh: function Refresh() {
+    BanDataStore = require("../../Modules/DataStores").BanDataStore;
+    MessageSend = require("../../Modules/MessageSend").MessageSend;
+  },
 
   /**
    *

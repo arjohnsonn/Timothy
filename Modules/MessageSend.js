@@ -1,21 +1,29 @@
 const axios = require("axios");
-
-const { EmbedBuilder } = require("discord.js");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const { TESTAPI_KEY, API_KEY, TESTUNIVERSE_ID, UNIVERSE_ID } = process.env;
+const {
+  TESTAPI_KEY,
+  API_KEY,
+  TESTUNIVERSE_ID,
+  UNIVERSE_ID,
+  QAAPI_KEY,
+  QAUNIVERSE_ID,
+} = process.env;
+
+var KEY = API_KEY;
+var UNIVERSE = UNIVERSE_ID;
 
 module.exports.MessageSend = async function MessageSend(Message, Topic) {
   const response = await axios
     .post(
-      `https://apis.roblox.com/messaging-service/v1/universes/${UNIVERSE_ID}/topics/${Topic}`,
+      `https://apis.roblox.com/messaging-service/v1/universes/${UNIVERSE}/topics/${Topic}`,
       {
         message: JSON.stringify(Message),
       },
       {
         headers: {
-          "x-api-key": API_KEY,
+          "x-api-key": KEY,
           "Content-Type": "application/json",
         },
       }
@@ -59,5 +67,18 @@ module.exports.MessageSend = async function MessageSend(Message, Topic) {
     }*/
     if (response.status != 200)
       return console.log(`**Error:** An unknown issue has occurred.`);
+  }
+};
+
+module.exports.Refresh = function Refresh(Integer) {
+  if (Integer == 1) {
+    KEY = API_KEY;
+    UNIVERSE = UNIVERSE_ID;
+  } else if (Integer == 2) {
+    KEY = QAAPI_KEY;
+    UNIVERSE = QAUNIVERSE_ID;
+  } else {
+    KEY = TESTAPI_KEY;
+    UNIVERSE = TESTUNIVERSE_ID;
   }
 };

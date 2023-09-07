@@ -8,11 +8,11 @@ const Role = "800513206006054962";
 const { Eligible } = require("../../Modules/Eligible");
 const { Log } = require("../../Modules/Log");
 const { GetPlayer } = require("../../Modules/GetPlayer");
-const { GetPlayerData } = require("../../Modules/GetPlayerData");
-const { MessageSend } = require("../../Modules/MessageSend");
+var { GetPlayerData } = require("../../Modules/GetPlayerData");
+var { MessageSend } = require("../../Modules/MessageSend");
 const { GET } = require("../../Modules/GET");
 const { POST } = require("../../Modules/POST");
-const { SetPlayerData } = require("../../Modules/SetPlayerData");
+var { SetPlayerData } = require("../../Modules/SetPlayerData");
 
 const formatter = new Intl.NumberFormat("en-us", {
   style: "currency",
@@ -114,6 +114,12 @@ module.exports = {
             )
         )
     ),
+
+  Refresh: function Refresh() {
+    GetPlayerData = require("../../Modules/GetPlayerData").GetPlayerData;
+    MessageSend = require("../../Modules/MessageSend").MessageSend;
+    SetPlayerData = require("../../Modules/SetPlayerData").SetPlayerData;
+  },
   /**
    *
    * @param {ChatInputCommandInteraction} interaction

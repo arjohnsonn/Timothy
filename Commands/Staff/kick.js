@@ -7,7 +7,7 @@ const {
 const Role = "797710521578684467"; // ADMIN
 const { Eligible } = require("../../Modules/Eligible");
 const { GetPlayer } = require("../../Modules/GetPlayer");
-const { MessageSend } = require("../../Modules/MessageSend");
+var { MessageSend } = require("../../Modules/MessageSend");
 const { GET } = require("../../Modules/GET");
 const { Log } = require("../../Modules/Log");
 
@@ -33,6 +33,10 @@ module.exports = {
           "Show your username in the kick message, defaults to false"
         )
     ),
+
+  Refresh: function Refresh() {
+    MessageSend = require("../../Modules/MessageSend").MessageSend;
+  },
   /**
    *
    * @param {ChatInputCommandInteraction} interaction

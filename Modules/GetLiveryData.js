@@ -1,4 +1,4 @@
-const { LiveryDataStore } = require("./DataStores");
+var { LiveryDataStore } = require("./DataStores");
 
 const { EmbedBuilder } = require("discord.js");
 
@@ -9,4 +9,8 @@ module.exports.GetLiveryData = async function GetLiveryData(Input) {
     LiveryData = data;
     return LiveryData;
   });
+};
+
+module.exports.Refresh = function Refresh() {
+  LiveryDataStore = require("./DataStores").LiveryDataStore;
 };

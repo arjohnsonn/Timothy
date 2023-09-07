@@ -8,11 +8,10 @@ const Role = "800513206006054962";
 const { Eligible } = require("../../Modules/Eligible");
 const { Log } = require("../../Modules/Log");
 const { GetPlayer } = require("../../Modules/GetPlayer");
-const { GetPlayerData } = require("../../Modules/GetPlayerData");
-const { MessageSend } = require("../../Modules/MessageSend");
+var { GetPlayerData } = require("../../Modules/GetPlayerData");
+var { MessageSend } = require("../../Modules/MessageSend");
 const { GET } = require("../../Modules/GET");
-const { BanDataStore } = require("../../Modules/DataStores");
-const { multiGetLatestMessages } = require("noblox.js");
+var { BanDataStore } = require("../../Modules/DataStores");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -24,6 +23,13 @@ module.exports = {
     .addIntegerOption((option) =>
       option.setName("id").setDescription("User ID of player")
     ),
+
+  Refresh: function Refresh() {
+    BanDataStore = require("../../Modules/DataStores").BanDataStore;
+    MessageSend = require("../../Modules/MessageSend").MessageSend;
+    GetPlayerData = require("../../Modules/GetPlayerData").GetPlayerData;
+  },
+
   /**
    *
    * @param {ChatInputCommandInteraction} interaction

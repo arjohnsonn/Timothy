@@ -1,4 +1,4 @@
-const { MessageSend } = require("../../Modules/MessageSend");
+var { MessageSend } = require("../../Modules/MessageSend");
 
 const Role = "1057031499544793138";
 const { Eligible } = require("../../Modules/Eligible");
@@ -17,6 +17,10 @@ module.exports = {
     .addStringOption((option) =>
       option.setName("message").setDescription("Message").setRequired(true)
     ),
+
+  Refresh: function Refresh() {
+    MessageSend = require("../../Modules/MessageSend").MessageSend;
+  },
   /**
    *
    * @param {ChatInputCommandInteraction} interaction

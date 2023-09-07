@@ -1,4 +1,4 @@
-const { PlayerDataStore } = require("./DataStores");
+var { PlayerDataStore } = require("./DataStores");
 const { EmbedBuilder } = require("discord.js");
 module.exports.GetPlayerData = async function GetPlayerData(
   UserId,
@@ -18,4 +18,8 @@ module.exports.GetPlayerData = async function GetPlayerData(
 
     return PlrData;
   });
+};
+
+module.exports.Refresh = function Refresh() {
+  PlayerDataStore = require("./DataStores").PlayerDataStore;
 };

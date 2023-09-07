@@ -1,4 +1,4 @@
-const { ServerDataStore } = require("./DataStores");
+var { ServerDataStore } = require("./DataStores");
 
 const { EmbedBuilder } = require("discord.js");
 
@@ -10,4 +10,8 @@ module.exports.GetServerData = async function GetServerData(Input) {
 
     return ServerData;
   });
+};
+
+module.exports.Refresh = function Refresh() {
+  ServerDataStore = require("./DataStores").ServerDataStore;
 };
