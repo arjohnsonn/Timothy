@@ -48,10 +48,6 @@ module.exports = {
       var ServerData = await GetServerData(ServerCode);
       var LiveryStorage = await GetLiveryData(ServerCode);
 
-      console.log(ServerCode);
-      console.log(ServerData);
-      console.log(LiveryStorage);
-
       if (!ServerData) {
         console.log("No server data found!");
         return;
@@ -90,13 +86,26 @@ module.exports = {
 
         await MessageSend("Update", ServerCode);
 
-        reaction.message.delete();
+        reaction.message.reactions
+          .removeAll()
+          .catch((error) => console.log("Failed to clear reactions:", error));
+        reaction.message.edit({
+          embeds: [Embed],
+          content: `✅ APPROVED BY ${user.username}`,
+        });
       } else if (reaction.emoji.name === "❌") {
         console.log("Denied");
         delete LiveryStorage[LiveryName];
 
         SetLiveryData(ServerCode, LiveryStorage);
-        reaction.message.delete();
+        reaction.message.reactions
+          .removeAll()
+          .catch((error) => console.log("Failed to clear reactions:", error));
+
+        reaction.message.edit({
+          embeds: [Embed],
+          content: `❌ DENIED BY ${user.username}`,
+        });
       }
     }
   },
