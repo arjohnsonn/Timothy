@@ -86,9 +86,7 @@ module.exports = {
 
         await MessageSend("Update", ServerCode);
 
-        reaction.message.reactions
-          .removeAll()
-          .catch((error) => console.log("Failed to clear reactions:", error));
+        reaction.message.delete();
         interaction.client.channels.cache.get("1019434063653765201").send({
           embeds: [Embed],
           content: `✅ APPROVED BY <@${user.id}>`,
@@ -98,9 +96,7 @@ module.exports = {
         delete LiveryStorage[LiveryName];
 
         SetLiveryData(ServerCode, LiveryStorage);
-        reaction.message.reactions
-          .removeAll()
-          .catch((error) => console.log("Failed to clear reactions:", error));
+        reaction.message.delete();
 
         interaction.client.channels.cache.get("1019434063653765201").send({
           embeds: [Embed],
