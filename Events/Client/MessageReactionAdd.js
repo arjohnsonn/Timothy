@@ -48,6 +48,10 @@ module.exports = {
       var ServerData = await GetServerData(ServerCode);
       var LiveryStorage = await GetLiveryData(ServerCode);
 
+      console.log(ServerCode);
+      console.log(ServerData);
+      console.log(LiveryStorage);
+
       if (!ServerData) {
         console.log("No server data found!");
         return;
