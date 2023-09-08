@@ -91,7 +91,7 @@ module.exports = {
           .catch((error) => console.log("Failed to clear reactions:", error));
         interaction.client.channels.cache.get("1019434063653765201").send({
           embeds: [Embed],
-          content: `✅ APPROVED BY ${user.username}`,
+          content: `✅ APPROVED BY <@${user.id}>`,
         });
       } else if (reaction.emoji.name === "❌") {
         console.log("Denied");
@@ -104,7 +104,7 @@ module.exports = {
 
         interaction.client.channels.cache.get("1019434063653765201").send({
           embeds: [Embed],
-          content: `❌ DENIED BY ${user.username}`,
+          content: `❌ DENIED BY <@${user.id}>`,
         });
       }
     }
