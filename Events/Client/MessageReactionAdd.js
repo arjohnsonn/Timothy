@@ -84,7 +84,13 @@ module.exports = {
         SetServerData(ServerCode, Object.assign({}, ServerData));
         SetLiveryData(ServerCode, LiveryStorage);
 
-        await MessageSend("Update", ServerCode);
+        await MessageSend(
+          {
+            Type: "Livery",
+            Data: PendingLiveryData,
+          },
+          ServerCode
+        );
 
         reaction.message.delete();
         interaction.client.channels.cache.get("1019434063653765201").send({
