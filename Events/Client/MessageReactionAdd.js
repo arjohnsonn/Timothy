@@ -1,12 +1,20 @@
-const { GetServerData } = require("../../Modules/GetServerData");
-const { GetLiveryData } = require("../../Modules/GetLiveryData");
-const { ServerDataStore } = require("../../Modules/DataStores");
-const { SetLiveryData } = require("../../Modules/SetLiveryData");
-const { SetServerData } = require("../../Modules/SetServerData");
-const { MessageSend } = require("../../Modules/MessageSend");
+var { GetServerData } = require("../../Modules/GetServerData");
+var { GetLiveryData } = require("../../Modules/GetLiveryData");
+var { ServerDataStore } = require("../../Modules/DataStores");
+var { SetLiveryData } = require("../../Modules/SetLiveryData");
+var { SetServerData } = require("../../Modules/SetServerData");
+var { MessageSend } = require("../../Modules/MessageSend");
 
 module.exports = {
   name: "messageReactionAdd",
+  Refresh: function Refresh() {
+    GetServerData = require("../../Modules/GetServerData").GetServerData;
+    GetLiveryData = require("../../Modules/GetLiveryData").GetLiveryData;
+    ServerDataStore = require("../../Modules/DataStores").ServerDataStore;
+    SetLiveryData = require("../../Modules/SetLiveryData").SetLiveryData;
+    SetServerData = require("../../Modules/SetServerData").SetServerData;
+    MessageSend = require("../../Modules/MessageSend").MessageSend;
+  },
   async execute(reaction, user) {
     // When a reaction is received, check if the structure is partial
     if (reaction.partial) {
