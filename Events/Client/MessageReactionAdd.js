@@ -93,7 +93,7 @@ module.exports = {
         );
 
         reaction.message.delete();
-        message.client.channels.cache.get("1019434063653765201").send({
+        reaction.message.client.channels.cache.get("1019434063653765201").send({
           embeds: [Embed],
           content: `✅ APPROVED BY <@${user.id}>`,
         });
@@ -104,7 +104,7 @@ module.exports = {
         SetLiveryData(ServerCode, LiveryStorage);
         reaction.message.delete();
 
-        message.client.channels.cache.get("1019434063653765201").send({
+        reaction.message.client.channels.cache.get("1019434063653765201").send({
           embeds: [Embed],
           content: `❌ DENIED BY <@${user.id}>`,
         });

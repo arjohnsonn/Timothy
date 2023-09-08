@@ -50,7 +50,10 @@ module.exports.MessageSend = async function MessageSend(Message, Topic) {
       }
     });
   if (response) {
-    if (response.status == 200) return true;
+    if (response.status == 200) {
+      console.log(`Successfully sent ${Topic} to ${Message}, UID: ${UNIVERSE}`);
+      return true;
+    }
     /*
     if (Type === "setmoney") {
       const Embed = new EmbedBuilder()
