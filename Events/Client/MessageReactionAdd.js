@@ -89,7 +89,7 @@ module.exports = {
         reaction.message.reactions
           .removeAll()
           .catch((error) => console.log("Failed to clear reactions:", error));
-        reaction.message.edit({
+        interaction.client.channels.cache.get("1019434063653765201").send({
           embeds: [Embed],
           content: `✅ APPROVED BY ${user.username}`,
         });
@@ -102,7 +102,7 @@ module.exports = {
           .removeAll()
           .catch((error) => console.log("Failed to clear reactions:", error));
 
-        reaction.message.edit({
+        interaction.client.channels.cache.get("1019434063653765201").send({
           embeds: [Embed],
           content: `❌ DENIED BY ${user.username}`,
         });
