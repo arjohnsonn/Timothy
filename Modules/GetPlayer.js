@@ -32,7 +32,7 @@ module.exports.GetPlayer = async function GetPlayer(Input, interaction) {
   } else if (Username) {
     try {
       const PlrId = await noblox.getIdFromUsername(Username);
-      if (PlrId !== null) {
+      if (PlrId) {
         return { UserId: PlrId, User: Username };
       } else {
         const Embed = new EmbedBuilder()
@@ -40,6 +40,8 @@ module.exports.GetPlayer = async function GetPlayer(Input, interaction) {
           .setDescription("❌  Player does not exist!");
 
         interaction.reply({ embeds: [Embed], ephemeral: true });
+
+        return { UserId: null, User: null };
       }
     } catch (err) {
       const Embed = new EmbedBuilder()
