@@ -388,7 +388,6 @@ module.exports = {
           const Embed = new EmbedBuilder()
             .setTitle(`Player Data: ${User} (${UserId.toString()})`)
             .setColor("#ffffff")
-            .setDescription("> *XP Data*")
             .addFields({
               name: "Server Codes",
               value: PlayerData.Data.Servers.toString(),
