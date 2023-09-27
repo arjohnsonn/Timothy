@@ -395,6 +395,7 @@ module.exports = {
               inline: true,
             })
             .setThumbnail(Data.data[0].imageUrl);
+          interaction.reply({ embeds: [Embed] });
         }
       } else if (DataAction == "add") {
         if (Type == "money") {
