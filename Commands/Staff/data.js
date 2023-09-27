@@ -113,6 +113,17 @@ module.exports = {
               option.setName("id").setDescription("User ID of player")
             )
         )
+        .addSubcommand((subcommand) =>
+          subcommand
+            .setName("servers")
+            .setDescription("Retrives servers")
+            .addStringOption((option) =>
+              option.setName("username").setDescription("Username of Player")
+            )
+            .addIntegerOption((option) =>
+              option.setName("id").setDescription("User ID of player")
+            )
+        )
     ),
 
   Refresh: function Refresh() {
@@ -368,6 +379,22 @@ module.exports = {
             )
             .setThumbnail(Data.data[0].imageUrl);
           interaction.reply({ embeds: [Embed] });
+        } else if (Type == "servers") {
+          const Data = await GET(
+            "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+              UserId +
+              "&size=420x420&format=Png&isCircular=false"
+          );
+          const Embed = new EmbedBuilder()
+            .setTitle(`Player Data: ${User} (${UserId.toString()})`)
+            .setColor("#ffffff")
+            .setDescription("> *XP Data*")
+            .addFields({
+              name: "Server Codes",
+              value: PlayerData.Data.Servers.toString(),
+              inline: true,
+            })
+            .setThumbnail(Data.data[0].imageUrl);
         }
       } else if (DataAction == "add") {
         if (Type == "money") {
