@@ -226,7 +226,7 @@ module.exports = {
             await userData.save();
 
             msg.channel.send(
-              `*<:TimothyThink:881905210065293363>* *${User.username}#${User.discriminator}* has **${userData.Points}** points`
+              `*<:TimothyThink:881905210065293363>* *${User.username}* has **${userData.Points}** points`
             );
 
             break;
@@ -265,7 +265,7 @@ module.exports = {
 
         await userData.save();
         msg.channel.send(
-          `*<:TimothyThink:881905210065293363>* *${User.username}#${User.discriminator}* has **${userData.Points}** points`
+          `*<:TimothyThink:881905210065293363>* *${User.username}* has **${userData.Points}** points`
         );
       }
     } catch (err) {
