@@ -187,7 +187,11 @@ module.exports = {
       if (RuleIdentifiers[Args[0].slice(1)]) {
         for (const [key, value] of Object.entries(RuleIdentifiers)) {
           if (key === Args[0].slice(1)) {
-            var Index = Args[value - 1].toString();
+            var RawIndex = Args[value - 1];
+            var Index;
+            if (RawIndex) {
+              var Index = Args[value - 1].toString();
+            }
             if (Index !== null || Index !== undefined) {
               if (Index.length === 2) {
                 Index = Index.slice(0, -1);
