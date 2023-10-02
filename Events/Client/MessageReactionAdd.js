@@ -95,7 +95,7 @@ module.exports = {
         reaction.message.delete();
         reaction.message.client.channels.cache.get("1149512188910907432").send({
           embeds: [Embed],
-          content: `✅ APPROVED BY <@${user.id}>`,
+          content: `✅ APPROVED BY {user.username}>`,
         });
       } else if (reaction.emoji.name === "❌") {
         console.log("Denied");
@@ -106,7 +106,15 @@ module.exports = {
 
         reaction.message.client.channels.cache.get("1149512188910907432").send({
           embeds: [Embed],
-          content: `❌ DENIED BY <@${user.id}>`,
+          content: `❌ DENIED BY {user.username}>`,
+        });
+      } else if (reaction.emoji.name === "⛔") {
+        console.log("Deleted")
+        reaction.message.delete()
+
+        reaction.message.client.channels.cache.get("1149512188910907432").send({
+          embeds: [Embed],
+          content: `⛔ DELETED BY {user.username}>`,
         });
       }
     }
