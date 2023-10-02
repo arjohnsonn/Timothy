@@ -132,6 +132,7 @@ module.exports = {
       if (msg.webhookId === "1126113581985960007") {
         msg.react("✅");
         msg.react("❌");
+        msg.react("⛔");
       }
     }
 
