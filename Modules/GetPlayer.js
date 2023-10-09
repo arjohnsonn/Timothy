@@ -28,6 +28,8 @@ module.exports.GetPlayer = async function GetPlayer(Input, interaction) {
         .setDescription("❌  Player does not exist!");
 
       interaction.reply({ embeds: [Embed], ephemeral: true });
+
+      return { UserId: null, User: null };
     }
   } else if (Username) {
     try {
