@@ -421,7 +421,8 @@ module.exports = {
               .setTitle(`Player Data: ${User} (${UserId.toString()})`)
               .setColor("#ffffff")
               .setDescription(
-                "> *Playtime Data*\nALL TIME: " + formatTime(AllTime).toString()
+                "> *Playtime Data* **IN HOURS (HOURS:MINS)**\n\n**ALL TIME:** " +
+                  formatTime(AllTime).toString()
               )
               .addFields(
                 {
