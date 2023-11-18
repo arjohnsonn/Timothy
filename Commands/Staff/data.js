@@ -239,11 +239,6 @@ module.exports = {
       if (UserId) {
         const PlayerData = await GetPlayerData(UserId, interaction);
         if (!PlayerData) {
-          const Embed = new EmbedBuilder()
-            .setColor("#ff0000")
-            .setDescription("❌  Player data does not exist!");
-
-          interaction.reply({ embeds: [Embed] });
           return;
         }
 
