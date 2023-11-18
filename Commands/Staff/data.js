@@ -421,43 +421,48 @@ module.exports = {
               .setTitle(`Player Data: ${User} (${UserId.toString()})`)
               .setColor("#ffffff")
               .setDescription(
-                "> *Playtime Data* **IN HOURS (HOURS:MINS)**\n\n**ALL TIME:** " +
+                "> *Playtime Data*\n\n**ALL TIME:** " +
                   formatTime(AllTime).toString()
               )
               .addFields(
                 {
                   name: "CIVILIAN",
-                  value: formatTime(
-                    PlayerData.Data.General.Playtime.CIVILIAN
-                  ).toString(),
+                  value:
+                    formatTime(
+                      PlayerData.Data.General.Playtime.CIVILIAN
+                    ).toString() + ":00",
                   inline: true,
                 },
                 {
                   name: "SLPD",
-                  value: formatTime(
-                    PlayerData.Data.General.Playtime.SLPD
-                  ).toString(),
+                  value:
+                    formatTime(
+                      PlayerData.Data.General.Playtime.SLPD
+                    ).toString() + ":00",
                   inline: true,
                 },
                 {
                   name: "SLFD",
-                  value: formatTime(
-                    PlayerData.Data.General.Playtime.SLFD
-                  ).toString(),
+                  value:
+                    formatTime(
+                      PlayerData.Data.General.Playtime.SLFD
+                    ).toString() + ":00",
                   inline: true,
                 },
                 {
                   name: "LCDOT",
-                  value: formatTime(
-                    PlayerData.Data.General.Playtime.LCDOT
-                  ).toString(),
+                  value:
+                    formatTime(
+                      PlayerData.Data.General.Playtime.LCDOT
+                    ).toString() + ":00",
                   inline: true,
                 },
                 {
                   name: "LCEMS",
-                  value: formatTime(
-                    PlayerData.Data.General.Playtime.LCEMS
-                  ).toString(),
+                  value:
+                    formatTime(
+                      PlayerData.Data.General.Playtime.LCEMS
+                    ).toString() + ":00",
                   inline: true,
                 }
               )
