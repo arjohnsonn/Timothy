@@ -122,6 +122,10 @@ module.exports = {
       }
     }
 
+    if (msg.channelId === "1127145518980661308") {
+      msg.react("⭐"); // SUGGESTION CHANNEL
+    }
+
     // LIVERY APPROVAL
     if (msg.channelId === "1126113534594515036") {
       if (msg.webhookId === "1126113581985960007") {
