@@ -32,11 +32,11 @@ function formatTime(minutes) {
   const s = Math.round(seconds % 60);
 
   if (!(h <= 0)) {
-    return `${h}h ${m}m ${s}s`;
+    return `${h}h ${m}m`;
   } else if (!(m <= 0)) {
-    return `${m}m ${s}s`;
+    return `${m}m`;
   } else {
-    return `${s}s`;
+    return `${s}m`;
   }
   /*return [h, m > 9 ? m : h ? "0" + m : m || "0", s > 9 ? s : "0" + s]
     .filter(Boolean)
