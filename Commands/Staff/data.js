@@ -338,7 +338,7 @@ module.exports = {
             let LastSaved = PlayerData.Data["Logs"]["LastSaved"];
 
             if (LastSaved !== null) {
-              LastSaved = Number(LastSaved);
+              LastSaved = `<t:${Number(LastSaved)}:F></t:$>`;
             } else {
               LastSaved = "No Data Found";
             }
@@ -377,8 +377,7 @@ module.exports = {
                 },
                 {
                   name: "Last Saved",
-                  value: `<t:${LastSaved}:F>`,
-
+                  value: ``,
                   inline: true,
                 }
               )
