@@ -335,6 +335,14 @@ module.exports = {
                 "&size=420x420&format=Png&isCircular=false"
             );
 
+            let LastSaved = PlayerData.Data["Logs"]["LastSaved"];
+
+            if (LastSaved !== null) {
+              LastSaved = Number(LastSaved);
+            } else {
+              LastSaved = "No Data Found";
+            }
+
             const Embed = new EmbedBuilder()
               .setTitle(`Player Data: ${User} (${UserId.toString()})`)
               .setColor("#ffffff")
@@ -364,6 +372,12 @@ module.exports = {
                   value: `<t:${Number(
                     PlayerData.Data["Logs"]["LastJoined"]
                   )}:F>`,
+
+                  inline: true,
+                },
+                {
+                  name: "Last Saved",
+                  value: `<t:${LastSaved}:F>`,
 
                   inline: true,
                 }
