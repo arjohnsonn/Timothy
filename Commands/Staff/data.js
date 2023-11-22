@@ -24,7 +24,9 @@ const formatter = new Intl.NumberFormat("en-us", {
   currency: "USD",
 });
 
-function formatTime(seconds) {
+function formatTime(minutes) {
+  const seconds = minutes * 60;
+
   const h = Math.floor(seconds / 3600);
   const m = Math.floor((seconds % 3600) / 60);
   const s = Math.round(seconds % 60);
@@ -407,7 +409,6 @@ module.exports = {
                 }
               )
               .setThumbnail(Data.data[0].imageUrl);
-            console.log("here");
             interaction.reply({ embeds: [Embed] });
           } else if (Type == "playtime") {
             const Data = await GET(
