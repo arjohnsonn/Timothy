@@ -80,6 +80,7 @@ module.exports = {
             Data = Data.data[0].imageUrl;
           } catch (e) {
             console.log(e);
+            Data = "";
           }
 
           const Embed = new EmbedBuilder()

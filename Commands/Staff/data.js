@@ -278,6 +278,7 @@ module.exports = {
                 Data = Data.data[0].imageUrl;
               } catch (e) {
                 console.log(e);
+                Data = "";
               }
 
               const Embed = new EmbedBuilder()
@@ -309,6 +310,7 @@ module.exports = {
                   Data = Data.data[0].imageUrl;
                 } catch (e) {
                   console.log(e);
+                  Data = "";
                 }
 
                 const Embed = new EmbedBuilder()
@@ -347,6 +349,7 @@ module.exports = {
               Data = Data.data[0].imageUrl;
             } catch (e) {
               console.log(e);
+              Data = "";
             }
 
             let LastSaved = PlayerData.Data["Logs"]["LastSaved"];
@@ -408,6 +411,7 @@ module.exports = {
               Data = Data.data[0].imageUrl;
             } catch (e) {
               console.log(e);
+              Data = "";
             }
             const Embed = new EmbedBuilder()
               .setTitle(`Player Data: ${User} (${UserId.toString()})`)
@@ -454,6 +458,7 @@ module.exports = {
               Data = Data.data[0].imageUrl;
             } catch (e) {
               console.log(e);
+              Data = "";
             }
 
             const AllTime =
@@ -517,6 +522,7 @@ module.exports = {
               Data = Data.data[0].imageUrl;
             } catch (e) {
               console.log(e);
+              Data = "";
             }
             const Embed = new EmbedBuilder()
               .setTitle(`Player Data: ${User} (${UserId.toString()})`)
@@ -556,6 +562,7 @@ module.exports = {
                 Data = Data.data[0].imageUrl;
               } catch (e) {
                 console.log(e);
+                Data = "";
               }
 
               const Embed = new EmbedBuilder()
@@ -587,6 +594,7 @@ module.exports = {
                   Data = Data.data[0].imageUrl;
                 } catch (e) {
                   console.log(e);
+                  Data = "";
                 }
 
                 const Embed = new EmbedBuilder()
