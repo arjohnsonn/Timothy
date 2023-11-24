@@ -504,7 +504,7 @@ module.exports = {
                   inline: true,
                 }
               )
-              .setThumbnail(Data.data[0].imageUrl);
+              .setThumbnail(Data);
             interaction.reply({ embeds: [Embed] });
           } else if (Type == "servers") {
             let Data = "";
