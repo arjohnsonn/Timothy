@@ -70,17 +70,15 @@ module.exports = {
 
       BanDataStore.RemoveAsync(UserId.toString())
         .then(async (Result) => {
-          let Data = "";
-          try {
-            Data = await GET(
-              "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
-                UserId.toString() +
-                "&size=420x420&format=Png&isCircular=false"
-            );
+          let Data = await GET(
+            "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+              UserId +
+              "&size=420x420&format=Png&isCircular=false"
+          );
+          if (Data.data[0].state == "Blocked") {
+            Data = "https://i.imgur.com/91vsV4d.png";
+          } else {
             Data = Data.data[0].imageUrl;
-          } catch (e) {
-            console.log(e);
-            Data = "";
           }
 
           const Embed = new EmbedBuilder()
