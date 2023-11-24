@@ -268,11 +268,17 @@ module.exports = {
               // OFFLINE
               SetPlayerData(UserId, PlayerData);
 
-              const UserData = await GET(
-                "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
-                  UserId.toString() +
-                  "&size=420x420&format=Png&isCircular=false"
-              );
+              let Data = "";
+              try {
+                Data = await GET(
+                  "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+                    UserId.toString() +
+                    "&size=420x420&format=Png&isCircular=false"
+                );
+                Data = Data.data[0].imageUrl;
+              } catch (e) {
+                console.log(e);
+              }
 
               const Embed = new EmbedBuilder()
                 .setTitle("Set Money")
@@ -282,7 +288,7 @@ module.exports = {
                     .format(Amount)
                     .slice(0, -3)}`
                 )
-                .setThumbnail(UserData.data[0].imageUrl);
+                .setThumbnail(Data);
               interaction.reply({ embeds: [Embed] });
             } else {
               var T = {
@@ -293,14 +299,16 @@ module.exports = {
 
               const Result = await MessageSend(T, "Admin", interaction);
               if (Result == true) {
-                const UserData = await GET(
-                  "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
-                    UserId.toString() +
-                    "&size=420x420&format=Png&isCircular=false"
-                );
-
-                if (PlayerData.MetaData) {
-                  delete PlayerData.MetaData;
+                let Data = "";
+                try {
+                  Data = await GET(
+                    "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+                      UserId.toString() +
+                      "&size=420x420&format=Png&isCircular=false"
+                  );
+                  Data = Data.data[0].imageUrl;
+                } catch (e) {
+                  console.log(e);
                 }
 
                 const Embed = new EmbedBuilder()
@@ -311,7 +319,7 @@ module.exports = {
                       .format(Amount)
                       .slice(0, -3)}`
                   )
-                  .setThumbnail(UserData.data[0].imageUrl);
+                  .setThumbnail(Data);
 
                 SetPlayerData(UserId, PlayerData);
 
@@ -329,11 +337,17 @@ module.exports = {
               }
             }
 
-            const Data = await GET(
-              "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
-                UserId +
-                "&size=420x420&format=Png&isCircular=false"
-            );
+            let Data = "";
+            try {
+              Data = await GET(
+                "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+                  UserId.toString() +
+                  "&size=420x420&format=Png&isCircular=false"
+              );
+              Data = Data.data[0].imageUrl;
+            } catch (e) {
+              console.log(e);
+            }
 
             let LastSaved = PlayerData.Data["Logs"]["LastSaved"];
 
@@ -381,14 +395,20 @@ module.exports = {
                   inline: true,
                 }
               )
-              .setThumbnail(Data.data[0].imageUrl);
+              .setThumbnail(Data);
             interaction.reply({ embeds: [Embed] });
           } else if (Type == "xp") {
-            const Data = await GET(
-              "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
-                UserId +
-                "&size=420x420&format=Png&isCircular=false"
-            );
+            let Data = "";
+            try {
+              Data = await GET(
+                "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+                  UserId.toString() +
+                  "&size=420x420&format=Png&isCircular=false"
+              );
+              Data = Data.data[0].imageUrl;
+            } catch (e) {
+              console.log(e);
+            }
             const Embed = new EmbedBuilder()
               .setTitle(`Player Data: ${User} (${UserId.toString()})`)
               .setColor("#ffffff")
@@ -421,14 +441,20 @@ module.exports = {
                   inline: true,
                 }
               )
-              .setThumbnail(Data.data[0].imageUrl);
+              .setThumbnail(Data);
             interaction.reply({ embeds: [Embed] });
           } else if (Type == "playtime") {
-            const Data = await GET(
-              "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
-                UserId +
-                "&size=420x420&format=Png&isCircular=false"
-            );
+            let Data = "";
+            try {
+              Data = await GET(
+                "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+                  UserId +
+                  "&size=420x420&format=Png&isCircular=false"
+              );
+              Data = Data.data[0].imageUrl;
+            } catch (e) {
+              console.log(e);
+            }
 
             const AllTime =
               PlayerData.Data.General.Playtime.CIVILIAN +
@@ -481,11 +507,17 @@ module.exports = {
               .setThumbnail(Data.data[0].imageUrl);
             interaction.reply({ embeds: [Embed] });
           } else if (Type == "servers") {
-            const Data = await GET(
-              "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
-                UserId +
-                "&size=420x420&format=Png&isCircular=false"
-            );
+            let Data = "";
+            try {
+              Data = await GET(
+                "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+                  UserId.toString() +
+                  "&size=420x420&format=Png&isCircular=false"
+              );
+              Data = Data.data[0].imageUrl;
+            } catch (e) {
+              console.log(e);
+            }
             const Embed = new EmbedBuilder()
               .setTitle(`Player Data: ${User} (${UserId.toString()})`)
               .setColor("#ffffff")
@@ -494,7 +526,7 @@ module.exports = {
                 value: PlayerData.Data.Servers.toString(),
                 inline: true,
               })
-              .setThumbnail(Data.data[0].imageUrl);
+              .setThumbnail(Data);
             interaction.reply({ embeds: [Embed] });
           }
         } else if (DataAction == "add") {
@@ -514,11 +546,17 @@ module.exports = {
               // OFFLINE
               SetPlayerData(UserId, PlayerData);
 
-              const UserData = await GET(
-                "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
-                  UserId.toString() +
-                  "&size=420x420&format=Png&isCircular=false"
-              );
+              let Data = "";
+              try {
+                Data = await GET(
+                  "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+                    UserId.toString() +
+                    "&size=420x420&format=Png&isCircular=false"
+                );
+                Data = Data.data[0].imageUrl;
+              } catch (e) {
+                console.log(e);
+              }
 
               const Embed = new EmbedBuilder()
                 .setTitle("Add Money")
@@ -528,7 +566,7 @@ module.exports = {
                     .format(Amount)
                     .slice(0, -3)} for ${User}`
                 )
-                .setThumbnail(UserData.data[0].imageUrl);
+                .setThumbnail(Data);
               interaction.reply({ embeds: [Embed] });
             } else {
               var T = {
@@ -539,14 +577,16 @@ module.exports = {
 
               const Result = await MessageSend(T, "Admin", interaction);
               if (Result == true) {
-                const UserData = await GET(
-                  "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
-                    UserId.toString() +
-                    "&size=420x420&format=Png&isCircular=false"
-                );
-
-                if (PlayerData.MetaData) {
-                  delete PlayerData.MetaData;
+                let Data = "";
+                try {
+                  Data = await GET(
+                    "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+                      UserId.toString() +
+                      "&size=420x420&format=Png&isCircular=false"
+                  );
+                  Data = Data.data[0].imageUrl;
+                } catch (e) {
+                  console.log(e);
                 }
 
                 const Embed = new EmbedBuilder()
@@ -557,7 +597,7 @@ module.exports = {
                       .format(Amount)
                       .slice(0, -3)} for ${User}`
                   )
-                  .setThumbnail(UserData.data[0].imageUrl);
+                  .setThumbnail(Data);
                 interaction.reply({ embeds: [Embed] });
               }
             }

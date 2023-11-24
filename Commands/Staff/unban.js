@@ -70,11 +70,17 @@ module.exports = {
 
       BanDataStore.RemoveAsync(UserId.toString())
         .then(async (Result) => {
-          const Data = await GET(
-            "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
-              UserId.toString() +
-              "&size=420x420&format=Png&isCircular=false"
-          );
+          let Data = "";
+          try {
+            Data = await GET(
+              "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+                UserId.toString() +
+                "&size=420x420&format=Png&isCircular=false"
+            );
+            Data = Data.data[0].imageUrl;
+          } catch (e) {
+            console.log(e);
+          }
 
           const Embed = new EmbedBuilder()
             .setTitle("Unban")
@@ -85,7 +91,7 @@ module.exports = {
               value: BanReason || "unknown",
               inline: true,
             })
-            .setThumbnail(Data.data[0].imageUrl);
+            .setThumbnail(Data);
           interaction.reply({ embeds: [Embed] });
         })
         .catch((err) => {

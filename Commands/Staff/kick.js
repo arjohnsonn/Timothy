@@ -84,18 +84,24 @@ module.exports = {
 
       const Result = await MessageSend(T, "Admin", interaction);
       if (Result == true) {
-        const Data = await GET(
-          "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
-            UserId.toString() +
-            "&size=420x420&format=Png&isCircular=false"
-        );
+        let Data = "";
+        try {
+          Data = await GET(
+            "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+              UserId.toString() +
+              "&size=420x420&format=Png&isCircular=false"
+          );
+          Data = Data.data[0].imageUrl;
+        } catch (e) {
+          console.log(e);
+        }
 
         const Embed = new EmbedBuilder()
           .setTitle("Kick")
           .setColor("#00ff00")
           .setDescription(`✅  Kicked ${User} (ID: ${UserId})`)
           .addFields({ name: "Reason", value: Reason, inline: true })
-          .setThumbnail(Data.data[0].imageUrl);
+          .setThumbnail(Data);
         interaction.reply({ embeds: [Embed] });
       }
     }
