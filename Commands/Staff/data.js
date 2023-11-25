@@ -388,7 +388,7 @@ module.exports = {
                 },
                 {
                   name: "Last Saved",
-                  value: ``,
+                  value: LastSaved,
                   inline: true,
                 }
               )
