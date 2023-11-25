@@ -348,7 +348,9 @@ module.exports = {
 
             let LastSaved = PlayerData.Data["Logs"]["LastSaved"];
 
-            if (LastSaved !== null) {
+            console.log(LastSaved);
+
+            if (LastSaved !== undefined) {
               LastSaved = `<t:${Number(LastSaved)}:F></t:$>`;
             } else {
               LastSaved = "No Data Found";
