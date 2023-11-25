@@ -55,7 +55,9 @@ module.exports = {
 
     const Embed = new EmbedBuilder()
       .setColor("#ffffff")
-      .setDescription(`Successfully set Staff Lounge as **${Value}** ✅`);
+      .setDescription(
+        `Successfully set Staff Lounge Visibility as **${Value}** ✅`
+      );
 
     interaction.reply({ embeds: [Embed] });
   },
