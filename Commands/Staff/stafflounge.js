@@ -50,7 +50,7 @@ module.exports = {
 
     Channel.permissionOverwrites.create(
       Channel.guild.roles.cache.get("822824831937413130"),
-      { ViewChannel: Value }
+      { ViewChannel: Value, Stream: true, Connect: false, Speak: true }
     );
 
     const Embed = new EmbedBuilder()
