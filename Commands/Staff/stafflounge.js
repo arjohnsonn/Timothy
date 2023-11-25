@@ -57,6 +57,6 @@ module.exports = {
       .setColor("#ffffff")
       .setDescription(`Successfully set Staff Lounge as **${Value}** ✅`);
 
-    interaction.editReply({ embeds: [Embed] });
+    interaction.reply({ embeds: [Embed] });
   },
 };
