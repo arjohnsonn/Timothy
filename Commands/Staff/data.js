@@ -331,7 +331,7 @@ module.exports = {
               if (WantedTime.toString() === "0") {
                 return "N/A";
               } else {
-                return formatTime(Number(WantedTime)).toString();
+                return formatTime(Number(WantedTime / 60)).toString();
               }
             }
 
