@@ -351,7 +351,7 @@ module.exports = {
             console.log(LastSaved);
 
             if (LastSaved !== undefined) {
-              LastSaved = `<t:${Number(LastSaved)}:F></t:$>`;
+              LastSaved = `<t:${Number(LastSaved)}:F>`;
             } else {
               LastSaved = "No Data Found";
             }
