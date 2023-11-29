@@ -16,7 +16,7 @@ module.exports = {
     .setDescription("Updates the game with the Updater module")
     .addStringOption((option) =>
       option
-        .setName("Confirm")
+        .setName("confirm")
         .setDescription("Are you sure? Type 'Confirm' to update the game.")
         .setRequired(true)
     ),
