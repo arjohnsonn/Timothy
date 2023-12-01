@@ -39,7 +39,7 @@ module.exports = {
     if (Text != "Confirm") {
       const Embed = new EmbedBuilder()
         .setColor("#ff0000")
-        .setTitle("Updater")
+        .setTitle("Live Update")
         .setDescription(`You did not enter the correct confirmation code!`);
       interaction.reply({
         embeds: [Embed],
@@ -55,7 +55,7 @@ module.exports = {
     if (Result === true) {
       const Embed = new EmbedBuilder()
         .setColor("#00ff00")
-        .setTitle("Updater")
+        .setTitle("Live Update")
         .setDescription(
           `✅ Successfully sent out an update via Updater ${Reason}`
         );
