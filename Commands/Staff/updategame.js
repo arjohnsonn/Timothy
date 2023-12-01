@@ -33,7 +33,7 @@ module.exports = {
 
     Log(interaction);
 
-    let Text = interaction.options.getString("message");
+    let Text = interaction.options.getString("confirm");
 
     if (!Text) return;
     if (Text != "Confirm") {
