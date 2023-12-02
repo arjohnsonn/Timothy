@@ -1,11 +1,10 @@
 var { PlayerDataStore } = require("./DataStores");
 
 module.exports.SetPlayerData = function SetPlayerData(UserId, Data) {
-  if (Data && Data.Data && Data.Data.Logs && Data.Data.Logs.Chat) {
-    for (const [key, value] of Data.Data.Logs.Chat) {
-      if (value.Chat.contains("#")) {
-        delete Data.Logs.Chat[key];
-      }
+  for (let value of Data.Data.Logs.Chat) {
+    if (value.Chat.includes("#")) {
+      const Index = Data.Data.Logs.Chat.indexOf(value);
+      delete Data.Data.Logs.Chat[Index];
     }
   }
 
