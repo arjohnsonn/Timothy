@@ -516,12 +516,23 @@ module.exports = {
             } else {
               Data = Data.data[0].imageUrl;
             }
+
+            var Value;
+
+            if (Object.keys(PlayerData.Data.Servers).length == 0) {
+              Value = "*No Servers*";
+            } else {
+              Value = PlayerData.Data.Servers.toString();
+            }
+
+            console.log(PlayerData.Data.Servers);
+
             const Embed = new EmbedBuilder()
               .setTitle(`Player Data: ${User} (${UserId.toString()})`)
               .setColor("#ffffff")
               .addFields({
                 name: "Server Codes",
-                value: PlayerData.Data.Servers.toString(),
+                value: Value,
                 inline: true,
               })
               .setThumbnail(Data);
