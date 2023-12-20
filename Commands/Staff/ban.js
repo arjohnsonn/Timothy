@@ -37,7 +37,7 @@ module.exports = {
     )
     .addBooleanOption((option) =>
       option
-        .setName("anonymous")
+        .setName("showusername")
         .setDescription(
           "Show your username in the ban message, defaults to false"
         )
@@ -61,7 +61,7 @@ module.exports = {
     let Id = interaction.options.getInteger("id");
     let Reason = interaction.options.getString("reason");
     const Length = interaction.options.getInteger("length");
-    let Mod = interaction.options.getBoolean("anonymous");
+    let Mod = interaction.options.getBoolean("showusername");
 
     if (Id) {
       Id = Id.toString();
