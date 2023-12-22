@@ -4,7 +4,7 @@ const {
   EmbedBuilder,
 } = require("discord.js");
 
-const Role = "800513206006054962";
+const Role = "1046503404769382532";
 const { Eligible } = require("../../Modules/Eligible");
 const { Log } = require("../../Modules/Log");
 const { GetPlayer } = require("../../Modules/GetPlayer");
