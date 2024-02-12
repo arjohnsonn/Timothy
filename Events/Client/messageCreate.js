@@ -122,7 +122,8 @@ module.exports = {
 
     if (
       msg.channelId === "1127145518980661308" ||
-      msg.channelId == "1189420284592259184"
+      msg.channelId == "1189420284592259184" ||
+      msg.channelId == "1199807061383454730"
     ) {
       msg.react("⭐"); // SUGGESTION CHANNEL
     }
