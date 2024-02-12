@@ -10,7 +10,7 @@ const { message } = require("noblox.js");
 const PointModifiers = [];
 const PendingActions = [];
 
-const NoPing = ["606035652789796881"];
+const NoPing = ["606035652789796881", "1052681103988756560"];
 const RuleIdentifiers = {
   warn: 4, // split
   mute: 5,
