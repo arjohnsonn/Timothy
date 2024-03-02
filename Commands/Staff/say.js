@@ -31,6 +31,16 @@ module.exports = {
         content: "You can not ping everyone using Timothy!",
       });
       return;
+    } else if (String.match("@here")) {
+      interaction.reply({
+        content: "You can not ping here using Timothy!",
+      });
+      return;
+    } else if (String.match("<@&")) {
+      interaction.reply({
+        content: "You can not ping roles using Timothy!",
+      });
+      return;
     }
 
     Log(interaction);
