@@ -25,9 +25,16 @@ module.exports = {
   execute(interaction) {
     if (Eligible(Role, interaction) == false) return;
 
+    const String = interaction.options.getString("input");
+    if (String.match("@everyone")) {
+      interaction.reply({
+        content: "You can not ping everyone using Timothy!",
+      });
+      return;
+    }
+
     Log(interaction);
 
-    const String = interaction.options.getString("input");
     interaction.channel.send(String);
     interaction.reply({ content: "Sent!", ephemeral: true });
   },
