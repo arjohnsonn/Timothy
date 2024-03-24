@@ -56,9 +56,7 @@ module.exports = {
       const Embed = new EmbedBuilder()
         .setColor("#00ff00")
         .setTitle("Live Update")
-        .setDescription(
-          `✅ Successfully sent out an update via Updater ${Reason}`
-        );
+        .setDescription(`✅ Successfully sent out an update via Updater`);
       interaction.reply({
         embeds: [Embed],
       });
