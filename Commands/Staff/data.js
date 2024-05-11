@@ -112,6 +112,25 @@ module.exports = {
                 )
             )
         )
+        .addSubcommand((subcommand) =>
+          subcommand
+            .setName("gamepass")
+            .setDescription(
+              "Grant a gamepass to a player. MUST TYPE EXACT GAMEPASS"
+            )
+            .addStringOption((option) =>
+              option
+                .setName("code")
+                .setDescription("Server Code for the server")
+                .setRequired(true)
+            )
+            .addStringOption((option) =>
+              option
+                .setName("name")
+                .setDescription("Name of gamepass")
+                .setRequired(true)
+            )
+        )
     )
     .addSubcommandGroup((group) =>
       group
@@ -186,8 +205,8 @@ module.exports = {
     if (NonPlayerCmd.includes(`${DataAction} ${Type}`)) {
       if (DataAction == "add") {
         if (Type == "expansion") {
-          const Code = interaction.options.getString("code");
-          var RawExpansion = interaction.options.getString("expansion");
+          const name = interaction.options.getString("name");
+          var username = interaction.options.getString("username");
           var Expansion;
 
           switch (RawExpansion) {

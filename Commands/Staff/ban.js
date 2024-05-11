@@ -111,11 +111,15 @@ module.exports = {
               UserId +
               "&size=420x420&format=Png&isCircular=false"
           );
-          if (Data.data[0].state == "Blocked") {
+
+          const data = Data.data[0].state;
+
+          if (data.state == "Blocked") {
             Data = "https://i.imgur.com/91vsV4d.png";
           } else {
-            Data = Data.data[0].imageUrl;
+            Data = data.imageUrl;
           }
+
           const Embed = new EmbedBuilder()
             .setTitle("Ban")
             .setColor("#00ff00")
