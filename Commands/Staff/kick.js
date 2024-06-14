@@ -14,7 +14,7 @@ const { Log } = require("../../Modules/Log");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("kick")
-    .setDescription("Kick players from the Lawcountry game")
+    .setDescription("Kick players from the game")
     .addStringOption((option) =>
       option.setName("username").setDescription("Username of Player")
     )

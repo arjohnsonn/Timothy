@@ -16,7 +16,7 @@ var { BanDataStore } = require("../../Modules/DataStores");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("unban")
-    .setDescription("Ban players from the Lawcountry game")
+    .setDescription("Ban players from the game")
     .addStringOption((option) =>
       option.setName("username").setDescription("Username of Player")
     )
