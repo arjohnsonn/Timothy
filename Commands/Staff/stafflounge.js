@@ -15,6 +15,7 @@ module.exports = {
     .setDescription("Sets staff lounge voice chat to visible/invisible")
     .addStringOption((option) =>
       option
+
         .setName("value")
         .setDescription("Visible/invisible")
         .setRequired(true)

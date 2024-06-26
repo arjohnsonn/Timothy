@@ -12,6 +12,7 @@ var { GetPlayerData } = require("../../Modules/GetPlayerData");
 var { MessageSend } = require("../../Modules/MessageSend");
 const { GET } = require("../../Modules/GET");
 var { BanDataStore } = require("../../Modules/DataStores");
+const RobloxBan = require("../../Modules/RobloxBan");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -22,11 +23,6 @@ module.exports = {
     )
     .addIntegerOption((option) =>
       option.setName("id").setDescription("User ID of player")
-    )
-    .addStringOption((option) =>
-      option
-        .setName("reason")
-        .setDescription("Reason for ban, valid reasons only.")
     ),
 
   Refresh: function Refresh() {
@@ -52,10 +48,18 @@ module.exports = {
         .setDescription("❌  Please specify type of player identification!");
 
       interaction.reply({ embeds: [Embed] });
+      return;
     }
 
-    const { UserId, User } = await GetPlayer(Id || Username);
+    const { UserId, User } = await GetPlayer(Id || Username, interaction);
     if (UserId) {
+      let Success = false;
+      try {
+        const { data: banData } = await RobloxBan(UserId, "1s", "", "", true); // ROBLOX API
+        Success = true;
+      } catch (e) {
+        console.log(e);
+      }
       var BanReason;
       BanDataStore.GetAsync(UserId.toString()).then(([Data]) => {
         if (Data) {
@@ -90,7 +94,12 @@ module.exports = {
               value: BanReason || "unknown",
               inline: true,
             })
-            .setThumbnail(Data);
+            .setThumbnail(Data)
+            .setFooter({
+              text: Success
+                ? `User has been Roblox API unbanned`
+                : "Error Occurred: User has NOT been Roblox API unbanned",
+            });
           interaction.reply({ embeds: [Embed] });
         })
         .catch((err) => {

@@ -35,9 +35,11 @@ module.exports = {
     .setDescription("Sets bot to normal, QA, scripting plate mode")
     .addStringOption((option) =>
       option
+
         .setName("value")
         .setDescription("The type of plate you want to set the bot to")
         .setRequired(true)
+
         .addChoices(
           { name: "Normal", value: "normal" },
           { name: "QA", value: "qa" },

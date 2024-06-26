@@ -14,7 +14,7 @@ module.exports.GetPlayer = async function GetPlayer(Input, interaction) {
     try {
       const Name = await noblox.getUsernameFromId(Id);
       if (Name !== null) {
-        return { UserId: Id, User: Name };
+        return { UserId: Number(Id), User: Name };
       } else {
         const Embed = new EmbedBuilder()
           .setColor("#ff0000")
@@ -35,7 +35,7 @@ module.exports.GetPlayer = async function GetPlayer(Input, interaction) {
     try {
       const PlrId = await noblox.getIdFromUsername(Username);
       if (PlrId) {
-        return { UserId: PlrId, User: Username };
+        return { UserId: Number(PlrId), User: Username };
       } else {
         const Embed = new EmbedBuilder()
           .setColor("#ff0000")

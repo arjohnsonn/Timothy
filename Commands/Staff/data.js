@@ -57,10 +57,12 @@ module.exports = {
             .setDescription("Set money to player")
             .addIntegerOption((option) =>
               option
+
                 .setName("amount")
                 .setDescription("Set amount of cash to player")
                 .setRequired(true)
             )
+
             .addStringOption((option) =>
               option.setName("username").setDescription("Username of Player")
             )
@@ -79,8 +81,9 @@ module.exports = {
             .setDescription("Set money to player")
             .addIntegerOption((option) =>
               option
+
                 .setName("amount")
-                .setDescription("Set amount of cash to player")
+                .setDescription("Add amount of cash to player")
                 .setRequired(true)
             )
             .addStringOption((option) =>
@@ -96,15 +99,18 @@ module.exports = {
             .setDescription("Grant an expansion to a players' server")
             .addStringOption((option) =>
               option
+
                 .setName("code")
                 .setDescription("Server Code for the server")
                 .setRequired(true)
             )
             .addStringOption((option) =>
               option
+
                 .setName("expansion")
                 .setDescription("The expansion")
                 .setRequired(true)
+
                 .addChoices(
                   { name: "EnhancedServer", value: "enhancedserver" },
                   { name: "Roleplay+", value: "roleplayplus" },
@@ -120,15 +126,16 @@ module.exports = {
             )
             .addStringOption((option) =>
               option
-                .setName("code")
-                .setDescription("Server Code for the server")
-                .setRequired(true)
-            )
-            .addStringOption((option) =>
-              option
+
                 .setName("name")
                 .setDescription("Name of gamepass")
                 .setRequired(true)
+            )
+            .addStringOption((option) =>
+              option.setName("username").setDescription("Username of Player")
+            )
+            .addIntegerOption((option) =>
+              option.setName("id").setDescription("User ID of player")
             )
         )
     )

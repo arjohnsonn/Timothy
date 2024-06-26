@@ -2,7 +2,6 @@ const {
   ChatInputCommandInteraction,
   SlashCommandBuilder,
   EmbedBuilder,
-  enableValidators,
 } = require("discord.js");
 
 const Role = "797710521578684467"; // ADMIN
@@ -12,27 +11,45 @@ const { GetPlayer } = require("../../Modules/GetPlayer");
 var { MessageSend } = require("../../Modules/MessageSend");
 const { GET } = require("../../Modules/GET");
 var { BanDataStore } = require("../../Modules/DataStores");
+const RobloxBan = require("../../Modules/RobloxBan");
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("ban")
     .setDescription("Ban players from the game")
     .addStringOption((option) =>
+      option
+        .setName("displayreason")
+        .setDescription("Reason for ban, will be showed to the player")
+        .setRequired(true)
+    )
+    .addStringOption((option) =>
+      option
+        .setName("privatereason")
+        .setDescription(
+          "Reason for ban, only seen by staff so it can be more specifc"
+        )
+        .setRequired(true)
+    )
+    .addStringOption((option) =>
       option.setName("username").setDescription("Username of Player")
     )
     .addIntegerOption((option) =>
       option.setName("id").setDescription("User ID of player")
     )
-    .addStringOption((option) =>
-      option
-        .setName("reason")
-        .setDescription("Reason for ban, valid reasons only.")
-    )
+
     .addIntegerOption((option) =>
       option
         .setName("length")
         .setDescription(
           "Leave blank/do not use this argument if permanent, sets length of ban IN DAYS"
+        )
+    )
+    .addBooleanOption((option) =>
+      option
+        .setName("excludealtaccounts")
+        .setDescription(
+          "Should this ban exclude alt account detection? Defaults to false"
         )
     )
     .addBooleanOption((option) =>
@@ -59,16 +76,24 @@ module.exports = {
 
     const Username = interaction.options.getString("username");
     let Id = interaction.options.getInteger("id");
-    let Reason = interaction.options.getString("reason");
+    let displayReason = interaction.options.getString("displayreason");
+    let privateReason = interaction.options.getString("privatereason");
     const Length = interaction.options.getInteger("length");
     let Mod = interaction.options.getBoolean("showusername");
+    let excludeAlts = interaction.options.getBoolean("excludealtaccounts");
 
     if (Id) {
       Id = Id.toString();
     }
 
-    if (!Reason) {
+    if (!displayReason) {
       Reason = "unspecified";
+    }
+    if (!privateReason) {
+      privateReason = "unspecified";
+    }
+    if (!excludeAlts) {
+      excludeAlts = false;
     }
 
     if (Mod == false || !Mod) {
@@ -90,10 +115,10 @@ module.exports = {
       banTime = Number(Date.now().toString().slice(0, -3)) + 86400 * Length;
     }
 
-    const { UserId, User } = await GetPlayer(Id || Username);
+    const { UserId, User } = await GetPlayer(Id || Username, interaction);
     if (UserId) {
       var T = {
-        Reason: Reason,
+        Reason: displayReason,
         Moderator: Mod,
         Length: banTime,
         Player: UserId,
@@ -101,8 +126,25 @@ module.exports = {
       };
       const Result = await MessageSend(T, "Admin", interaction);
       if (Result == true) {
+        let Success = false;
+        try {
+          const { data: banData } = await RobloxBan(
+            UserId,
+            Length ? `${Length * 86400}s` : null,
+            privateReason,
+            displayReason,
+            excludeAlts
+          ); // ROBLOX API
+          console.log(banData);
+          if (banData != null) {
+            Success = true;
+          }
+        } catch (e) {
+          console.log(e);
+        }
+
         BanDataStore.SetAsync(UserId.toString(), {
-          Reason: Reason,
+          Reason: displayReason,
           Length: banTime,
           Moderator: Mod,
         }).then(async (Result) => {
@@ -124,8 +166,21 @@ module.exports = {
             .setTitle("Ban")
             .setColor("#00ff00")
             .setDescription(`✅  Banned ${User} (ID: ${UserId})`)
-            .addFields({ name: "Reason", value: Reason, inline: true })
-            .setThumbnail(Data);
+            .addFields({
+              name: "Reason",
+              value: `${displayReason} (Staff Reason: ${privateReason})`,
+              inline: true,
+            })
+            .setThumbnail(Data)
+            .setFooter({
+              text: Success
+                ? "User has been Roblox API banned"
+                : "Error Occured: User has NOT been Roblox API banned" +
+                  " | " +
+                  !excludeAlts
+                ? `Alt Detection: ON`
+                : "Alt Detection: OFF",
+            });
           interaction.reply({ embeds: [Embed] });
         });
       }

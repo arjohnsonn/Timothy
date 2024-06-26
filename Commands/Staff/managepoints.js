@@ -16,15 +16,18 @@ module.exports = {
     .setDescription("Manage user points through Timothy")
     .addUserOption((option) =>
       option
+
         .setName("user")
         .setDescription("Select the user you want to manage points for")
         .setRequired(true)
     )
     .addStringOption((option) =>
       option
+
         .setName("action")
         .setDescription("Action you want to do with points")
         .setRequired(true)
+
         .addChoices(
           { name: "Add", value: "add" },
           { name: "Get", value: "get" },

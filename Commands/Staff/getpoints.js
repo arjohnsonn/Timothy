@@ -16,6 +16,7 @@ module.exports = {
     .setDescription("View your moderation points through Timothy")
     .addUserOption((option) =>
       option
+
         .setName("user")
         .setDescription("Select the user you want to view points for.")
         .setRequired(true)

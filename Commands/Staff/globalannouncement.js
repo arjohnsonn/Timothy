@@ -15,7 +15,7 @@ module.exports = {
     .setName("globalannouncement")
     .setDescription("Create a global announcement for all active servers")
     .addStringOption((option) =>
-      option.setName("message").setDescription("Message").setRequired(true)
+      option.setRequired(true).setName("message").setDescription("Message")
     ),
 
   Refresh: function Refresh() {

@@ -14,9 +14,9 @@ module.exports = {
     .setDescription("Express your thoughts with Timothy!")
     .addStringOption((option) =>
       option
+        .setRequired(true)
         .setName("input")
         .setDescription("What do you want to say?")
-        .setRequired(true)
     ),
   /**
    *
