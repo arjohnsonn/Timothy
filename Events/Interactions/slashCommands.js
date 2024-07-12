@@ -1,4 +1,5 @@
 const { ChatInputCommandInteraction, EmbedBuilder } = require("discord.js");
+const { GUILD_ID, TESTGUILD_ID } = process.env;
 
 module.exports = {
   name: "interactionCreate",
@@ -26,8 +27,8 @@ module.exports = {
     }
 
     if (
-      interaction.guild.id !== "739910144254673046" &&
-      interaction.guild.id !== "594760698639155200"
+      interaction.guild.id !== GUILD_ID &&
+      interaction.guild.id !== TESTGUILD_ID
     ) {
       const Embed = new EmbedBuilder()
         .setColor("#ff0000")

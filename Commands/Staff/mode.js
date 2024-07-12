@@ -5,8 +5,6 @@ const {
   EmbedBuilder,
 } = require("discord.js");
 
-const { loadCommands } = require("../../Handlers/commandHandler");
-
 const Role = "800513206006054962";
 
 const { Eligible } = require("../../Modules/Eligible");

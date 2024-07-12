@@ -1,14 +1,6 @@
-const {
-  EmbedBuilder,
-  ThreadAutoArchiveDuration,
-  InteractionCollector,
-} = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const Database = require("../../Schemas/Points");
-const ms = require("ms");
-const { message } = require("noblox.js");
-
-const PointModifiers = [];
-const PendingActions = [];
+const { GUILD_ID } = process.env;
 
 const NoPing = [
   "606035652789796881",
@@ -79,7 +71,7 @@ module.exports = {
               .setTitle("❌ Do Not @ Developers")
               .setColor("#e0392d")
               .setDescription(
-                "Pinging developers is a violation of [Rule 3](https://discord.com/channels/739910144254673046/1016528431246217228/1056973562604421130)"
+                `Pinging developers is a violation of [Rule 3](https://discord.com/channels/${GUILD_ID}/1016528431246217228/1056973562604421130)`
               );
             //.setImage("https://i.imgur.com/oCwYJBD.png");
 

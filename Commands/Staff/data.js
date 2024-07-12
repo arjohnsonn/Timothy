@@ -37,9 +37,6 @@ function formatTime(minutes) {
   } else {
     return `${s}m`;
   }
-  /*return [h, m > 9 ? m : h ? "0" + m : m || "0", s > 9 ? s : "0" + s]
-    .filter(Boolean)
-    .join(":");*/
 }
 
 module.exports = {

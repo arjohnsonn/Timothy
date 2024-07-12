@@ -7,7 +7,6 @@ const {
 const Database = require("../../Schemas/Points");
 const Role = "1046503404769382532"; // ADMINISTRATION
 const { Eligible } = require("../../Modules/Eligible");
-const { Log } = require("../../Modules/Log");
 
 module.exports = {
   data: new SlashCommandBuilder()
