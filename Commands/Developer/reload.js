@@ -1,7 +1,6 @@
 const {
   ChatInputCommandInteraction,
   SlashCommandBuilder,
-  PermissionFlagsBits,
   Client,
 } = require("discord.js");
 

@@ -1,7 +1,5 @@
 var { LiveryDataStore } = require("./DataStores");
 
-const { EmbedBuilder } = require("discord.js");
-
 module.exports.GetLiveryData = async function GetLiveryData(Input) {
   return await LiveryDataStore.GetAsync(Input).then(([data]) => {
     let LiveryData;

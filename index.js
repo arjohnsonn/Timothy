@@ -4,13 +4,9 @@ dotenv.config();
 const { token, databaseToken } = process.env;
 
 const {
-  REST,
-  Routes,
   Client,
   GatewayIntentBits,
-  EmbedBuilder,
   ActivityType,
-  Embed,
   Partials,
   Collection,
 } = require("discord.js");
