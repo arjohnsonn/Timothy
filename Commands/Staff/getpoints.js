@@ -2,7 +2,6 @@ const {
   ChatInputCommandInteraction,
   SlashCommandBuilder,
   EmbedBuilder,
-  Embed,
 } = require("discord.js");
 
 const Database = require("../../Schemas/Points");
@@ -43,10 +42,7 @@ module.exports = {
       return;
     } else {
       const CurrentPoints = userData.Points;
-      let addition = "";
-      if (CurrentPoints > 1 || CurrentPoints === 0) {
-        addition = "s";
-      }
+      let addition = CurrentPoints > 1 || CurrentPoints === 0 ? "s" : "";
       const Embed = new EmbedBuilder()
         .setColor("#ffffff")
         .setDescription(

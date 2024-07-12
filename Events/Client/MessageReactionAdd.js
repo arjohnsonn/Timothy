@@ -45,8 +45,8 @@ module.exports = {
         }
       });
 
-      var ServerData = await GetServerData(ServerCode);
-      var LiveryStorage = await GetLiveryData(ServerCode);
+      let ServerData = await GetServerData(ServerCode);
+      let LiveryStorage = await GetLiveryData(ServerCode);
 
       if (!ServerData) {
         console.log("No server data found!");

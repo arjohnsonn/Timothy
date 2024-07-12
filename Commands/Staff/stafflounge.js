@@ -38,7 +38,7 @@ module.exports = {
     const Option = interaction.options.getString("value");
     if (Option == null) return;
 
-    var Value;
+    let Value;
     if (Option == "visible") {
       Value = true;
     } else if (Option == "invisible") {

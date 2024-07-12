@@ -48,7 +48,7 @@ module.exports = {
       return;
     }
 
-    var T = {
+    let T = {
       Type: "Update",
     };
 

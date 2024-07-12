@@ -60,7 +60,8 @@ module.exports = {
       } catch (e) {
         console.log(e);
       }
-      var BanReason;
+
+      let BanReason;
       BanDataStore.GetAsync(UserId.toString()).then(([Data]) => {
         if (Data) {
           if (typeof Data === "object") {

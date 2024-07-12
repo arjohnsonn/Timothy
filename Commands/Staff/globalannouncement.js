@@ -34,7 +34,7 @@ module.exports = {
 
     if (!Reason) return;
 
-    var T = {
+    let T = {
       Type: "Announcement",
       Message: Reason,
       Moderator: `By ${interaction.user.username} (${interaction.member.roles.highest.name})`,

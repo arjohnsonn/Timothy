@@ -54,7 +54,7 @@ module.exports = {
         return;
       }
 
-      var EARole;
+      let EARole;
       try {
         EARole = interaction.guild.roles.cache.get("871389346748592128");
       } catch {

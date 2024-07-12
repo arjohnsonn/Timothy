@@ -2,8 +2,8 @@ const noblox = require("noblox.js");
 const { EmbedBuilder } = require("discord.js");
 
 module.exports.GetPlayer = async function GetPlayer(Input, interaction) {
-  var Id;
-  var Username;
+  let Id;
+  let Username;
   if (isNaN(Input)) {
     Username = Input;
   } else {

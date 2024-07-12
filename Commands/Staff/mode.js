@@ -62,13 +62,14 @@ module.exports = {
 
     await interaction.deferReply();
 
-    var Integer;
-    if (Option == "normal") {
-      Integer = 1;
-    } else if (Option == "qa") {
-      Integer = 2;
-    } else {
-      Integer = 3;
+    let Integer;
+    switch (Option) {
+      case "normal":
+        Integer = 1;
+      case "qa":
+        Integer = 2;
+      default:
+        Integer = 3;
     }
 
     DataStores.SetQA(Integer);

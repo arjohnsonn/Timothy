@@ -2,7 +2,6 @@ const {
   ChatInputCommandInteraction,
   SlashCommandBuilder,
   EmbedBuilder,
-  Embed,
 } = require("discord.js");
 
 const Database = require("../../Schemas/Points");
@@ -100,7 +99,6 @@ module.exports = {
       });
     }
 
-    var addition = "";
     const CurrentPoints = userData.Points;
     if (Action === "add") {
       userData.Points = CurrentPoints + Value;
@@ -112,9 +110,7 @@ module.exports = {
         userData.Points = 0;
       }
     } else if (Action === "get") {
-      if (userData.Points > 1 || userData.Points === 0) {
-        addition = "s";
-      }
+      let addition = userData.Points > 1 || userData.Points === 0 ? "s" : "";
       const Embed = new EmbedBuilder()
         .setColor("#ffffff")
         .setDescription(
@@ -123,14 +119,10 @@ module.exports = {
       interaction.reply({ embeds: [Embed] });
     }
 
-    // TODO: ADD POINT THRESHOLD CHECK HERE
-
     await userData.save();
 
+    let addition = userData.Points > 1 || userData.Points === 0 ? "s" : "";
     if (Action === "add") {
-      if (userData.Points > 1 || userData.Points === 0) {
-        addition = "s";
-      }
       const Embed = new EmbedBuilder().setColor("#ffffff").setDescription(
         `✅ Successfully added **${Value}** point${addition} to ${Member.user.username}.
           \n*${Member.user.username}* now has **${userData.Points}** point${addition}`
@@ -146,9 +138,6 @@ module.exports = {
 
       interaction.reply({ embeds: [Embed] });
     } else if (Action === "subtract") {
-      if (userData.Points > 1 || userData.Points === 0) {
-        addition = "s";
-      }
       const Embed = new EmbedBuilder().setColor("#ffffff").setDescription(
         `✅ Successfully subtracted **${Value}** point${addition} to *${Member.user.username}*.
           \n*${Member.user.username}* now has **${userData.Points}** point${addition}`

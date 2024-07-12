@@ -117,7 +117,7 @@ module.exports = {
 
     const { UserId, User } = await GetPlayer(Id || Username, interaction);
     if (UserId) {
-      var T = {
+      let T = {
         Reason: displayReason,
         Moderator: Mod,
         Length: banTime,

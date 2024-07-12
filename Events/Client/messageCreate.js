@@ -108,11 +108,9 @@ module.exports = {
       }
     }
 
-    /*if (
-      // enter suggestion channel ID here
-    ) {
+    if (msg.channelId === "1127145518980661308") {
       msg.react("⭐");
-    }*/
+    }
 
     // LIVERY APPROVAL
     if (msg.channelId === "1126113534594515036") {
@@ -157,11 +155,11 @@ module.exports = {
       if (RuleIdentifiers[Args[0].slice(1)]) {
         for (const [key, value] of Object.entries(RuleIdentifiers)) {
           if (key === Args[0].slice(1)) {
-            var RawIndex = Args[value - 1];
-            var Index;
+            let RawIndex = Args[value - 1];
+            let Index;
 
             if (RawIndex) {
-              var Index = Args[value - 1].toString();
+              Index = Args[value - 1].toString();
             }
 
             if (Index !== null || Index !== undefined) {
@@ -170,7 +168,7 @@ module.exports = {
               }
             }
 
-            var AddPoint = RulePoints[Index];
+            let AddPoint = RulePoints[Index];
 
             if (!AddPoint || AddPoint === null) {
               const Action = Args[0].slice(1);

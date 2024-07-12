@@ -48,15 +48,11 @@ module.exports = {
 
     const Username = interaction.options.getString("username");
     let Id = interaction.options.getInteger("id");
-    let Reason = interaction.options.getString("reason");
+    let Reason = interaction.options.getString("reason") || "unspecified";
     let Mod = interaction.options.getBoolean("anonymous");
 
     if (Id) {
       Id = Id.toString();
-    }
-
-    if (!Reason) {
-      Reason = "unspecified";
     }
 
     if (Mod == false) {
@@ -75,14 +71,14 @@ module.exports = {
 
     const { UserId, User } = await GetPlayer(Id || Username);
     if (UserId) {
-      var T = {
+      let messageData = {
         Moderator: Mod,
         Reason: Reason,
         Player: UserId,
         Type: "Kick",
       };
 
-      const Result = await MessageSend(T, "Admin", interaction);
+      const Result = await MessageSend(messageData, "Admin", interaction);
       if (Result == true) {
         let Data = await GET(
           "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +

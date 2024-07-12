@@ -2,7 +2,6 @@ const {
   ChatInputCommandInteraction,
   SlashCommandBuilder,
   EmbedBuilder,
-  ThreadChannel,
 } = require("discord.js");
 
 const Role = "800513206006054962";
@@ -206,15 +205,15 @@ module.exports = {
     const Username = interaction.options.getString("username");
     let Id = interaction.options.getInteger("id");
 
-    var DataAction = interaction.options.getSubcommandGroup();
-    var Type = interaction.options.getSubcommand();
+    let DataAction = interaction.options.getSubcommandGroup();
+    let Type = interaction.options.getSubcommand();
 
     if (NonPlayerCmd.includes(`${DataAction} ${Type}`)) {
       if (DataAction == "add") {
         if (Type == "expansion") {
           const name = interaction.options.getString("name");
-          var username = interaction.options.getString("username");
-          var Expansion;
+          let username = interaction.options.getString("username");
+          let Expansion;
 
           switch (RawExpansion) {
             case "enhancedserver":
@@ -316,7 +315,7 @@ module.exports = {
                 .setThumbnail(Data);
               interaction.reply({ embeds: [Embed] });
             } else {
-              var T = {
+              let T = {
                 Type: "Money",
                 Player: UserId,
                 Amount: Amount,
@@ -543,7 +542,7 @@ module.exports = {
               Data = Data.data[0].imageUrl;
             }
 
-            var Value;
+            let Value;
 
             if (Object.keys(PlayerData.Data.Servers).length == 0) {
               Value = "*No Servers*";
@@ -603,7 +602,7 @@ module.exports = {
                 .setThumbnail(Data);
               interaction.reply({ embeds: [Embed] });
             } else {
-              var T = {
+              let T = {
                 Type: "AddMoney",
                 Player: UserId,
                 Amount: Amount,
