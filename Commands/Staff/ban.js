@@ -143,46 +143,54 @@ module.exports = {
           console.log(e);
         }
 
+        let Success2 = false;
         BanDataStore.SetAsync(UserId.toString(), {
           Reason: displayReason,
           Length: banTime,
           Moderator: Mod,
         }).then(async (Result) => {
-          let Data = await GET(
-            "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
-              UserId +
-              "&size=420x420&format=Png&isCircular=false"
-          );
-
-          const data = Data.data[0].state;
-
-          if (data.state == "Blocked") {
-            Data = "https://i.imgur.com/91vsV4d.png";
-          } else {
-            Data = data.imageUrl;
-          }
-
-          const Embed = new EmbedBuilder()
-            .setTitle("Ban")
-            .setColor("#00ff00")
-            .setDescription(`✅  Banned ${User} (ID: ${UserId})`)
-            .addFields({
-              name: "Reason",
-              value: `${displayReason} (Staff Reason: ${privateReason})`,
-              inline: true,
-            })
-            .setThumbnail(Data)
-            .setFooter({
-              text: Success
-                ? "User has been Roblox API banned"
-                : "Error Occured: User has NOT been Roblox API banned" +
-                  " | " +
-                  !excludeAlts
-                ? `Alt Detection: ON`
-                : "Alt Detection: OFF",
-            });
-          interaction.reply({ embeds: [Embed] });
+          Success2 = true;
         });
+
+        let Data = await GET(
+          "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+            UserId +
+            "&size=420x420&format=Png&isCircular=false"
+        );
+
+        const data = Data.data[0].state;
+
+        if (data.state == "Blocked") {
+          Data = "https://i.imgur.com/91vsV4d.png";
+        } else {
+          Data = data.imageUrl;
+        }
+
+        const Embed = new EmbedBuilder()
+          .setTitle("Ban")
+          .setColor("#00ff00")
+          .setDescription(`✅  Banned ${User} (ID: ${UserId})`)
+          .addFields({
+            name: "Reason",
+            value: `${displayReason} (Staff Reason: ${privateReason})`,
+            inline: true,
+          })
+          .setThumbnail(Data)
+          .setFooter({
+            text: Success
+              ? "User has been Roblox API banned"
+              : "Error Occurred: User has NOT been Roblox API banned" +
+                " | " +
+                Success2
+              ? "User has been Roblox DS banned"
+              : "Error Occurred: User has NOT been Roblox DS banned" +
+                  " | " +
+                  excludeAlts ==
+                false
+              ? `Alt Detection: ON`
+              : "Alt Detection: OFF",
+          });
+        interaction.reply({ embeds: [Embed] });
       }
     }
   },
