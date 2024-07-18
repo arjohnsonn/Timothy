@@ -73,35 +73,10 @@ module.exports = {
         }
       });
 
+      let Success2 = false;
       BanDataStore.RemoveAsync(UserId.toString())
         .then(async (Result) => {
-          let Data = await GET(
-            "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
-              UserId +
-              "&size=420x420&format=Png&isCircular=false"
-          );
-          if (Data.data[0].state == "Blocked") {
-            Data = "https://i.imgur.com/91vsV4d.png";
-          } else {
-            Data = Data.data[0].imageUrl;
-          }
-
-          const Embed = new EmbedBuilder()
-            .setTitle("Unban")
-            .setColor("#00ff00")
-            .setDescription(`✅  Unbanned ${User} (ID: ${UserId})`)
-            .addFields({
-              name: "Ban Reason",
-              value: BanReason || "unknown",
-              inline: true,
-            })
-            .setThumbnail(Data)
-            .setFooter({
-              text: Success
-                ? `User has been Roblox API unbanned`
-                : "Error Occurred: User has NOT been Roblox API unbanned",
-            });
-          interaction.reply({ embeds: [Embed] });
+          Success = true;
         })
         .catch((err) => {
           const Embed = new EmbedBuilder()
@@ -109,6 +84,38 @@ module.exports = {
             .setDescription(`❌ ${User} is not currently banned!`);
           interaction.reply({ embeds: [Embed] });
         });
+
+      let Data = await GET(
+        "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+          UserId +
+          "&size=420x420&format=Png&isCircular=false"
+      );
+      if (Data.data[0].state == "Blocked") {
+        Data = "https://i.imgur.com/91vsV4d.png";
+      } else {
+        Data = Data.data[0].imageUrl;
+      }
+
+      const Embed = new EmbedBuilder()
+        .setTitle("Unban")
+        .setColor("#00ff00")
+        .setDescription(`✅  Unbanned ${User} (ID: ${UserId})`)
+        .addFields({
+          name: "Ban Reason",
+          value: BanReason || "unknown",
+          inline: true,
+        })
+        .setThumbnail(Data)
+        .setFooter({
+          text: Success
+            ? `User has been Roblox API unbanned`
+            : "Error Occurred: User has NOT been Roblox API unbanned" +
+              " | " +
+              Success2
+            ? "User has been DataStore unbanned"
+            : "Error Occurred: User has NOT been DataStore unbanned",
+        });
+      interaction.reply({ embeds: [Embed] });
     }
   },
 };
