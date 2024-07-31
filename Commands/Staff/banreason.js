@@ -21,6 +21,9 @@ module.exports = {
     )
     .addIntegerOption((option) =>
       option.setName("id").setDescription("User ID of player")
+    )
+    .addBooleanOption((option) =>
+      option.setName("hideprivatereason").setDescription("Hide private reason?")
     ),
 
   Refresh: function Refresh() {
@@ -40,6 +43,8 @@ module.exports = {
 
     const Username = interaction.options.getString("username");
     let Id = interaction.options.getInteger("id");
+    const hidePrivateReason =
+      interaction.options.getBoolean("hideprivatereason");
 
     if (!Id && !Username) {
       const Embed = new EmbedBuilder()
@@ -90,12 +95,14 @@ module.exports = {
             .setDescription(`${User} (ID: ${UserId})`)
             .addFields({
               name: "Ban Reason",
-              value: BanReason || "unknown",
+              value: BanReason ?? "unknown",
               inline: true,
             })
             .addFields({
               name: "Private Reason",
-              value: RobloxBanData.privateReason || "unknown",
+              value: hidePrivateReason
+                ? "*Hidden via command*"
+                : RobloxBanData.privateReason || "unknown",
               inline: true,
             })
             .addFields({
