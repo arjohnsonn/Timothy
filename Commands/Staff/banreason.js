@@ -8,8 +8,7 @@ const Role = "1046503404769382532";
 const { Eligible } = require("../../Modules/Eligible");
 const { Log } = require("../../Modules/Log");
 const { GetPlayer } = require("../../Modules/GetPlayer");
-var { GetPlayerData } = require("../../Modules/GetPlayerData");
-var { MessageSend } = require("../../Modules/MessageSend");
+const GetRobloxBan = require("../../Modules/GetRobloxBan");
 const { GET } = require("../../Modules/GET");
 var { BanDataStore } = require("../../Modules/DataStores");
 
@@ -55,7 +54,7 @@ module.exports = {
       let BanReason;
       let Length;
 
-      BanDataStore.GetAsync(UserId.toString()).then(async ([BanData]) => {
+      await BanDataStore.GetAsync(UserId.toString()).then(async ([BanData]) => {
         if (BanData) {
           if (typeof BanData === "object") {
             BanReason = BanData.Reason;
@@ -83,6 +82,8 @@ module.exports = {
             Data = Data.data[0].imageUrl;
           }
 
+          const RobloxBanData = await GetRobloxBan(UserId);
+
           const Embed = new EmbedBuilder()
             .setTitle("Ban Reason")
             .setColor("#00ff00")
@@ -93,8 +94,18 @@ module.exports = {
               inline: true,
             })
             .addFields({
+              name: "Private Reason",
+              value: RobloxBanData.privateReason || "unknown",
+              inline: true,
+            })
+            .addFields({
               name: "Length",
               value: Length,
+              inline: true,
+            })
+            .addFields({
+              name: "Time of Ban",
+              value: `<t:${RobloxBanData.startTimeUnix}:F>`,
               inline: true,
             })
             .setThumbnail(Data);
