@@ -62,11 +62,11 @@ module.exports = {
       }
 
       let BanReason;
-      BanDataStore.GetAsync(UserId.toString()).then(([Data]) => {
+      await BanDataStore.GetAsync(UserId.toString()).then(([Data]) => {
         if (Data) {
-          if (typeof Data === "object") {
+          if (typeof Data == "object") {
             BanReason = Data.Reason;
-          } else if (typeof Data === "string") {
+          } else if (typeof Data == "string") {
             const Args = Data.split(";;;"); // OLD METHOD
             BanReason = Args[0];
           }
@@ -74,16 +74,20 @@ module.exports = {
       });
 
       let Success2 = false;
-      BanDataStore.RemoveAsync(UserId.toString())
-        .then(async (Result) => {
-          Success = true;
-        })
-        .catch((err) => {
-          const Embed = new EmbedBuilder()
-            .setColor("#ff0000")
-            .setDescription(`❌ ${User} is not currently banned!`);
-          interaction.reply({ embeds: [Embed] });
-        });
+      try {
+        await BanDataStore.RemoveAsync(UserId.toString());
+        Success2 = true;
+      } catch (e) {
+        console.log(e);
+
+        const Embed = new EmbedBuilder()
+          .setColor("#ff0000")
+          .setDescription(`❌ ${User} is not currently DS banned!`);
+
+        interaction.reply({ embeds: [Embed] });
+
+        return;
+      }
 
       let Data = await GET(
         "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
@@ -107,14 +111,16 @@ module.exports = {
         })
         .setThumbnail(Data)
         .setFooter({
-          text: Success
-            ? `User has been Roblox API unbanned`
-            : "Error Occurred: User has NOT been Roblox API unbanned" +
-              " | " +
-              Success2
-            ? "User has been DataStore unbanned"
-            : "Error Occurred: User has NOT been DataStore unbanned",
+          text:
+            (Success
+              ? `User has been Roblox API unbanned`
+              : "Error Occurred: User has NOT been Roblox API unbanned") +
+            " - " +
+            (Success2
+              ? "User has been DataStore unbanned"
+              : "Error Occurred: User has NOT been DataStore unbanned"),
         });
+
       interaction.reply({ embeds: [Embed] });
     }
   },
