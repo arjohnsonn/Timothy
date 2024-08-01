@@ -59,6 +59,8 @@ module.exports = {
       let BanReason;
       let Length;
 
+      const RobloxBanData = await GetRobloxBan(UserId);
+
       await BanDataStore.GetAsync(UserId.toString()).then(async ([BanData]) => {
         if (BanData) {
           if (typeof BanData === "object") {

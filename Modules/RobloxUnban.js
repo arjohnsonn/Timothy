@@ -7,13 +7,7 @@ updateConfig({
   cloudKey: API_KEY,
 });
 
-module.exports = async (
-  userId,
-  duration,
-  privateReason,
-  displayReason,
-  excludeAltAccounts
-) => {
+module.exports = async (userId) => {
   const idempotencyKey = uuidv4(),
     firstSent = new Date();
 
@@ -25,11 +19,10 @@ module.exports = async (
     firstSent,
     updatedData: {
       gameJoinRestriction: {
-        active: true,
-        duration: duration,
-        privateReason,
-        displayReason,
-        excludeAltAccounts: excludeAltAccounts,
+        active: false,
+        displayReason: "Unbanned",
+        privateReason: "Unbanned",
+        excludeAltAccounts: false,
       },
     },
   });

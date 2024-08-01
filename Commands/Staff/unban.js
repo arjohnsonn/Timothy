@@ -12,7 +12,7 @@ var { GetPlayerData } = require("../../Modules/GetPlayerData");
 var { MessageSend } = require("../../Modules/MessageSend");
 const { GET } = require("../../Modules/GET");
 var { BanDataStore } = require("../../Modules/DataStores");
-const RobloxBan = require("../../Modules/RobloxBan");
+const RobloxUnban = require("../../Modules/RobloxUnban");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -55,14 +55,7 @@ module.exports = {
     if (UserId) {
       let Success = false;
       try {
-        const { data: banData } = await RobloxBan(
-          UserId,
-          null,
-          null,
-          null,
-          null,
-          false
-        ); // ROBLOX API
+        await RobloxUnban(UserId); // ROBLOX API
         Success = true;
       } catch (e) {
         console.log(e);
