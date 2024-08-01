@@ -133,7 +133,8 @@ module.exports = {
             Length ? `${Length * 86400}s` : null,
             privateReason,
             displayReason,
-            excludeAlts
+            excludeAlts,
+            true
           ); // ROBLOX API
           console.log(banData);
           if (banData != null) {

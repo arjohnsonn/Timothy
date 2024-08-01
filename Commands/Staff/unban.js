@@ -55,7 +55,14 @@ module.exports = {
     if (UserId) {
       let Success = false;
       try {
-        const { data: banData } = await RobloxBan(UserId, "1s", "", "", true); // ROBLOX API
+        const { data: banData } = await RobloxBan(
+          UserId,
+          "1s",
+          "",
+          "",
+          true,
+          false
+        ); // ROBLOX API
         Success = true;
       } catch (e) {
         console.log(e);

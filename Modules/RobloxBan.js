@@ -12,7 +12,8 @@ module.exports = async (
   duration,
   privateReason,
   displayReason,
-  excludeAltAccounts
+  excludeAltAccounts,
+  active
 ) => {
   const idempotencyKey = uuidv4(),
     firstSent = new Date();
@@ -25,7 +26,7 @@ module.exports = async (
     firstSent,
     updatedData: {
       gameJoinRestriction: {
-        active: true,
+        active: active,
         duration: duration,
         privateReason,
         displayReason,
