@@ -53,13 +53,13 @@ module.exports = {
 
     const { UserId, User } = await GetPlayer(Id || Username, interaction);
     if (UserId) {
-      let Sucscess = false;
+      let Success = false;
       try {
         const { data: banData } = await RobloxBan(
           UserId,
           null,
-          "",
-          "",
+          null,
+          null,
           null,
           false
         ); // ROBLOX API
