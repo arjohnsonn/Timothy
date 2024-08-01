@@ -88,7 +88,7 @@ module.exports = {
       } catch (e) {
         console.log(e);
         notExist = true;
-        if (e == "Key does not exist") {
+        if (e != "Key does not exist") {
           return;
         }
       }
