@@ -81,19 +81,16 @@ module.exports = {
       });
 
       let Success2 = false;
+      let notExist = false;
       try {
         await BanDataStore.RemoveAsync(UserId.toString());
         Success2 = true;
       } catch (e) {
         console.log(e);
-
-        const Embed = new EmbedBuilder()
-          .setColor("#ff0000")
-          .setDescription(`❌ ${User} is not currently DS banned!`);
-
-        interaction.reply({ embeds: [Embed] });
-
-        return;
+        notExist = true;
+        if (e == "Key does not exist") {
+          return;
+        }
       }
 
       let Data = await GET(
@@ -107,6 +104,17 @@ module.exports = {
         Data = Data.data[0].imageUrl;
       }
 
+      let footerText =
+        (Success
+          ? `User has been Roblox API unbanned`
+          : "Error Occurred: User has NOT been Roblox API unbanned") + " - ";
+
+      if (Success2 && !notExist) {
+        footerText += `User has been DataStore unbanned`;
+      } else if (!Success2 && notExist) {
+        footerText += `User is already DataStore unbanned (Key did not exist)`;
+      }
+
       const Embed = new EmbedBuilder()
         .setTitle("Unban")
         .setColor("#00ff00")
@@ -118,14 +126,7 @@ module.exports = {
         })
         .setThumbnail(Data)
         .setFooter({
-          text:
-            (Success
-              ? `User has been Roblox API unbanned`
-              : "Error Occurred: User has NOT been Roblox API unbanned") +
-            " - " +
-            (Success2
-              ? "User has been DataStore unbanned"
-              : "Error Occurred: User has NOT been DataStore unbanned"),
+          text: footerText,
         });
 
       interaction.reply({ embeds: [Embed] });
