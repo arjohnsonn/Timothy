@@ -57,7 +57,7 @@ module.exports = {
       try {
         const { data: banData } = await RobloxBan(
           UserId,
-          "1s",
+          null,
           "",
           "",
           true,
