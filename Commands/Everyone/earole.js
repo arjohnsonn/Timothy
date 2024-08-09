@@ -7,15 +7,18 @@ const {
 const Role = "822824831937413130"; // VERIFIED
 const Role2 = "1046503404769382532"; // ADMIN+
 const { Eligible } = require("../../Modules/Eligible");
-const { Log } = require("../../Modules/Log");
 const { GetPlayer } = require("../../Modules/GetPlayer");
 const { GetPlayerData } = require("../../Modules/GetPlayerData");
-const Database = require("../../Schemas/Points");
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("earole")
     .setDescription("Obtain your EA role in Discord"),
+
+  Refresh: function Refresh() {
+    GetPlayerData = require("../../Modules/GetPlayerData").GetPlayerData;
+  },
+
   /**
    *
    * @param {ChatInputCommandInteraction} interaction
