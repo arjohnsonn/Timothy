@@ -50,11 +50,16 @@ module.exports = {
     }
 
     try {
-      interaction.reply({
-        content:
+      const Embed = new EmbedBuilder()
+        .setColor("#ffffff")
+        .setDescription(
           "<:Developer:1067282725742051368> " +
-          (reason != null ? reason : "This bug has been fixed in new servers."),
-      });
+            (reason != null
+              ? reason
+              : "This bug has been fixed in new servers.")
+        );
+
+      interaction.reply({ embeds: [Embed] });
 
       setTimeout(async () => {
         await thread.setAppliedTags([id]);
