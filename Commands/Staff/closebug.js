@@ -1,0 +1,72 @@
+const {
+  ChatInputCommandInteraction,
+  SlashCommandBuilder,
+} = require("discord.js");
+
+const Role = "1046503404769382532"; // ADMINISTRATION
+const { Eligible } = require("../../Modules/Eligible");
+const { Log } = require("../../Modules/Log");
+
+module.exports = {
+  data: new SlashCommandBuilder()
+    .setName("closebug")
+    .setDescription("Closes bug report")
+    .addStringOption((option) =>
+      option.setName("reason").setDescription("Reason for closing the bug")
+    )
+    .addBooleanOption((option) =>
+      option.setName("live").setDescription("Is this bug live?")
+    ),
+  /**
+   *
+   * @param {ChatInputCommandInteraction} interaction
+   */
+  async execute(interaction, client) {
+    if (Eligible(Role, interaction) == false) return;
+    Log(interaction);
+
+    const reason = interaction.options.getString("reason");
+    const live = interaction.options.getBoolean("live");
+    let isNormal = interaction.channelId == "1046864664203636908";
+    let id;
+
+    const thread = interaction.channel;
+    if (!thread.isThread()) {
+      return interaction.reply({
+        content: "This command can only be used in a thread.",
+        ephemeral: true,
+      });
+    } else if (thread.locked) {
+      return interaction.reply({
+        content: "This thread is already closed.",
+        ephemeral: true,
+      });
+    }
+
+    if (isNormal) {
+      id = live ? "1292219360219365416" : "1292219407224803439";
+    } else {
+      id = live ? "1046873292520296530" : "1046873780477235280";
+    }
+
+    try {
+      interaction.reply({
+        content:
+          "<:Developer:1067282725742051368> " +
+          (reason != null ? reason : "This bug has been fixed in new servers."),
+      });
+
+      setTimeout(async () => {
+        await thread.setAppliedTags([id]);
+        await thread.setLocked(true);
+        await thread.setArchived(true);
+      }, 1000);
+    } catch (error) {
+      console.log(error);
+      interaction.reply({
+        content: "There was an error while closing the bug.",
+        ephemeral: true,
+      });
+    }
+  },
+};
