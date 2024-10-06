@@ -54,10 +54,8 @@ module.exports = {
       const Embed = new EmbedBuilder()
         .setColor("#ffffff")
         .setDescription(
-          "<:Developer:1067282725742051368> " +
-            (reason != null
-              ? reason
-              : "This bug has been fixed in new servers.")
+          "<:Developer:1067282725742051368> **This bug report has been closed for the following:**\n\n" +
+            (reason != null ? reason : "Bug has been fixed")
         );
 
       interaction.reply({ embeds: [Embed] });
