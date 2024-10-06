@@ -1,6 +1,7 @@
 const {
   ChatInputCommandInteraction,
   SlashCommandBuilder,
+  EmbedBuilder,
 } = require("discord.js");
 
 const Role = "1046503404769382532"; // ADMINISTRATION
