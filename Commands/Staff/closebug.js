@@ -44,7 +44,7 @@ module.exports = {
       });
     }
 
-    if (isNormal) {
+    if (isNormal && live != null) {
       id = live ? "1292219360219365416" : "1292219407224803439";
     } else {
       id = live ? "1046873292520296530" : "1046873780477235280";
@@ -63,7 +63,9 @@ module.exports = {
       interaction.reply({ embeds: [Embed] });
 
       setTimeout(async () => {
-        await thread.setAppliedTags([id]);
+        if (id != null) {
+          await thread.setAppliedTags([id]);
+        }
         await thread.setLocked(true);
         await thread.setArchived(true);
       }, 1000);
