@@ -101,7 +101,10 @@ module.exports = {
       }
     }
 
-    if (msg.channelId === "1127145518980661308") {
+    if (
+      msg.channelId === "1127145518980661308" ||
+      msg.channelId === "1307448510693642251"
+    ) {
       msg.react("⭐");
     }
 
