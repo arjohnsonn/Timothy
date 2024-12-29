@@ -39,6 +39,14 @@ function formatTime(minutes) {
   }
 }
 
+function GetTime(WantedTime) {
+  if (WantedTime.toString() === "0") {
+    return "N/A";
+  } else {
+    return formatTime(Number(WantedTime / 60)).toString();
+  }
+}
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("data")
@@ -284,79 +292,29 @@ module.exports = {
             );
 
             const Amount = interaction.options.getInteger("amount");
+
             PlayerData.Data.General.Cash = Amount;
 
-            if (PresenceData.userPresences[0].userPresenceType == 0) {
-              // OFFLINE
-              SetPlayerData(UserId, PlayerData);
-
-              let Data = await GET(
-                "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
-                  UserId +
-                  "&size=420x420&format=Png&isCircular=false"
-              );
-              if (Data.data[0].state == "Blocked") {
-                Data = "https://i.imgur.com/91vsV4d.png";
-              } else {
-                Data = Data.data[0].imageUrl;
-              }
-
-              const Embed = new EmbedBuilder()
-                .setTitle("Set Money")
-                .setColor("#00ff00")
-                .setDescription(
-                  `✅  Successfully set ${User}'s money to ${formatter
-                    .format(Amount)
-                    .slice(0, -3)}`
-                )
-                .setThumbnail(Data);
-              interaction.reply({ embeds: [Embed] });
-            } else {
+            let Result = null;
+            if (PresenceData.userPresences[0].userPresenceType > 0) {
               let T = {
-                Type: "Money",
+                Type: "AddMoney",
                 Player: UserId,
                 Amount: Amount,
               };
+              Result = await MessageSend(T, "Admin", interaction);
+            }
 
-              const Result = await MessageSend(T, "Admin", interaction);
-
-              if (Result == true) {
-                let Data = await GET(
-                  "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
-                    UserId +
-                    "&size=420x420&format=Png&isCircular=false"
+            const saveResult = await SetPlayerData(UserId, PlayerData);
+            if (saveResult != true) {
+              const Embed = new EmbedBuilder()
+                .setColor("#ff0000")
+                .setDescription(
+                  "❌ There was an error saving the data: " + saveResult
                 );
 
-                if (Data.data[0].state == "Blocked") {
-                  Data = "https://i.imgur.com/91vsV4d.png";
-                } else {
-                  Data = Data.data[0].imageUrl;
-                }
-
-                const Embed = new EmbedBuilder()
-                  .setTitle("Set Money")
-                  .setColor("#00ff00")
-                  .setDescription(
-                    `✅  Successfully set ${User}'s money to ${formatter
-                      .format(Amount)
-                      .slice(0, -3)}`
-                  )
-                  .setThumbnail(Data);
-
-                SetPlayerData(UserId, PlayerData);
-
-                interaction.reply({ embeds: [Embed] });
-              }
-            }
-          }
-        } else if (DataAction == "get") {
-          if (Type == "general") {
-            function GetTime(WantedTime) {
-              if (WantedTime.toString() === "0") {
-                return "N/A";
-              } else {
-                return formatTime(Number(WantedTime / 60)).toString();
-              }
+              interaction.reply({ embeds: [Embed] });
+              return;
             }
 
             let Data = await GET(
@@ -370,9 +328,41 @@ module.exports = {
               Data = Data.data[0].imageUrl;
             }
 
+            const Embed = new EmbedBuilder()
+              .setTitle("Add Money")
+              .setColor("#00ff00")
+              .setDescription(
+                `✅  Successfully added ${formatter
+                  .format(Amount)
+                  .slice(0, -3)} for ${User}`
+              )
+              .setThumbnail(Data)
+              .setFooter({
+                text:
+                  Result != null
+                    ? Result == true
+                      ? "Live Updated"
+                      : "Failed to live update"
+                    : "User was offline",
+              });
+            interaction.reply({ embeds: [Embed] });
+          }
+        } else if (DataAction == "get") {
+          if (Type == "general") {
+            let Data = await GET(
+              "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+                UserId +
+                "&size=420x420&format=Png&isCircular=false"
+            );
+            if (Data.data[0].state == "Blocked") {
+              Data = "https://i.imgur.com/91vsV4d.png";
+            } else {
+              Data = Data.data[0].imageUrl;
+            }
+
             let LastSaved = PlayerData.Data["Logs"]["LastSaved"];
 
-            console.log(LastSaved);
+            // console.log(LastSaved);
 
             if (LastSaved !== undefined) {
               LastSaved = `<t:${Number(LastSaved)}:F>`;
@@ -419,6 +409,7 @@ module.exports = {
                 }
               )
               .setThumbnail(Data);
+
             interaction.reply({ embeds: [Embed] });
           } else if (Type == "xp") {
             let Data = await GET(
@@ -547,7 +538,7 @@ module.exports = {
               Value = PlayerData.Data.Servers.toString();
             }
 
-            console.log(PlayerData.Data.Servers);
+            // console.log(PlayerData.Data.Servers);
 
             const Embed = new EmbedBuilder()
               .setTitle(`Player Data: ${User} (${UserId.toString()})`)
@@ -570,66 +561,61 @@ module.exports = {
             );
 
             const Amount = interaction.options.getInteger("amount") || 0;
-            PlayerData.Data.General.Cash =
-              PlayerData.Data.General.Cash + Amount;
+            const newAmount = PlayerData.Data.General.Cash + Amount;
 
-            if (PresenceData.userPresences[0].userPresenceType == 0) {
-              // OFFLINE
-              SetPlayerData(UserId, PlayerData);
+            PlayerData.Data.General.Cash = newAmount;
 
-              let Data = await GET(
-                "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
-                  UserId +
-                  "&size=420x420&format=Png&isCircular=false"
-              );
-              if (Data.data[0].state == "Blocked") {
-                Data = "https://i.imgur.com/91vsV4d.png";
-              } else {
-                Data = Data.data[0].imageUrl;
-              }
-
-              const Embed = new EmbedBuilder()
-                .setTitle("Add Money")
-                .setColor("#00ff00")
-                .setDescription(
-                  `✅  Successfully added ${formatter
-                    .format(Amount)
-                    .slice(0, -3)} for ${User}`
-                )
-                .setThumbnail(Data);
-              interaction.reply({ embeds: [Embed] });
-            } else {
+            let Result = null;
+            if (PresenceData.userPresences[0].userPresenceType > 0) {
               let T = {
                 Type: "AddMoney",
                 Player: UserId,
                 Amount: Amount,
               };
-
-              const Result = await MessageSend(T, "Admin", interaction);
-              if (Result == true) {
-                let Data = await GET(
-                  "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
-                    UserId +
-                    "&size=420x420&format=Png&isCircular=false"
-                );
-                if (Data.data[0].state == "Blocked") {
-                  Data = "https://i.imgur.com/91vsV4d.png";
-                } else {
-                  Data = Data.data[0].imageUrl;
-                }
-
-                const Embed = new EmbedBuilder()
-                  .setTitle("Add Money")
-                  .setColor("#00ff00")
-                  .setDescription(
-                    `✅  Successfully added ${formatter
-                      .format(Amount)
-                      .slice(0, -3)} for ${User}`
-                  )
-                  .setThumbnail(Data);
-                interaction.reply({ embeds: [Embed] });
-              }
+              Result = await MessageSend(T, "Admin", interaction);
             }
+
+            const saveResult = await SetPlayerData(UserId, PlayerData);
+            if (saveResult != true) {
+              const Embed = new EmbedBuilder()
+                .setColor("#ff0000")
+                .setDescription(
+                  "❌ There was an error saving the data: " + saveResult
+                );
+
+              interaction.reply({ embeds: [Embed] });
+              return;
+            }
+
+            let Data = await GET(
+              "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+                UserId +
+                "&size=420x420&format=Png&isCircular=false"
+            );
+            if (Data.data[0].state == "Blocked") {
+              Data = "https://i.imgur.com/91vsV4d.png";
+            } else {
+              Data = Data.data[0].imageUrl;
+            }
+
+            const Embed = new EmbedBuilder()
+              .setTitle("Add Money")
+              .setColor("#00ff00")
+              .setDescription(
+                `✅  Successfully added ${formatter
+                  .format(Amount)
+                  .slice(0, -3)} for ${User}`
+              )
+              .setThumbnail(Data)
+              .setFooter({
+                text:
+                  Result != null
+                    ? Result == true
+                      ? "Live Updated"
+                      : "Failed to live update"
+                    : "User was offline",
+              });
+            interaction.reply({ embeds: [Embed] });
           }
         }
       }
