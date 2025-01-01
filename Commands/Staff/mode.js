@@ -25,7 +25,6 @@ const data = require("./data");
 const globalannouncement = require("./globalannouncement");
 const kick = require("./kick");
 const unban = require("./unban");
-const MessageReactionAdd = require("../../Events/Client/MessageReactionAdd");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -93,8 +92,6 @@ module.exports = {
     globalannouncement.Refresh();
     kick.Refresh();
     unban.Refresh();
-
-    MessageReactionAdd.Refresh();
 
     setTimeout(() => {}, 500);
 
