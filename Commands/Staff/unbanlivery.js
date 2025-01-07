@@ -45,7 +45,7 @@ module.exports = {
     LiveryBanDataStore.SetAsync(Id.toString(), false);
 
     const Embed = new EmbedBuilder()
-      .setColor("#ff0000")
+      .setColor("#00ff00")
       .setDescription("✅  Successfully unbanned the livery ID: " + Id);
 
     interaction.reply({ embeds: [Embed] });
