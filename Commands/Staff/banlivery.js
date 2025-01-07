@@ -36,11 +36,18 @@ module.exports = {
     if (!Id) {
       const Embed = new EmbedBuilder()
         .setColor("#ff0000")
-        .setDescription("❌  Please specify type of player identification!");
+        .setDescription("❌  Please specify livery ID!");
 
       interaction.reply({ embeds: [Embed] });
+      return;
     }
 
-    LiveryBanDataStore.SetAsync(Id.toString(), true);
+    LiveryBanDataStore.SetAsync(Id.toString(), false);
+
+    const Embed = new EmbedBuilder()
+      .setColor("#ff0000")
+      .setDescription("✅  Successfully banned the livery ID: " + Id);
+
+    interaction.reply({ embeds: [Embed] });
   },
 };
