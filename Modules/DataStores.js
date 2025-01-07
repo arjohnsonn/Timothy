@@ -13,6 +13,7 @@ const {
   SERVERDATA_KEY,
   QAUNIVERSE_ID,
   QAAPI_KEY,
+  LIVERYBAN_KEY,
 } = process.env;
 const { OpenCloud, DataStoreService } = require("rbxcloud");
 
@@ -25,11 +26,13 @@ const BanDatastore = DataStoreService.GetDataStore(BANSTORE_KEY);
 const PlayerDataStore = DataStoreService.GetDataStore(PLAYERDATA_KEY);
 const ServerDataStore = DataStoreService.GetDataStore(SERVERDATA_KEY);
 const LiveryDataStore = DataStoreService.GetDataStore(LIVERY_KEY);
+const LiveryBanDataStore = DataStoreService.GetDataStore(LIVERYBAN_KEY);
 
 module.exports.PlayerDataStore = PlayerDataStore;
 module.exports.BanDataStore = BanDatastore;
 module.exports.ServerDataStore = ServerDataStore;
 module.exports.LiveryDataStore = LiveryDataStore;
+module.exports.LiveryBanDataStore = LiveryBanDataStore;
 
 module.exports.SetQA = function SetQA(Value) {
   if (Value == 1) {
