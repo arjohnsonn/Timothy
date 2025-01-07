@@ -11,7 +11,7 @@ var { LiveryBanDataStore } = require("../../Modules/DataStores");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("banlivery")
+    .setName("unbanlivery")
     .setDescription("Unban livery IDs from the game")
     .addIntegerOption((option) =>
       option.setName("id").setDescription("User ID of player").setRequired(true)
