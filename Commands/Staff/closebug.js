@@ -61,8 +61,15 @@ module.exports = {
       interaction.reply({ embeds: [Embed] });
 
       setTimeout(async () => {
+        const currentTags = thread.appliedTags;
+        const filteredTags = currentTags.filter(
+          (tag) =>
+            tag !== "1347757288483721216" && tag !== "1149483448126419034"
+        );
         if (id != null) {
-          await thread.setAppliedTags([id]);
+          await thread.setAppliedTags([...filteredTags, id]);
+        } else {
+          await thread.setAppliedTags(filteredTags);
         }
         await thread.setLocked(true);
         await thread.setArchived(true);
