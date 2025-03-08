@@ -10,7 +10,6 @@
   "author": "Rapid",
   "license": "ISC",
   "dependencies": {
-    "@daw588/roblox.js": "^0.1.7",
     "ascii-table": "^0.0.9",
     "axios": "^1.1.3",
     "chalk": "^5.2.0",
